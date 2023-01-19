@@ -1,6 +1,7 @@
 package com.example.batisproject.service;
 
 import com.example.batisproject.domain.User;
+import com.example.batisproject.dto.UserDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,11 @@ public interface UserService {
 
     List<User> getAll();
 
-    User getByEmailPassword(String email, String password);
+    UserDTO getByEmailPassword(String email, String password);
 
-    int insert(User user);
+    int insert(UserDTO userDTO);
 
-    User existsByEmail(String email);
+    UserDTO existsByEmail(String email);
 
-    User existsByNickName(String nickname);
+    UserDTO existsByNickName(String nickname);
 }

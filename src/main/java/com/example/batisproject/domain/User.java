@@ -16,10 +16,11 @@ public class User {
     private int id;
     private int category;
     private int location;
-    private String email;
+    private String username;
     private String password;
     private String nickname;
     private LocalDate regdate;
     private int point;
+    private String role;
 
 }

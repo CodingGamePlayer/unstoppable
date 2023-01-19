@@ -23,7 +23,8 @@ public interface ArticleMapper {
             @Result(property = "body", column = "art_body"),
             @Result(property = "regdate", column = "art_regdate"),
             @Result(property = "moddate", column = "art_moddate"),
-            @Result(property = "userid", column = "userid")
+            @Result(property = "userid", column = "userid"),
+
     })
     List<Article> selectAll(@Param("pageRequestDTO") PageRequestDTO pageRequestDTO);
 

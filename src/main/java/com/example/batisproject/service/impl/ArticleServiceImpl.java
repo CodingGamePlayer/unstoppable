@@ -1,7 +1,7 @@
 package com.example.batisproject.service.impl;
 
 import com.example.batisproject.domain.Article;
-import com.example.batisproject.dto.ArticleDto;
+import com.example.batisproject.dto.ArticleDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.mapper.ArticleMapper;
@@ -24,16 +24,16 @@ public class ArticleServiceImpl implements ArticleService {
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public PageResponseDTO<ArticleDto> selectAll(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<ArticleDTO> selectAll(PageRequestDTO pageRequestDTO) {
 
         List<Article> articles = articleMapper.selectAll(pageRequestDTO);
-        List<ArticleDto> dtoList = articles.stream()
-                .map(article -> modelMapper.map(article, ArticleDto.class))
+        List<ArticleDTO> dtoList = articles.stream()
+                .map(article -> modelMapper.map(article, ArticleDTO.class))
                 .collect(Collectors.toList());
 
         int total = articleMapper.getCount();
 
-        PageResponseDTO<ArticleDto> pageResponseDTO = PageResponseDTO.<ArticleDto>withAll()
+        PageResponseDTO<ArticleDTO> pageResponseDTO = PageResponseDTO.<ArticleDTO>withAll()
                 .dtoList(dtoList)
                 .total(total)
                 .pageRequestDTO(pageRequestDTO)
@@ -44,14 +44,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto selectOne(int id) {
-        ArticleDto articleDto = modelMapper.map(articleMapper.selectOne(id), ArticleDto.class);
+    public ArticleDTO selectOne(int id) {
+        ArticleDTO articleDto = modelMapper.map(articleMapper.selectOne(id), ArticleDTO.class);
 
         return articleDto;
     }
 
     @Override
-    public int createOne(ArticleDto articleDto) {
+    public int createOne(ArticleDTO articleDto) {
 
         if(articleDto == null) {
             throw new IllegalArgumentException("게시글 생성에 실패 하였습니다.");
@@ -68,7 +68,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int updateOne(ArticleDto articleDto) {
+    public int updateOne(ArticleDTO articleDto) {
 
         Article target = articleMapper.selectOne(articleDto.getId());
 
