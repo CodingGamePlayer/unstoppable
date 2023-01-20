@@ -5,6 +5,7 @@ import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.mapper.UserMapper;
 import com.example.batisproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,7 +47,9 @@ public class UserServiceImpl implements UserService {
         }
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRegdate(LocalDate.now());
+        String now = String.valueOf(LocalDate.now());
+        user.setRegdate(now);
+//        user.setRegdate(LocalDate.now());
 //        user.setRole("ROLE_USER");
 
         int result = userMapper.insert(user);

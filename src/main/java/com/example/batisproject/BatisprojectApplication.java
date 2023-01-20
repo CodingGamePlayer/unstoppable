@@ -17,7 +17,9 @@ public class BatisprojectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BatisprojectApplication.class, args);
+
     }
+
 
 
 

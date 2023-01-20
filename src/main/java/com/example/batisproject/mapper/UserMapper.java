@@ -27,7 +27,7 @@ public interface UserMapper {
     @ResultMap("userMap")
     User getByEmailPassword(@Param("email") String email, @Param("password") String password);
 
-    @Insert("INSERT INTO user(email, password, nickname, regdate, point) VALUES ( #{user.email}, #{user.password}, #{user.nickname}, NOW(), #{user.point})")
+    @Insert("INSERT INTO user(email, password, nickname, regdate, point) VALUES ( #{user.username}, #{user.password}, #{user.nickname}, NOW(), #{user.point})")
     @Options(useGeneratedKeys = true, keyProperty = "id") // 입력할 때 생성된 id를 바로 반환함.
     int insert(@Param("user") User user);
 

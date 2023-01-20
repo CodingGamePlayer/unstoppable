@@ -26,7 +26,7 @@ public class UserController {
         log.info("UserDTO : " + userDTO.toString());
         int result = userService.insert(userDTO);
 
-        return "redirect:/";
+        return "redirect:/user/main";
     }
 
 

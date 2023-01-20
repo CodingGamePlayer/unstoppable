@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -18,15 +19,26 @@ public class UserApiController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @PostMapping("/api/user/signup")
-//    public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO) {
-//
-//        log.info("UserDTO : " + userDTO.toString());
-//        int result = userService.insert(userDTO);
-//        if (result == 0) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
+    @PostMapping("/api/login")
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+
+        log.info("UserDTO : " + userDTO.toString());
+        int result = userService.insert(userDTO);
+        if (result == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/api/signup")
+    public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO){
+        int insert = userService.insert(userDTO);
+
+        if(insert == 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

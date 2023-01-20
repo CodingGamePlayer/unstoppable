@@ -1,0 +1,8 @@
+POST http://localhost:8888/api/login
+Content-Type: application/json
+X-Requested-With: 우지당만
+
+{
+  "username" : "ssar@nate.com",
+  "password" : "1234"
+}

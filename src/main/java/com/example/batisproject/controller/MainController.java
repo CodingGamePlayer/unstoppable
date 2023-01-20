@@ -1,13 +1,33 @@
 package com.example.batisproject.controller;
 
+import com.example.batisproject.domain.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@Slf4j
 public class MainController {
 
-    @GetMapping("/main")
+    @GetMapping("/user/main")
+    public String main(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = (User) authentication.getPrincipal();
+
+            model.addAttribute("nickname", user.getNickname());
+        }
+
+
+        return "main";
+    }
+
+    @GetMapping("/")
     public String main() {
-        return "index";
+        return "main_other";
     }
 }
