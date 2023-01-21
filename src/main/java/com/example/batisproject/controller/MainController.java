@@ -1,6 +1,6 @@
 package com.example.batisproject.controller;
 
-import com.example.batisproject.domain.User;
+import com.example.batisproject.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,11 +15,12 @@ public class MainController {
     @GetMapping("/user/main")
     public String main(Model model) {
 
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = (User) authentication.getPrincipal();
 
-            model.addAttribute("nickname", user.getNickname());
+            model.addAttribute("user", user.getNickname());
         }
 
 

@@ -1,6 +1,6 @@
 package com.example.batisproject.security.service;
 
-import com.example.batisproject.domain.User;
+import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,10 +19,11 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userMapper.existsByEmail(email);
+        User user = userMapper.findByEmail(email);
 
         if(user == null ){
             throw new UsernameNotFoundException("해당하는 유저의 정보를 찾을 수 없습니다.");
@@ -35,4 +36,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
         return userContext;
     }
+
+
 }

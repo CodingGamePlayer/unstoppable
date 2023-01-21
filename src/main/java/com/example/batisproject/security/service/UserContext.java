@@ -7,15 +7,15 @@ import java.util.Collection;
 
 public class UserContext extends User {
 
-    private final com.example.batisproject.domain.User User;
+    private final com.example.batisproject.entity.User User;
 
-    public UserContext(com.example.batisproject.domain.User user, Collection<? extends GrantedAuthority> authorities) {
+    public UserContext(com.example.batisproject.entity.User user, Collection<? extends GrantedAuthority> authorities) {
         super(user.getNickname(), user.getPassword(), authorities);
 
         this.User = user;
     }
 
-    public com.example.batisproject.domain.User getUser() {
+    public com.example.batisproject.entity.User getUser() {
         return User;
     }
 }

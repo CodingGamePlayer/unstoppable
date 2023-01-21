@@ -1,4 +1,4 @@
-package com.example.batisproject.domain;
+package com.example.batisproject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

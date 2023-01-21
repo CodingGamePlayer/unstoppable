@@ -33,11 +33,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserContext userContext = (UserContext) userDetailsService.loadUserByUsername(email);
 
-        log.info("==================================");
-        log.info("email : " + userContext.getUser().getUsername());
-        log.info("password : " + userContext.getUser().getPassword());
-        log.info("password : " + passwordEncoder.encode(password));
-        log.info("check : " + passwordEncoder.matches(password, userContext.getUser().getPassword()));
 
         if(!passwordEncoder.matches(password, userContext.getUser().getPassword())){
             throw new BadCredentialsException("비밀번호가 일치 하지 않습니다.");

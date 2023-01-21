@@ -1,9 +1,7 @@
 package com.example.batisproject.security.hadler;
 
-import com.example.batisproject.domain.User;
+import com.example.batisproject.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
-import org.apache.http.entity.StringEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;

@@ -1,9 +1,7 @@
-package com.example.batisproject.service;
+package com.example.batisproject.service.user;
 
-import com.example.batisproject.domain.User;
+import com.example.batisproject.entity.User;
 import com.example.batisproject.dto.UserDTO;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

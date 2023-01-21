@@ -1,13 +1,11 @@
 package com.example.batisproject.mapper;
 
-import com.example.batisproject.domain.User;
+import com.example.batisproject.entity.User;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
-@Repository
 public interface UserMapper {
 
     @Select("Select * from User")
@@ -33,9 +31,10 @@ public interface UserMapper {
 
     @Select("select * from user where email = #{email}")
     @ResultMap("userMap")
-    User existsByEmail(@Param("email")  String email);
+    User findByEmail(@Param("email") String email);
 
     @Select("select * from user where nickname = #{nickname}")
     @ResultMap("userMap")
     User existsByNickName(@Param("nickname") String nickname);
+
 }

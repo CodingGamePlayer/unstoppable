@@ -1,6 +1,5 @@
 package com.example.batisproject.security.config;
 
-import com.example.batisproject.security.filter.AjaxLoginProcessingFilter;
 import com.example.batisproject.security.hadler.CustomAccessDeniedHandler;
 import com.example.batisproject.security.hadler.CustomAuthenticationFailureHandler;
 import com.example.batisproject.security.hadler.CustomAuthenticationSuccessHandler;
@@ -19,11 +18,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Slf4j
@@ -32,8 +29,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+
 
     @Autowired
     private AuthenticationDetailsSource authenticationDetailsSource;
@@ -49,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         web.ignoring().requestMatchers(new AntPathRequestMatcher("/fonts/"));
+
     }
 
     @Override
@@ -75,11 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/","/login/**", "/api/**", "/signup",
                         "/**/*.svg", "/favicon.ico", "/**/*.png", "/**/*.gif",
                         "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css","/**/*.js").permitAll()
+                .antMatchers("/v2/api-docs",  "/configuration/ui",
+                        "/swagger-resources", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
                 .antMatchers("/user/**","/articles", "/article/**").hasRole("USER")
 //                .antMatchers("/manager/**").hasRole("MANAGER")
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
-
         .and()
                 .formLogin()
                 .loginPage("/login")
@@ -87,8 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authenticationDetailsSource(authenticationDetailsSource)
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
-                .permitAll()
-                ;
+                .permitAll();
+
+
+
 
         http
                 .exceptionHandling()
@@ -96,6 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 ;
 
     }
+
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {

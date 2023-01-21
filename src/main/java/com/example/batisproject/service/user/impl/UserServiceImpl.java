@@ -1,11 +1,10 @@
-package com.example.batisproject.service.impl;
+package com.example.batisproject.service.user.impl;
 
-import com.example.batisproject.domain.User;
 import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.UserMapper;
-import com.example.batisproject.service.UserService;
+import com.example.batisproject.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,6 +63,7 @@ public class UserServiceImpl implements UserService {
 
         return 1;
     }
+
 
     @Override
     public UserDTO existsByEmail(String email) {

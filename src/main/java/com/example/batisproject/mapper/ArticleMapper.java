@@ -1,6 +1,6 @@
 package com.example.batisproject.mapper;
 
-import com.example.batisproject.domain.Article;
+import com.example.batisproject.entity.Article;
 import com.example.batisproject.dto.PageRequestDTO;
 import org.apache.ibatis.annotations.*;
 

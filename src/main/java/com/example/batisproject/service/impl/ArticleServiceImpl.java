@@ -1,6 +1,6 @@
 package com.example.batisproject.service.impl;
 
-import com.example.batisproject.domain.Article;
+import com.example.batisproject.entity.Article;
 import com.example.batisproject.dto.ArticleDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;

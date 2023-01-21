@@ -1,7 +1,7 @@
 package com.example.batisproject.controller.user;
 
 import com.example.batisproject.dto.UserDTO;
-import com.example.batisproject.service.impl.UserServiceImpl;
+import com.example.batisproject.service.user.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
