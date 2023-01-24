@@ -1,6 +1,7 @@
 package com.example.batisproject.apicontroller.user;
 
 import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.service.MailSendService;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,13 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 
 @Slf4j
 @Tag(name = "인증을 담당하는 controller",
@@ -26,6 +26,9 @@ public class UserApiController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private MailSendService mailSendService;
 
     @Operation(summary = "Login method", description = "Login을 담당하는 method")
     @PostMapping(value = "/api/login", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +53,18 @@ public class UserApiController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping(value = "/api/mailcheck", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> mailCheck(@RequestBody HashMap<String, Object> user){
+
+        String username = (String) user.get("username");
+        String authNum = mailSendService.joinEmail(username);
+
+        log.info("email : " + user.get("username"));
+        log.info("checkNum : " + authNum);
+
+        return ResponseEntity.status(HttpStatus.OK).body(authNum);
     }
 
 
