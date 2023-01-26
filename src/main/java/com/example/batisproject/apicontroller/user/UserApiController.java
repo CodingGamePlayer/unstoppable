@@ -55,6 +55,7 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @Operation(summary = "MailCheck method", description = "인증메일을 보내는 method")
     @PostMapping(value = "/api/mailcheck", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> mailCheck(@RequestBody HashMap<String, Object> user){
 

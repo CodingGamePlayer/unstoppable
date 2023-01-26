@@ -1,7 +1,6 @@
 {
     const mailCheck = document.querySelector('#mail-Check-btn');
 
-
     let authResult = false;
     let authNum = 0;
 
@@ -10,8 +9,6 @@
         const mailCheckInput = document.querySelector('.mail-check-input').value;
         const mailCheckWarn = document.getElementById('mail-check-warn');
 
-        console.log(mailCheckInput);
-        console.log(mailCheckWarn);
         console.log(authNum);
 
         if (mailCheckInput != authNum) {

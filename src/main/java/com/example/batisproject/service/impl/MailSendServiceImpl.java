@@ -48,7 +48,7 @@ public class MailSendServiceImpl implements MailSendService {
         String toMail = email;
         String title = "회원가입을 위한 인증메일입니다.";
         String message =
-                "홈페이지를 방문해주셔서 감사합니다." +
+                "<h1>홈페이지를 방문해주셔서 감사합니다.</h1>" +
                 "<br><br>" +
                 "인증번호는 " + authNumber + " 입니다." +
                 "<br><br>" +
