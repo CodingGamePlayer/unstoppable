@@ -1,0 +1,24 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--headerFragment 선언-->
+<div th:fragment="footerFragment">
+  <footer class="footer pt-3 me-5 fixed-bottom mb-3">
+    <div class="container-fluid d-flex justify-content-end ">
+      <div class="row align-items-end d-flex justify-content-end">
+        <div class="col-lg-12 mb-lg-0 mb-2">
+          <div class="copyright text-center text-sm text-muted text-lg-start">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>
+            ,
+            made by <i class="bi bi-bug"></i>
+            <a href="#" class="font-weight-bold" >Unstoppable Team!</a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+</div>
+</html>
