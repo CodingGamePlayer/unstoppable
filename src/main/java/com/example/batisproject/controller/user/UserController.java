@@ -29,7 +29,7 @@ public class UserController {
         }
 
 
-        return "/user/main";
+        return "user/main";
     }
 
 
