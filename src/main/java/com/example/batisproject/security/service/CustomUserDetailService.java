@@ -23,7 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userMapper.findByEmail(email);
+        User user = userMapper.existsByEmail(email);
 
         if(user == null ){
             throw new UsernameNotFoundException("해당하는 유저의 정보를 찾을 수 없습니다.");

@@ -1,6 +1,6 @@
 package com.example.batisproject.security.hadler;
 
-import org.apache.http.entity.StringEntity;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
