@@ -1,13 +1,14 @@
 package com.example.batisproject.controller.user;
 
-import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.entity.User;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j
@@ -16,19 +17,22 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping("/signup")
-    public String signup() {
-        return "sign-up";
+    @GetMapping("/user/main")
+    public String main(Model model) {
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = (User) authentication.getPrincipal();
+
+            model.addAttribute("user", user.getNickname());
+        }
+
+
+        return "/user/main";
     }
 
-    @PostMapping("/signup")
-    public String signup(UserDTO userDTO) {
 
-        log.info("UserDTO : " + userDTO.toString());
-        int result = userService.insert(userDTO);
-
-        return "redirect:/user/main";
-    }
 
 
 

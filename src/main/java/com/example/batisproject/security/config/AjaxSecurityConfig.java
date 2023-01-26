@@ -33,11 +33,6 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(ajaxAuthenticationProvider());
 
-        String password = passwordEncoder().encode("1111");
-
-        auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
-//        auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER","USER");
-        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN","MANAGER","USER");
     }
 
     @Bean

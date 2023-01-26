@@ -18,7 +18,6 @@ class UserControllerTest {
                 .password("1111")
                 .build();
 
-        userController.signup(userDTO);
 
     }
 }

@@ -52,12 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.authenticationProvider(authenticationProvider());
-
-        String password = passwordEncoder().encode("1111");
-
-        auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
-//        auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER","USER");
-        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN","MANAGER","USER");
     }
 
     @Override
@@ -69,15 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/login/**", "/api/**", "/signup",
-                        "/**/*.svg", "/favicon.ico", "/**/*.png", "/**/*.gif",
-                        "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css","/**/*.js").permitAll()
-                .antMatchers("/v2/api-docs",  "/configuration/ui",
-                        "/swagger-resources", "/configuration/security",
-                        "/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
-                .antMatchers("/user/**","/articles", "/article/**").hasRole("USER")
-//                .antMatchers("/manager/**").hasRole("MANAGER")
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/","/login/**", "/api/**", "/signup","/**/*.svg", "/favicon.ico", "/**/*.png", "/**/*.gif","/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css","/**/*.js").permitAll()
+                .antMatchers("/api-doc",  "/configuration/ui","/swagger-resources", "/configuration/security","/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
+                .antMatchers("/user/**","/articles", "/article/**").access("hasRole('USER') or hasRole('ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
         .and()
                 .formLogin()
@@ -88,17 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .failureHandler(customAuthenticationFailureHandler)
                 .permitAll();
 
-
-
-
         http
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
                 ;
-
-        http
-                .csrf().disable()
-        ;
 
     }
 
