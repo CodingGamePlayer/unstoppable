@@ -33,8 +33,6 @@ public class MainController {
         return "redirect:/user/main";
     }
 
-
-
     @GetMapping("/")
     public String main() {
         return "main_other";
