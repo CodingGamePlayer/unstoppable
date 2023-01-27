@@ -26,7 +26,7 @@ public interface UserMapper {
     @ResultMap("userMap")
     User getByEmailInit(@Param("username") String username);
 
-    @Select("select * from user where email = #{username}")
+    @Select("select * from user where username = #{username}")
     @ResultMap("userMap")
     User existsByEmail(@Param("username")  String username);
 

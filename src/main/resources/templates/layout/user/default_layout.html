@@ -36,6 +36,11 @@
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- CSS Files -->
     <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
+    <!-- Calendar source-->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -169,6 +174,59 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+<script type="application/javascript" th:fragment="calendar">
+    document.addEventListener('DOMContentLoaded', function () {
+        $(function () {
+            let request = $.ajax({
+                url: "/full-calendar/calendar-admin", // 변경하기
+                method: "GET",
+                dataType: "json"
+            });
+
+            request.done(function (data) {
+                console.log(data); // log 로 데이터 찍어주기.
+
+                var calendarEl = document.getElementById('calendar');
+                console.log(calendarEl.innerText);
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    /*contentHeight:function(){
+                      if(screen.width<800){
+                        return 500;
+                      }else{
+                        return 850;
+                      }
+                    },*/
+                    // initialDate: '2022-02-07',
+                    initialView: 'dayGridMonth',
+                    contentHeight: "auto",
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,listWeek'
+                    },
+                    editable: true,
+                    droppable: true, // this allows things to be dropped onto the calendar
+                    drop: function (arg) {
+                        // is the "remove after drop" checkbox checked?
+                        if (document.getElementById('drop-remove').checked) {
+                            // if so, remove the element from the "Draggable Events" list
+                            arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                        }
+                    },
+                    /**
+                     * data 로 값이 넘어온다. log 값 전달.
+                     */
+                    events: data
+                });
+                calendar.render();
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

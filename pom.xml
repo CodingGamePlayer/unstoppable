@@ -109,10 +109,11 @@
         </dependency>
 
         <!-- 이메일 인증을 위한 lib -->
+        <!-- 기존 javax.mail 1.4.2 에서 1.6.2로 변경 -->
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
