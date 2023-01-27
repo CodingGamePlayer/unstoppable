@@ -47,10 +47,14 @@ public interface UserMapper {
 
     // 회원 정보 수정
 
-    @Update("update user set c_id = #{user.cId}, l_id = #{user.lId}, point = #{user.point}, role = #{user.role}" +
+    @Update("update user set c_id = #{user.category}, l_id = #{user.location}, point = #{user.point}, role = #{user.role}" +
             " where username = #{user.username}")
-    @ResultMap("userMap")
-    boolean updateUser(@Param("user") User user);
+    int updateUser(@Param("user") User user);
+
+
+    @Update("UPDATE user SET role = #{user.role} WHERE u_id = #{user.id}")
+    int updateRole(@Param("user") User user);
+
 
 
 

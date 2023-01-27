@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,8 +27,11 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public List<User> getAll() {
-        return null;
+    public List<UserDTO> getAll() {
+
+        return userMapper.getAll().stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -67,11 +71,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO existsByEmail(String email) {
-        return null;
+
+        User user = userMapper.existsByEmail(email);
+
+        return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
     public UserDTO existsByNickName(String nickname) {
         return null;
     }
+
+
 }

@@ -19,7 +19,7 @@ public class UserDTO {
     private String username;
     private String password;
     private String nickname;
-    private LocalDate regdate;
+    private String regdate;
     private int point;
     private String role;
 }
