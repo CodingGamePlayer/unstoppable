@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface GatherService {
 
+
     List<Gather> getAll();
 
     List<Gather> getAllByNickname(String nickname);
@@ -16,4 +17,5 @@ public interface GatherService {
     List<Gather> getByCategory(Integer category);
 
     List<Gather> getByCategoryAndNickName(Integer category, String nickname);
+
 }
