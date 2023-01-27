@@ -61,6 +61,9 @@ public class UserApiController {
 
         String username = (String) user.get("username");
         String authNum = mailSendService.joinEmail(username);
+        if (authNum != null){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
         log.info("email : " + user.get("username"));
         log.info("checkNum : " + authNum);
