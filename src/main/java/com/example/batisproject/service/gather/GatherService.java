@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GatherService {
 
-    List<Gather> getAllList;
+    List<Gather> getAllList();
 }
