@@ -1,5 +1,6 @@
 package com.example.batisproject.mapper;
 
+import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.entity.User;
 import org.apache.ibatis.annotations.*;
 
@@ -45,13 +46,25 @@ public interface UserMapper {
 
 
 
-    // 회원 정보 수정
-
-    @Update("update user set c_id = #{user.cId}, l_id = #{user.lId}, point = #{user.point}, role = #{user.role}" +
+    // 회원 정보 수정 (해당 mapper는 수정이 필요해 보임)
+    @Update("update user set c_id = #{user.category}, l_id = #{user.location}, point = #{user.point}, role = #{user.role}" +
             " where username = #{user.username}")
+    int updateUser(@Param("user") User user);
+
+    // 유저권한을 변경하기 위한 mapper
+    @Update("UPDATE user SET role = #{user.role} WHERE u_id = #{user.id}")
+    int updateRole(@Param("user") User user);
+
+
+    //페이징처리를 위한 메소드
+    @Select("SELECT * FROM user " +
+            "ORDER BY u_id DESC " +
+            "LIMIT #{pageRequestDTO.skip}, #{pageRequestDTO.size}")
     @ResultMap("userMap")
-    boolean updateUser(@Param("user") User user);
+    List<User> selectAllForPaging(@Param("pageRequestDTO")PageRequestDTO pageRequestDTO);
 
-
+    // 유저의 수를 가져오는 메소드
+    @Select("SELECT count(u_id) from user")
+    int getCount();
 
 }
