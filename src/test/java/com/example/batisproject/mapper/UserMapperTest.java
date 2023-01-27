@@ -1,10 +1,13 @@
 package com.example.batisproject.mapper;
 
+import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -45,4 +48,22 @@ class UserMapperTest {
     }
 
 
+    @Test
+    void selectAllForPaging() {
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
+
+        List<User> users = userMapper.selectAllForPaging(pageRequestDTO);
+
+        users.forEach(user -> log.info(user.toString()));
+
+    }
+
+    @Test
+    void getCount() {
+
+        int count = userMapper.getCount();
+
+        log.info(String.valueOf(count));
+    }
 }

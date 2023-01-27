@@ -1,5 +1,7 @@
 package com.example.batisproject.service.admin.impl;
 
+import com.example.batisproject.dto.PageRequestDTO;
+import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.UserMapper;
@@ -10,12 +12,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private UserMapper userMapper;
@@ -38,5 +43,22 @@ public class AdminServiceImpl implements AdminService {
 
 
         return 1;
+    }
+
+    @Override
+    public PageResponseDTO<UserDTO> selectAllForPaging(PageRequestDTO pageRequestDTO) {
+        List<User> userList = userMapper.selectAllForPaging(pageRequestDTO);
+        List<UserDTO> dtoList = userList.stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+
+        int total = userMapper.getCount();
+
+        PageResponseDTO<UserDTO> pageResponseDTO = PageResponseDTO.<UserDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+        return pageResponseDTO;
     }
 }

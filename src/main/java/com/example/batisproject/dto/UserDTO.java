@@ -23,3 +23,6 @@ public class UserDTO {
     private int point;
     private String role;
 }
+
+
+

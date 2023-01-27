@@ -21,7 +21,5 @@ public class User {
     private int point;
     private String role;
 
-    private String provider;
-    private String registrationId;
 
 }

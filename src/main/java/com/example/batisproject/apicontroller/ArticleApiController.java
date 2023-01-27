@@ -41,8 +41,5 @@ public class ArticleApiController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("ddd")
-    public String asb() {
-        return null;
-    }
+
 }
