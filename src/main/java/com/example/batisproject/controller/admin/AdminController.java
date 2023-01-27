@@ -20,18 +20,21 @@ public class AdminController {
     @Autowired
     private AuthenticationForModel authenticationForModel;
 
-            @GetMapping("/manage-user")
-        public String main(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
+    @GetMapping("/manage-user")
+    public String main(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
 
-            Authentication authentication = authenticationForModel.getAuthentication();
+        if(authenticationForModel.getAuthentication() == null){
+            return "redirect:/login";
+        }
 
-            if (authentication.isAuthenticated()) {
-                User user = (User) authentication.getPrincipal();
-                model.addAttribute("user", user.getNickname());
-            }
+        User user = authenticationForModel.getAuthentication();
 
-            if(bindingResult.hasErrors())
+
+        if (bindingResult.hasErrors())
             pageRequestDTO = PageRequestDTO.builder().build();
+
+
+        model.addAttribute("user", user.getNickname());
 
         return "admin/manage-user";
     }
