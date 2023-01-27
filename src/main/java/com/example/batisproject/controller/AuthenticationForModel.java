@@ -16,7 +16,6 @@ public class AuthenticationForModel {
             return(User) authentication.getPrincipal();
         }
 
-
         return null;
     }
 }
