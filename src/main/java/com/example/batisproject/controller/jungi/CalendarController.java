@@ -7,11 +7,13 @@ import com.example.batisproject.entity.User;
 
 import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.jungi.GatherMapper;
+import com.example.batisproject.service.gather.GatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,16 +29,13 @@ import java.util.Map;
 
 
 @RestController
-@RequiredArgsConstructor
 @Slf4j
 public class CalendarController {
 
-    private final GatherMapper gatherMapper;
-    private final CategoryMapper categoryMapper;
-
+    private final GatherService gatherService;
     private final AuthenticationForModel authenticationForModel;
 
-    @GetMapping("/full-calendar/calendar-admin")
+    @GetMapping("/full-calendar/calendar-user")
     public List<Map<String, Object>> monthPlan() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = authenticationForModel.getAuthentication();
@@ -47,7 +46,7 @@ public class CalendarController {
         HashMap<String, Object> hash = new HashMap<>();
 
         if (authentication.isAuthenticated()) {
-            List<Gather> listAll = gatherMapper.getAllByNickname(user.getNickname());
+            List<Gather> listAll = gatherService.getAllByNickname(user.getNickname());
             for (int i = 0; i < listAll.size(); i++) {
                 hash.put("id", listAll.get(i).getId());
                 hash.put("title", listAll.get(i).getTitle());
@@ -62,5 +61,11 @@ public class CalendarController {
         }
 
         return jsonArr;
+    }
+
+    @Autowired
+    public CalendarController(GatherService gatherService, AuthenticationForModel authenticationForModel) {
+        this.gatherService = gatherService;
+        this.authenticationForModel = authenticationForModel;
     }
 }

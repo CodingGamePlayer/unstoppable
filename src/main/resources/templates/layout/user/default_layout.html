@@ -43,7 +43,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body style="overflow-x: hidden" class="g-sidenav-show bg-gray-100">
 
 <div class="row">
     <div class="col-sm-2">
@@ -180,7 +180,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         $(function () {
             let request = $.ajax({
-                url: "/full-calendar/calendar-admin", // 변경하기
+                url: "/full-calendar/calendar-user", // 변경하기
                 method: "GET",
                 dataType: "json"
             });
