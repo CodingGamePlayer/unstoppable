@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationForModel {
 
     // 해당 메소드는 사용자 정보를 들고 오기 위함으로 만들어진 메소드임.
+//    테스트용 글임
     public User getAuthentication() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
