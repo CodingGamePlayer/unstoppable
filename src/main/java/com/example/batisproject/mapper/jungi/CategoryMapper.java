@@ -34,7 +34,7 @@ public interface CategoryMapper {
     List<Category> getAll();
 
 
-    @Select("Select * from category where c_nm = '대분류' ")
+    @Select("select * from category where c_nm = '대분류' and c_d_nm not like '선택안함'")
     @ResultMap("categoryMap")
     List<Category> getAllMainCategory();
 
