@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getAll();
+    List<UserDTO> getAll();
 
     UserDTO getByEmailPassword(String email, String password);
 
@@ -17,4 +17,5 @@ public interface UserService {
     UserDTO existsByEmail(String email);
 
     UserDTO existsByNickName(String nickname);
+
 }
