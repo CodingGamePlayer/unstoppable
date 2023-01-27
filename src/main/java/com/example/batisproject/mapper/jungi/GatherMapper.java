@@ -29,9 +29,9 @@ public interface GatherMapper {
     })
     List<Gather> getAll();
 
-    @Select("select * from gather where u_id = (select u_id from user where username = #{username}) order by s_id desc")
+    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) order by g_id desc")
     @ResultMap("gatherMap")
-    List<Gather> getAllByEmail(@Param("email") String email);
+    List<Gather> getAllByNickname(@Param("nickname") String nickname);
 
     @Insert("INSERT INTO gather (u_id, l_id, c_id, title, content, startdate, enddate, allday, people_num, point) values " +
             " (#{gather.uId}, #{gather.title}, #{gather.content}, #{gather.startDate}, #{gather.endDate}, #{gather.allDay}," +

@@ -20,15 +20,12 @@ public class UserController {
     @GetMapping("/user/main")
     public String main(Model model) {
 
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = (User) authentication.getPrincipal();
 
             model.addAttribute("user", user.getNickname());
         }
-
-
         return "user/main";
     }
 
