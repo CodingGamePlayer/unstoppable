@@ -19,273 +19,64 @@
 
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <title>
-    우지당만
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
-  <!-- Nucleo Icons -->
-  <link href="/assets/css/nucleo-icons.css" rel="stylesheet"/>
-  <link href="/assets/css/nucleo-svg.css" rel="stylesheet"/>
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="/assets/css/nucleo-svg.css" rel="stylesheet"/>
-  <!-- CSS Files -->
-  <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <title>
+        우지당만
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet"/>
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet"/>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet"/>
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
-<div class="min-height-300 bg-primary position-absolute w-100"></div>
-<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
-       id="sidenav-main">
-  <div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-       aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand m-0 d-flex align-items-center" th:href="@{/user/main}" target="_blank">
-      <img src="/assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-      <span class="ms-1 font-weight-bold">&nbsp&nbsp 우리지금만나~ <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 아! 당장만나~</span>
-    </a>
-  </div>
-  <hr class="horizontal dark mt-3">
-  <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link " th:href="@{/admin/manage-user}">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-            </svg>
-          </div>
-          <span class="nav-link-text ms-1">유저관리</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart" viewBox="0 0 16 16">
-              <path d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z"/>
-              <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2Z"/>
-            </svg>
-          </div>
-          <span class="nav-link-text ms-1">모임관리</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
-              <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
-            </svg>
-          </div>
-          <span class="nav-link-text ms-1">통계보기</span>
-        </a>
-      </li>
-      <!--            <li class="nav-item">-->
-      <!--                <a class="nav-link " href="#">-->
-      <!--                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">-->
-      <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots" viewBox="0 0 16 16">-->
-      <!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>-->
-      <!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>-->
-      <!--                        </svg>-->
-      <!--                    </div>-->
-      <!--                    <span class="nav-link-text ms-1">커뮤니티</span>-->
-      <!--                </a>-->
-      <!--            </li>-->
-      <!--            <li class="nav-item">-->
-      <!--                <a class="nav-link " href="#">-->
-      <!--                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">-->
-      <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-braces" viewBox="0 0 16 16">-->
-      <!--                            <path d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6zM13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6z"/>-->
-      <!--                        </svg>-->
-      <!--                    </div>-->
-      <!--                    <span class="nav-link-text ms-1">친구 보기</span>-->
-      <!--                </a>-->
-      <!--            </li>-->
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#" sec:authorize="isAuthenticated()">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-person-circle" viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-              <path fill-rule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-          </div>
-          <span class="nav-link-text ms-1">Profile</span>
-        </a>
-      </li>
-      <li class="nav-item" sec:authorize="isAnonymous()">
-        <a class="nav-link " th:href="@{/login}">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-person" viewBox="0 0 16 16">
-              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-            </svg>
-            <!--              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>-->
-          </div>
-          <span class="nav-link-text ms-1">Sign In</span>
-        </a>
-      </li>
-      <li class="nav-item" sec:authorize="isAnonymous()">
-        <a class="nav-link" th:href="@{/signup}">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-universal-access" viewBox="0 0 16 16">
-              <path d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM6 5.5l-4.535-.442A.531.531 0 0 1 1.531 4H14.47a.531.531 0 0 1 .066 1.058L10 5.5V9l.452 6.42a.535.535 0 0 1-1.053.174L8.243 9.97c-.064-.252-.422-.252-.486 0l-1.156 5.624a.535.535 0 0 1-1.053-.174L6 9V5.5Z"/>
-            </svg>
-            <!--              <i class="ni ni-collection text-info text-sm opacity-10"></i>-->
-          </div>
-          <span class="nav-link-text ms-1">Sign Up</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" sec:authorize="isAuthenticated()" id="side-link-logout">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-tencent-qq" viewBox="0 0 16 16">
-              <path d="M6.048 3.323c.022.277-.13.523-.338.55-.21.026-.397-.176-.419-.453-.022-.277.13-.523.338-.55.21-.026.397.176.42.453Zm2.265-.24c-.603-.146-.894.256-.936.333-.027.048-.008.117.037.15.045.035.092.025.119-.003.361-.39.751-.172.829-.129l.011.007c.053.024.147.028.193-.098.023-.063.017-.11-.006-.142-.016-.023-.089-.08-.247-.118Z"/>
-              <path d="M11.727 6.719c0-.022.01-.375.01-.557 0-3.07-1.45-6.156-5.015-6.156-3.564 0-5.014 3.086-5.014 6.156 0 .182.01.535.01.557l-.72 1.795a25.85 25.85 0 0 0-.534 1.508c-.68 2.187-.46 3.093-.292 3.113.36.044 1.401-1.647 1.401-1.647 0 .979.504 2.256 1.594 3.179-.408.126-.907.319-1.228.556-.29.213-.253.43-.201.518.228.386 3.92.246 4.985.126 1.065.12 4.756.26 4.984-.126.052-.088.088-.305-.2-.518-.322-.237-.822-.43-1.23-.557 1.09-.922 1.594-2.2 1.594-3.178 0 0 1.041 1.69 1.401 1.647.168-.02.388-.926-.292-3.113a25.78 25.78 0 0 0-.534-1.508l-.72-1.795ZM9.773 5.53a.095.095 0 0 1-.009.096c-.109.159-1.554.943-3.033.943h-.017c-1.48 0-2.925-.784-3.034-.943a.098.098 0 0 1-.018-.055c0-.015.004-.028.01-.04.13-.287 1.43-.606 3.042-.606h.017c1.611 0 2.912.319 3.042.605Zm-4.32-.989c-.483.022-.896-.529-.922-1.229-.026-.7.344-1.286.828-1.308.483-.022.896.529.922 1.23.027.7-.344 1.286-.827 1.307Zm2.538 0c-.484-.022-.854-.607-.828-1.308.027-.7.44-1.25.923-1.23.483.023.853.608.827 1.309-.026.7-.439 1.251-.922 1.23ZM2.928 8.99c.213.042.426.081.639.117v2.336s1.104.222 2.21.068V9.363c.326.018.64.026.937.023h.017c1.117.013 2.474-.136 3.786-.396.097.622.151 1.386.097 2.284-.146 2.45-1.6 3.99-3.846 4.012h-.091c-2.245-.023-3.7-1.562-3.846-4.011-.054-.9 0-1.663.097-2.285Z"/>
-            </svg>
-            <!--              <i class="ni ni-collection text-info text-sm opacity-10"></i>-->
-          </div>
-          <span class="nav-link-text ms-1">Logout</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/main}" sec:authorize="hasAuthority('ROLE_ADMIN')">
-          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
-              <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
-              <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
-            </svg>
-            <!--              <i class="ni ni-collection text-info text-sm opacity-10"></i>-->
-          </div>
-          <span class="nav-link-text ms-1">ManageMode</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="sidenav-footer mx-3 ">
-    <div class="card card-plain shadow-none" id="sidenavCard">
-      <!--        <img class="w-50 mx-auto" src="/assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">-->
-      <div class="card-body text-center p-3 w-100 pt-0">
-        <div class="docs-info">
-          <h6 class="mb-0 mt-5">함께 놀고 싶은가요?</h6>
-          <p class="text-xs font-weight-bold mb-0">🤷‍♀️하나보단 둘! 둘 보단 셋!🤷‍♂️</p>
-        </div>
-      </div>
+<body class="g-sidenav-show bg-gray-100" style="overflow: hidden;">
+<div class="row">
+    <div class="col-sm-2">
+
+        <th:block th:replace="layout/admin/sidebar :: adminSidebarFragment"></th:block>
     </div>
-    <a href="#" type="button" class="btn btn-dark btn-sm w-100 mb-3 mt-3">모임 만들기👻</a>
-    <a class="btn btn-primary btn-sm mb-0 w-100" href="#" type="button">금액 충전하기😎</a>
-  </div>
-</aside>
-<main class="main-content position-relative border-radius-lg ">
-  <!-- Navbar -->
-  <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
-       data-scroll="false">
-    <div class="container-fluid py-1 px-3">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mt-3">
-          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a>
-          </li>
 
-        </ol>
-        <h6 class="font-weight-bolder text-white mb-0">캘린더</h6>
-      </nav>
-      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-          <div class="input-group">
-            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" placeholder="모임 검색하기..">
-          </div>
-        </div>
-        <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center" sec:authorize="isAnonymous()">
-            <a th:href="@{/login}" class="nav-link text-white font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
-            </a>
-          </li>
-
-          <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
-            <a href="#" class="nav-link text-white font-weight-bold px-0" id="link-logout">
-              <span>안녕하세요! &nbsp </span>
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">[[${user}]] 님</span>
-            </a>
-          </li>
-
-          <script>
-            {
-
-              const logout = document.querySelector('#link-logout');
-
-              logout.addEventListener("click", () => {
-                if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲'))
-                {
-                  window.location.href = "http://localhost:8888/logout"
-                }
-                else
-                {
-                  window.location.reload();
-                }
-              })
-
-              const logout1 = document.querySelector('#side-link-logout');
-
-              logout1.addEventListener("click", () => {
-                if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲'))
-                {
-                  window.location.href = "http://localhost:8888/logout"
-                }
-                else
-                {
-                  window.location.reload();
-                }
-              })
-            }
-
-          </script>
+    <div class="col-sm-10">
 
 
+        <main class="main-content position-relative border-radius-lg ">
+            <!-- Navbar -->
+            <!-- End Navbar -->
+            <div class="container-fluid ">
+                <th:block layout:fragment="content"></th:block>
 
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End Navbar -->
-  <div class="container-fluid py-4">
-    <th:block layout:fragment="content"></th:block>
+                <footer class="footer pt-3 me-5 fixed-bottom mb-3">
+                    <div class="container-fluid d-flex justify-content-end ">
+                        <div class="row align-items-end d-flex justify-content-end">
+                            <div class="col-lg-12 mb-lg-0 mb-2">
+                                <div class="copyright text-center text-sm text-muted text-lg-start">
+                                    ©
+                                    <script>
+                                        document.write(new Date().getFullYear())
+                                    </script>
+                                    ,
+                                    made by <i class="bi bi-bug"></i>
+                                    <a href="#" class="font-weight-bold">Unstoppable Team!</a>
 
-    <footer class="footer pt-3 me-5 fixed-bottom mb-3">
-      <div class="container-fluid d-flex justify-content-end ">
-        <div class="row align-items-end d-flex justify-content-end">
-          <div class="col-lg-12 mb-lg-0 mb-2">
-            <div class="copyright text-center text-sm text-muted text-lg-start">
-              ©
-              <script>
-                document.write(new Date().getFullYear())
-              </script>
-              ,
-              made by <i class="bi bi-bug"></i>
-              <a href="#" class="font-weight-bold" >Unstoppable Team!</a>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                </footer>
             </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
-  </div>
-</main>
+        </main>
+    </div>
+</div>
 
 <!--   Core JS Files   -->
 <script src="/assets/js/core/popper.min.js"></script>
@@ -294,96 +85,96 @@
 <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="/assets/js/plugins/chartjs.min.js"></script>
 <script>
-  var ctx1 = document.getElementById("chart-line").getContext("2d");
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-  var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-  gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-  gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-  gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-  new Chart(ctx1, {
-    type: "line",
-    data: {
-      labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [{
-        label: "Mobile apps",
-        tension: 0.4,
-        borderWidth: 0,
-        pointRadius: 0,
-        borderColor: "#5e72e4",
-        backgroundColor: gradientStroke1,
-        borderWidth: 3,
-        fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-        maxBarThickness: 6
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+    new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Mobile apps",
+                tension: 0.4,
+                borderWidth: 0,
+                pointRadius: 0,
+                borderColor: "#5e72e4",
+                backgroundColor: gradientStroke1,
+                borderWidth: 3,
+                fill: true,
+                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                maxBarThickness: 6
 
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            padding: 10,
-            color: '#fbfbfb',
-            font: {
-              size: 11,
-              family: "Open Sans",
-              style: 'normal',
-              lineHeight: 2
-            },
-          }
+            }],
         },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#ccc',
-            padding: 20,
-            font: {
-              size: 11,
-              family: "Open Sans",
-              style: 'normal',
-              lineHeight: 2
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                }
             },
-          }
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        padding: 10,
+                        color: '#fbfbfb',
+                        font: {
+                            size: 11,
+                            family: "Open Sans",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#ccc',
+                        padding: 20,
+                        font: {
+                            size: 11,
+                            family: "Open Sans",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+            },
         },
-      },
-    },
-  });
+    });
 </script>
 <script>
-  var win = navigator.platform.indexOf('Win') > -1;
-  if (win && document.querySelector('#sidenav-scrollbar')) {
-    var options = {
-      damping: '0.5'
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
-    Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-  }
 </script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
