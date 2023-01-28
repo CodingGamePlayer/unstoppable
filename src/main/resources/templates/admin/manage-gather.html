@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layout/admin/default_layout_admin.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-3" id="navbarBlur"
+
+                 data-scroll="false">
+                <div class="container-fluid py-1 px-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mt-3">
+                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a>
+                            </li>
+
+                        </ol>
+                        <h6 class="font-weight-bolder text-white mb-0">모임관리</h6>
+                    </nav>
+
+                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
+
+
+                            <script>
+                                {
+
+                                    const logout = document.querySelector('#link-logout');
+
+                                    logout.addEventListener("click", () => {
+                                        if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
+                                            window.location.href = "http://localhost:8888/logout"
+                                        } else {
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                    const logout1 = document.querySelector('#side-link-logout');
+
+                                    logout1.addEventListener("click", () => {
+                                        if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
+                                            window.location.href = "http://localhost:8888/logout"
+                                        } else {
+                                            window.location.reload();
+                                        }
+                                    })
+                                }
+
+                            </script>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="card mb-4 me-5">
+                <div class="card-header pb-0">
+                    <h6>User table</h6>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-12">
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+
+                                <table class="table align-items-center mb-3 table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+                                            모임명
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                            scope="col">
+                                            등록일
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+                                            시작일
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+
+                                            마감일
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+
+                                            참여인원수
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+
+                                            조회수
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="users : ${userList1.dtoList}">
+                                        <tr>
+                                            <td colspan="1">
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        <img src="../assets/img/team-2.jpg"
+                                                             class="avatar avatar-sm me-3"
+                                                             alt="user1">
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm" th:text="${users.username}"/>
+                                                        <p class="text-xs text-secondary mb-0"
+                                                           th:text="${users.nickname}"/>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td colspan="1">
+                                                <a href="#" th:onclick="openWindow([[${users.username}]]);">
+
+                                                    <p class="text-xs font-weight-bold mb-0 text-warning"
+                                                       th:text="${users.role}"/>
+
+                                                </a>
+                                            </td>
+                                            <td class="align-middle text-center text-sm" colspan="1">
+                                                <span class="badge badge-sm bg-gradient-success"
+                                                      th:text="${users.point}"/>
+                                            </td>
+                                            <td class="align-middle text-center" colspan="1">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${users.regdate}"></span>
+                                            </td>
+
+                                        </tr>
+                                        <script>
+                                            {
+
+
+                                                function openWindow(id) {
+                                                    window.open("manage-user/change-role?username=" + id, "Child", "width:400, height=300, top=200, left=200")
+                                                }
+                                            }
+                                        </script>
+                                    </th:block>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4 d-flex justify-content-center">
+
+                    <th:block th:with="start=${userList1.start}, end=${userList1.end}, keyword =${param.keyword}, type = ${param.type}">
+                        <div class="col-md-9 d-flex flex-row-reverse ">
+                            <ul class="pagination">
+                                <li th:if="${start} == '1'" class="page-item disabled">
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
+                                </li>
+                                <li th:if="${start} > '1'" class="page-item ">
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+
+                                </li>
+
+                                <th:block th:each="num : ${#numbers.sequence(start,end)}">
+                                    <li class="page-item" th:if="${num} != ${userList1.page}">
+
+                                        <a class="page-link" th:text="${num}"
+                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                                    </li>
+                                    <li class="page-item active" th:if="${num} == ${userList1.page}">
+                                        <a class="page-link" th:text="${num}"
+                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                                    </li>
+                                </th:block>
+                                <!--                                <th:block th:if="keyword == null">-->
+                                <!--                                    <th:block th:each="num : ${#numbers.sequence(start,end)}">-->
+                                <!--                                        <li class="page-item" th:if="${num} != ${userList1.page}">-->
+                                <!--                                            <a class="page-link" th:text="${num}"-->
+                                <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li class="page-item active" th:if="${num} == ${userList1.page}">-->
+                                <!--                                            <a class="page-link" th:text="${num}"-->
+                                <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
+                                <!--                                        </li>-->
+                                <!--                                    </th:block>-->
+                                <!--                                </th:block>-->
+                                <li th:if="${end} >= ${userList1.total} / 10" class="page-item disabled">
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
+                                </li>
+                                <li th:if="${end} < ${userList1.total} / 10" class="page-item">
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="col-sm-4 ">
+                    <form class="row g-3" action="/admin/manage-user" method="get">
+                        <div class="col-auto">
+                            <select class="form-select" aria-label="Default select example" id="category" name="type">
+                                <option value="username">Email 검색</option>
+                                <option value="nickname">Nickname 검색</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <label for="keyword" class="visually-hidden">search</label>
+                            <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">검색</button>
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

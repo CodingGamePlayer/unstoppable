@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.batisproject.mapper.UserMapper">
+<mapper namespace="com.example.batisproject.mapper.admin.AdminGatherMapper">
 
-    <select id="selectAll" resultType="User">
-        select *
-        from user
-    </select>
-
-    <select id="searchedUser" resultType="User">
-        SELECT * FROM user
+    <select id="selectAll" resultType="Gather">
+        SELECT *
+        FROM gather
         <include refid="search"/>
-        ORDER BY u_id DESC LIMIT #{skip}, #{size}
+        ORDER BY g_id DESC LIMIT #{skip}, #{size}
     </select>
 
     <select id="getCount" resultType="int">
