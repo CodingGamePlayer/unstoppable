@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -37,17 +38,20 @@ public class AdminController {
 //            return "redirect:/login";
 //        }
 
-
         if(pageRequestDTO.getKeyword() != null){
             pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
         }
 
         if (bindingResult.hasErrors()){
+
             pageRequestDTO = PageRequestDTO.builder().build();
         }
 
 
         PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(pageRequestDTO);
+        User user = authenticationForModel.getAuthentication();
+
+        PageResponseDTO<UserDTO> pageResponseDTO = adminService.selectAllForPaging(pageRequestDTO);
         User user = authenticationForModel.getAuthentication();
 
 

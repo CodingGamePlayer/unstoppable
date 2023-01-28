@@ -19,7 +19,9 @@
     <div class="row">
 
         <div class="col-sm-12">
+
             <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-3" id="navbarBlur"
+
                  data-scroll="false">
                 <div class="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
@@ -30,8 +32,8 @@
                         </ol>
                         <h6 class="font-weight-bolder text-white mb-0">유저관리</h6>
                     </nav>
-                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
 
+                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
 
 
                             <script>
@@ -74,6 +76,7 @@
                     <div class="col-sm-12">
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
+
                                 <table class="table align-items-center mb-3 table-sm">
                                     <thead>
                                     <tr>
@@ -92,6 +95,7 @@
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                             scope="col">
+
                                             가입일
                                         </th>
                                     </tr>
@@ -115,8 +119,10 @@
                                             </td>
                                             <td colspan="1">
                                                 <a href="#" th:onclick="openWindow([[${users.username}]]);">
+
                                                     <p class="text-xs font-weight-bold mb-0 text-warning"
                                                        th:text="${users.role}"/>
+
                                                 </a>
                                             </td>
                                             <td class="align-middle text-center text-sm" colspan="1">
@@ -151,6 +157,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4 d-flex justify-content-center">
+
                     <th:block th:with="start=${userList1.start}, end=${userList1.end}, keyword =${param.keyword}, type = ${param.type}">
                         <div class="col-md-9 d-flex flex-row-reverse ">
                             <ul class="pagination">
@@ -159,10 +166,12 @@
                                 </li>
                                 <li th:if="${start} > '1'" class="page-item ">
                                     <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+
                                 </li>
 
                                 <th:block th:each="num : ${#numbers.sequence(start,end)}">
                                     <li class="page-item" th:if="${num} != ${userList1.page}">
+
                                         <a class="page-link" th:text="${num}"
                                            th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
                                     </li>
@@ -208,6 +217,7 @@
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">검색</button>
                         </div>
+
                     </form>
                 </div>
 
