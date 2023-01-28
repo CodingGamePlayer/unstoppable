@@ -37,7 +37,6 @@ public class AdminController {
 //            return "redirect:/login";
 //        }
 
-        log.info("pageRequestDTO : " + pageRequestDTO.toString());
 
         if(pageRequestDTO.getKeyword() != null){
             pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
