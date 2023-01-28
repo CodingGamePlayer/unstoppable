@@ -22,10 +22,10 @@ public class PageRequestDTO {
     private int page = 1;
 
     @Builder.Default
-    @Min(value = 10)
+    @Min(value = 9)
     @Max(value = 100)
     @Positive
-    private int size = 10;
+    private int size = 9;
 
     private String type;
 
@@ -36,7 +36,6 @@ public class PageRequestDTO {
     private LocalDate from;
 
     private LocalDate to;
-
 
 
     public int getSkip() {

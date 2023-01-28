@@ -62,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
         return pageResponseDTO;
     }
 
+
     public PageResponseDTO<UserDTO> searchUser(PageRequestDTO pageRequestDTO) {
 
         List<User> users = userMapper.searchedUser(pageRequestDTO);
@@ -79,4 +80,5 @@ public class AdminServiceImpl implements AdminService {
 
         return pageResponseDTO;
     }
+
 }

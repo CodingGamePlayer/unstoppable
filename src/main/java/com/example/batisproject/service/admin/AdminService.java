@@ -14,4 +14,5 @@ public interface AdminService {
     PageResponseDTO<UserDTO> selectAllForPaging(PageRequestDTO pageRequestDTO);
 
     PageResponseDTO<UserDTO> searchUser(PageRequestDTO pageRequestDTO);
+
 }

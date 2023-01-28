@@ -67,6 +67,7 @@ class UserMapperTest {
         log.info(String.valueOf(count));
     }
 
+
     @Test
     void searchedUser() {
 
@@ -74,7 +75,7 @@ class UserMapperTest {
                 .page(1)
                 .size(10)
                 .type("nickname")
-                .keyword("ÀÚ¸£")
+                .keyword("ï¿½Ú¸ï¿½")
                 .build();
 
         List<User> users = userMapper.searchedUser(pageRequestDTO);
@@ -90,4 +91,5 @@ class UserMapperTest {
 
 
     }
+
 }

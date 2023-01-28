@@ -55,7 +55,6 @@ public interface UserMapper {
     @Update("UPDATE user SET role = #{user.role} WHERE u_id = #{user.id}")
     int updateRole(@Param("user") User user);
 
-
     //페이징처리를 위한 메소드
     @Select("SELECT * FROM user " +
             "ORDER BY u_id DESC " +
@@ -71,7 +70,5 @@ public interface UserMapper {
 
     // xml 테스트용 mapper
     List<User> selectAll();
-
-
 
 }
