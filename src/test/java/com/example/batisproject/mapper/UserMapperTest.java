@@ -66,4 +66,27 @@ class UserMapperTest {
 
         log.info(String.valueOf(count));
     }
+
+    @Test
+    void searchedUser() {
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .keyword("otw1917")
+                .build();
+
+        List<User> users = userMapper.searchedUser(pageRequestDTO);
+        users.forEach(user -> log.info(user.toString()));
+    }
+
+    @Test
+    void selectAll() {
+
+        List<User> users = userMapper.selectAll();
+
+        users.forEach(user -> log.info(user.toString()));
+
+
+    }
 }

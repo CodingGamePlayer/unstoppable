@@ -22,10 +22,10 @@ public class PageRequestDTO {
     private int page = 1;
 
     @Builder.Default
-    @Min(value = 9)
+    @Min(value = 8)
     @Max(value = 100)
     @Positive
-    private int size = 9;
+    private int size = 8;
 
     private String[] types;
 
@@ -37,17 +37,10 @@ public class PageRequestDTO {
 
     private LocalDate to;
 
-    private String search;
-
-    private String username;
-
-    private String nickname;
-
-
 
 
     public int getSkip() {
-        return (page-1) * 10;
+        return (page-1) * 8;
     }
 
 }

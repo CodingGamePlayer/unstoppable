@@ -197,20 +197,21 @@
                 <div class="col-sm-4 ">
                     <form class="row g-3" action="/admin/manage-user" method="get">
                         <div class="col-auto">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" id="category">
                                 <option value="username">Email 검색</option>
                                 <option value="nickname">Nickname 검색</option>
                             </select>
                         </div>
                         <div class="col-auto">
                             <label for="search" class="visually-hidden">search</label>
-                            <input type="password" class="form-control" id="search" placeholder="Search">
+                            <input type="text" class="form-control" id="search" placeholder="Search">
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">검색</button>
+                            <button type="button" class="btn btn-primary mb-3" onclick="searchUser()">검색</button>
                         </div>
                     </form>
                 </div>
+
 
 
             </div>
