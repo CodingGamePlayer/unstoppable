@@ -15,17 +15,14 @@
 
     <select id="getCount" resultType="int">
         SELECT count(u_id)
-        FROM user
+        FROM gather
         <include refid="search"/>
     </select>
 
     <sql id="search">
         <where>
-            <if test="keyword != null and type == 'username'.toString()">
-                username like concat('%', #{keyword}, '%')
-            </if>
-            <if test="keyword != null and type == 'nickname'.toString()">
-                nickname like concat('%', #{keyword}, '%')
+            <if test="keyword != null and type == 'title'.toString()">
+                title like concat('%', #{keyword}, '%')
             </if>
         </where>
     </sql>

@@ -1,6 +1,7 @@
 package com.example.batisproject.controller.admin;
 
 import com.example.batisproject.controller.AuthenticationForModel;
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.dto.UserDTO;
@@ -61,7 +62,7 @@ public class AdminController {
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(revisedPageDTO);
+        PageResponseDTO<GatherDTO> pageResponseDTO = adminService.searchGather(revisedPageDTO);
         User user = authenticationForModel.getAuthentication();
 
         model.addAttribute("gatherList", pageResponseDTO);

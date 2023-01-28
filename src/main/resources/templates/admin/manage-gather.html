@@ -36,31 +36,31 @@
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
 
 
-                            <script>
-                                {
+                        <script>
+                            {
 
-                                    const logout = document.querySelector('#link-logout');
+                                const logout = document.querySelector('#link-logout');
 
-                                    logout.addEventListener("click", () => {
-                                        if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
-                                            window.location.href = "http://localhost:8888/logout"
-                                        } else {
-                                            window.location.reload();
-                                        }
-                                    })
+                                logout.addEventListener("click", () => {
+                                    if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
+                                        window.location.href = "http://localhost:8888/logout"
+                                    } else {
+                                        window.location.reload();
+                                    }
+                                })
 
-                                    const logout1 = document.querySelector('#side-link-logout');
+                                const logout1 = document.querySelector('#side-link-logout');
 
-                                    logout1.addEventListener("click", () => {
-                                        if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
-                                            window.location.href = "http://localhost:8888/logout"
-                                        } else {
-                                            window.location.reload();
-                                        }
-                                    })
-                                }
+                                logout1.addEventListener("click", () => {
+                                    if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
+                                        window.location.href = "http://localhost:8888/logout"
+                                    } else {
+                                        window.location.reload();
+                                    }
+                                })
+                            }
 
-                            </script>
+                        </script>
 
 
                         </ul>
@@ -110,37 +110,46 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <th:block th:each="users : ${userList1.dtoList}">
+                                    <th:block th:each="gathers : ${gatherList.dtoList}">
                                         <tr>
                                             <td colspan="1">
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="../assets/img/team-2.jpg"
+                                                        <img src="/assets/img/team-2.jpg"
                                                              class="avatar avatar-sm me-3"
                                                              alt="user1">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm" th:text="${users.username}"/>
-                                                        <p class="text-xs text-secondary mb-0"
-                                                           th:text="${users.nickname}"/>
+                                                        <a href="">
+                                                        <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
+                                                        <p class="text-xs text-secondary mb-0" th:text="${gathers.point}" />
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td colspan="1">
-                                                <a href="#" th:onclick="openWindow([[${users.username}]]);">
+                                                <a href="#" th:onclick="">
 
                                                     <p class="text-xs font-weight-bold mb-0 text-warning"
-                                                       th:text="${users.role}"/>
+                                                       th:text="${gathers.regDate}"/>
 
                                                 </a>
                                             </td>
                                             <td class="align-middle text-center text-sm" colspan="1">
                                                 <span class="badge badge-sm bg-gradient-success"
-                                                      th:text="${users.point}"/>
+                                                      th:text="${gathers.startDate}"/>
                                             </td>
                                             <td class="align-middle text-center" colspan="1">
                                             <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text="${users.regdate}"></span>
+                                                  th:text="${gathers.endDate}"></span>
+                                            </td>
+                                            <td class="align-middle text-center" colspan="1">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${gathers.peopleNum}"></span>
+                                            </td>
+                                            <td class="align-middle text-center" colspan="1">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${gathers.viewCnt}"></span>
                                             </td>
 
                                         </tr>
@@ -167,26 +176,29 @@
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4 d-flex justify-content-center">
 
-                    <th:block th:with="start=${userList1.start}, end=${userList1.end}, keyword =${param.keyword}, type = ${param.type}">
+                    <th:block
+                            th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
                         <div class="col-md-9 d-flex flex-row-reverse ">
                             <ul class="pagination">
                                 <li th:if="${start} == '1'" class="page-item disabled">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
+                                    <a class="page-link"
+                                       th:href="@{/admin/manage-gather(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
                                 </li>
                                 <li th:if="${start} > '1'" class="page-item ">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+                                    <a class="page-link"
+                                       th:href="@{/admin/manage-gather(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
 
                                 </li>
 
                                 <th:block th:each="num : ${#numbers.sequence(start,end)}">
-                                    <li class="page-item" th:if="${num} != ${userList1.page}">
+                                    <li class="page-item" th:if="${num} != ${gatherList.page}">
 
                                         <a class="page-link" th:text="${num}"
-                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                                           th:href="@{/admin/manage-gather(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
                                     </li>
-                                    <li class="page-item active" th:if="${num} == ${userList1.page}">
+                                    <li class="page-item active" th:if="${num} == ${gatherList.page}">
                                         <a class="page-link" th:text="${num}"
-                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                                           th:href="@{/admin/manage-gather(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
                                     </li>
                                 </th:block>
                                 <!--                                <th:block th:if="keyword == null">-->
@@ -201,22 +213,23 @@
                                 <!--                                        </li>-->
                                 <!--                                    </th:block>-->
                                 <!--                                </th:block>-->
-                                <li th:if="${end} >= ${userList1.total} / 10" class="page-item disabled">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
+                                <li th:if="${end} >= ${gatherList.total} / 10" class="page-item disabled">
+                                    <a class="page-link"
+                                       th:href="@{/admin/manage-gather(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
                                 </li>
-                                <li th:if="${end} < ${userList1.total} / 10" class="page-item">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
+                                <li th:if="${end} < ${gatherList.total} / 10" class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/admin/manage-gather(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
                                 </li>
                             </ul>
                         </div>
                     </th:block>
                 </div>
                 <div class="col-sm-4 ">
-                    <form class="row g-3" action="/admin/manage-user" method="get">
+                    <form class="row g-3" action="/admin/manage-gather" method="get">
                         <div class="col-auto">
                             <select class="form-select" aria-label="Default select example" id="category" name="type">
-                                <option value="username">Email 검색</option>
-                                <option value="nickname">Nickname 검색</option>
+                                <option value="title">모임 검색 &nbsp&nbsp</option>
                             </select>
                         </div>
                         <div class="col-auto">
