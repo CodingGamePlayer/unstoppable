@@ -1,10 +1,13 @@
 package com.example.batisproject.service.admin.impl;
 
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.UserMapper;
+import com.example.batisproject.mapper.admin.AdminGatherMapper;
 import com.example.batisproject.service.admin.AdminService;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AdminGatherMapper adminGatherMapper;
 
     @Override
     public int update(UserDTO userDTO) {
@@ -45,24 +51,8 @@ public class AdminServiceImpl implements AdminService {
         return 1;
     }
 
+
     @Override
-    public PageResponseDTO<UserDTO> selectAllForPaging(PageRequestDTO pageRequestDTO) {
-        List<User> userList = userMapper.selectAllForPaging(pageRequestDTO);
-        List<UserDTO> dtoList = userList.stream()
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
-
-        int total = userMapper.getCount();
-
-        PageResponseDTO<UserDTO> pageResponseDTO = PageResponseDTO.<UserDTO>withAll()
-                .dtoList(dtoList)
-                .total(total)
-                .pageRequestDTO(pageRequestDTO)
-                .build();
-        return pageResponseDTO;
-    }
-
-
     public PageResponseDTO<UserDTO> searchUser(PageRequestDTO pageRequestDTO) {
 
         List<User> users = userMapper.searchedUser(pageRequestDTO);
@@ -70,7 +60,7 @@ public class AdminServiceImpl implements AdminService {
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
 
-        int total = userMapper.getCount();
+        int total = userMapper.getCount(pageRequestDTO);
 
         PageResponseDTO<UserDTO> pageResponseDTO = PageResponseDTO.<UserDTO>withAll()
                 .dtoList(dtoList)
@@ -81,4 +71,22 @@ public class AdminServiceImpl implements AdminService {
         return pageResponseDTO;
     }
 
+    @Override
+    public PageResponseDTO<GatherDTO> searchGather(PageRequestDTO pageRequestDTO) {
+
+        List<Gather> gathers = adminGatherMapper.selectAll(pageRequestDTO);
+        List<GatherDTO> dtoList = gathers.stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+
+        int total = adminGatherMapper.getCount(pageRequestDTO);
+
+        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .dtoList(dtoList)
+                .build();
+
+        return pageResponseDTO;
+    }
 }

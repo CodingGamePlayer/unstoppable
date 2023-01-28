@@ -61,8 +61,13 @@ class UserMapperTest {
 
     @Test
     void getCount() {
-
-        int count = userMapper.getCount();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .type("nickname")
+                .keyword("�ڸ�")
+                .build();
+        int count = userMapper.getCount(pageRequestDTO);
 
         log.info(String.valueOf(count));
     }

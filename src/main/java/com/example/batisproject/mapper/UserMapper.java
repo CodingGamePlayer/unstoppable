@@ -63,7 +63,8 @@ public interface UserMapper {
     List<User> selectAllForPaging(@Param("pageRequestDTO")PageRequestDTO pageRequestDTO);
 
     // 유저의 수를 가져오는 메소드
-    int getCount();
+    int getCount(PageRequestDTO pageRequestDTO);
+
 
     // 검색 기능을 사용한 mapper
     List<User> searchedUser(PageRequestDTO pageRequestDTO);

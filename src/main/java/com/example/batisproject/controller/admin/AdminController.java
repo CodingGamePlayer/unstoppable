@@ -1,6 +1,7 @@
 package com.example.batisproject.controller.admin;
 
 import com.example.batisproject.controller.AuthenticationForModel;
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.dto.UserDTO;
@@ -27,31 +28,17 @@ public class AdminController {
     private AuthenticationForModel authenticationForModel;
     @Autowired
     private UserServiceImpl userService;
-
     @Autowired
     private AdminServiceImpl adminService;
 
     @GetMapping("/manage-user")
-    public String main(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
+    public String showUserPage(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
 
-//        if(authenticationForModel.getAuthentication() == null){
-//            return "redirect:/login";
-//        }
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
-        if(pageRequestDTO.getKeyword() != null){
-            pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
-        }
-
-        if (bindingResult.hasErrors()){
-
-            pageRequestDTO = PageRequestDTO.builder().build();
-        }
-
-
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(pageRequestDTO);
+        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(revisedPageDTO);
         User user = authenticationForModel.getAuthentication();
-
-
+        
         model.addAttribute("userList1", pageResponseDTO);
         model.addAttribute("user", user.getNickname());
 
@@ -69,5 +56,34 @@ public class AdminController {
         return "admin/for-function/change-role";
     }
 
+    @GetMapping("manage-gather")
+    public String showGatherPage(@Valid PageRequestDTO pageRequestDTO,
+                                 BindingResult bindingResult, Model model){
+
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
+
+        PageResponseDTO<GatherDTO> pageResponseDTO = adminService.searchGather(revisedPageDTO);
+        User user = authenticationForModel.getAuthentication();
+
+        model.addAttribute("gatherList", pageResponseDTO);
+        model.addAttribute("user", user.getNickname());
+
+        return "admin/manage-gather";
+    }
+
+
+
+    PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
+
+        if(pageRequestDTO.getKeyword() != null)
+            pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
+
+        if (bindingResult.hasErrors()){
+
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        return pageRequestDTO;
+    }
 
 }

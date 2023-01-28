@@ -1,16 +1,14 @@
 package com.example.batisproject.service.admin.impl;
 
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
-import com.example.batisproject.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
@@ -19,15 +17,20 @@ class AdminServiceImplTest {
     @Autowired
     private AdminServiceImpl adminService;
 
+
     @Test
-    void selectAllForPaging() {
+    void searchGather() {
 
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
 
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.selectAllForPaging(pageRequestDTO);
+        PageResponseDTO<GatherDTO> pageResponseDTO = adminService.searchGather(pageRequestDTO);
 
-        log.info(pageResponseDTO.toString());
+        List<GatherDTO> dtoList = pageResponseDTO.getDtoList();
 
+        dtoList.forEach(gatherDTO -> log.info(gatherDTO.toString()));
 
     }
 }
