@@ -51,9 +51,6 @@ public class AdminController {
         PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(pageRequestDTO);
         User user = authenticationForModel.getAuthentication();
 
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.selectAllForPaging(pageRequestDTO);
-        User user = authenticationForModel.getAuthentication();
-
 
         model.addAttribute("userList1", pageResponseDTO);
         model.addAttribute("user", user.getNickname());
