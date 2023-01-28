@@ -7,9 +7,8 @@ import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.service.admin.impl.AdminServiceImpl;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,8 +37,19 @@ public class AdminController {
 //        if(authenticationForModel.getAuthentication() == null){
 //            return "redirect:/login";
 //        }
-        if (bindingResult.hasErrors())
+
+        if(pageRequestDTO.getKeyword() != null){
+            pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
+        }
+
+        if (bindingResult.hasErrors()){
+
             pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+
+        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(pageRequestDTO);
+        User user = authenticationForModel.getAuthentication();
 
         PageResponseDTO<UserDTO> pageResponseDTO = adminService.selectAllForPaging(pageRequestDTO);
         User user = authenticationForModel.getAuthentication();

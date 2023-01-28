@@ -27,7 +27,7 @@ public class PageRequestDTO {
     @Positive
     private int size = 9;
 
-    private String[] types;
+    private String type;
 
     private String keyword;
 
@@ -36,14 +36,6 @@ public class PageRequestDTO {
     private LocalDate from;
 
     private LocalDate to;
-
-    private String search;
-
-    private String username;
-
-    private String nickname;
-
-
 
 
     public int getSkip() {
