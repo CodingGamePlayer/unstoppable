@@ -19,7 +19,9 @@
     <div class="row">
 
         <div class="col-sm-12">
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-2" id="navbarBlur"
+
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-3" id="navbarBlur"
+
                  data-scroll="false">
                 <div class="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
@@ -30,29 +32,9 @@
                         </ol>
                         <h6 class="font-weight-bolder text-white mb-0">유저관리</h6>
                     </nav>
-                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                            <div class="input-group">
-                                <span class="input-group-text text-body"><i class="fas fa-search"
-                                                                            aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" placeholder="모임 검색하기..">
-                            </div>
-                        </div>
-                        <ul class="navbar-nav  justify-content-end">
-                            <li class="nav-item d-flex align-items-center" sec:authorize="isAnonymous()">
-                                <a th:href="@{/login}" class="nav-link text-white font-weight-bold px-0">
-                                    <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">Sign In</span>
-                                </a>
-                            </li>
 
-                            <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
-                                <a href="#" class="nav-link text-white font-weight-bold px-0" id="link-logout">
-                                    <span>안녕하세요! &nbsp </span>
-                                    <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">[[${user}]] 님</span>
-                                </a>
-                            </li>
+                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
+
 
                             <script>
                                 {
@@ -94,20 +76,26 @@
                     <div class="col-sm-12">
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-items-center mb-3">
+
+                                <table class="table align-items-center mb-3 table-sm">
                                     <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
                                             유저이름
                                             & 이메일
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                            scope="col">
                                             계정권한
                                         </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
                                             포인트
                                         </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+
                                             가입일
                                         </th>
                                     </tr>
@@ -131,7 +119,10 @@
                                             </td>
                                             <td colspan="1">
                                                 <a href="#" th:onclick="openWindow([[${users.username}]]);">
-                                                    <p class="text-xs font-weight-bold mb-0 text-warning" th:text="${users.role}"/>
+
+                                                    <p class="text-xs font-weight-bold mb-0 text-warning"
+                                                       th:text="${users.role}"/>
+
                                                 </a>
                                             </td>
                                             <td class="align-middle text-center text-sm" colspan="1">
@@ -166,29 +157,46 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4 d-flex justify-content-center">
-                    <th:block th:with="start=${userList1.start}, end=${userList1.end}">
+
+                    <th:block th:with="start=${userList1.start}, end=${userList1.end}, keyword =${param.keyword}, type = ${param.type}">
                         <div class="col-md-9 d-flex flex-row-reverse ">
                             <ul class="pagination">
                                 <li th:if="${start} == '1'" class="page-item disabled">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10)}">◁</a>
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
                                 </li>
                                 <li th:if="${start} > '1'" class="page-item ">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10)}">◀</a>
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+
                                 </li>
 
                                 <th:block th:each="num : ${#numbers.sequence(start,end)}">
                                     <li class="page-item" th:if="${num} != ${userList1.page}">
-                                        <a class="page-link" th:text="${num}" th:href="@{/admin/manage-user(page = ${num})}"></a>
+
+                                        <a class="page-link" th:text="${num}"
+                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
                                     </li>
                                     <li class="page-item active" th:if="${num} == ${userList1.page}">
-                                        <a class="page-link" th:text="${num}" th:href="@{/admin/manage-user(page = ${num})}"></a>
+                                        <a class="page-link" th:text="${num}"
+                                           th:href="@{/admin/manage-user(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
                                     </li>
                                 </th:block>
+                                <!--                                <th:block th:if="keyword == null">-->
+                                <!--                                    <th:block th:each="num : ${#numbers.sequence(start,end)}">-->
+                                <!--                                        <li class="page-item" th:if="${num} != ${userList1.page}">-->
+                                <!--                                            <a class="page-link" th:text="${num}"-->
+                                <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li class="page-item active" th:if="${num} == ${userList1.page}">-->
+                                <!--                                            <a class="page-link" th:text="${num}"-->
+                                <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
+                                <!--                                        </li>-->
+                                <!--                                    </th:block>-->
+                                <!--                                </th:block>-->
                                 <li th:if="${end} >= ${userList1.total} / 10" class="page-item disabled">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1)}">▷</a>
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
                                 </li>
                                 <li th:if="${end} < ${userList1.total} / 10" class="page-item">
-                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1)}">▶</a>
+                                    <a class="page-link" th:href="@{/admin/manage-user(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
                                 </li>
                             </ul>
                         </div>
@@ -197,18 +205,19 @@
                 <div class="col-sm-4 ">
                     <form class="row g-3" action="/admin/manage-user" method="get">
                         <div class="col-auto">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" id="category" name="type">
                                 <option value="username">Email 검색</option>
                                 <option value="nickname">Nickname 검색</option>
                             </select>
                         </div>
                         <div class="col-auto">
-                            <label for="search" class="visually-hidden">search</label>
-                            <input type="password" class="form-control" id="search" placeholder="Search">
+                            <label for="keyword" class="visually-hidden">search</label>
+                            <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">검색</button>
                         </div>
+
                     </form>
                 </div>
 

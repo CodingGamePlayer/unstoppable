@@ -12,4 +12,7 @@ public interface AdminService {
     int update(UserDTO userDTO);
 
     PageResponseDTO<UserDTO> selectAllForPaging(PageRequestDTO pageRequestDTO);
+
+    PageResponseDTO<UserDTO> searchUser(PageRequestDTO pageRequestDTO);
+
 }

@@ -37,7 +37,7 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
     <!-- Calendar source-->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet'/>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -52,22 +52,23 @@
         <!-- sidebar end-->
     </div>
     <div class="col-sm-10">
-        <div class="row">
+        <div class="row me-5">
             <!--    header start-->
-            <th:block th:replace="layout/user/header :: headerFragment"></th:block>
-            <!--    header end-->
-            <main class="main-content position-relative border-radius-lg ">
-
-                <div class="container-fluid py-4">
-                    <th:block layout:fragment="content"></th:block>
-                    <!--    footer start-->
-                    <th:block th:replace="layout/user/footer :: footerFragment"></th:block>
-                    <!--    footer end-->
-
-                </div>
-            </main>
+            <div class="col-sm-12 mb-5">
+                <th:block th:replace="layout/user/header :: headerFragment"></th:block>
+            </div>
+            <div class="col-sm-12">
+                <!--    header end-->
+                <th:block layout:fragment="content"></th:block>
+            </div>
+            <div class="col-sm-12 ">
+                <!--    footer start-->
+                <th:block th:replace="layout/user/footer :: footerFragment"></th:block>
+                <!--    footer end-->
+            </div>
         </div>
     </div>
+</div>
 
 </div>
 
@@ -223,11 +224,22 @@
                 });
                 calendar.render();
             });
-            request.fail(function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
             });
         });
     });
+</script>
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/63d4ea03c2f1ac1e20300d00/1gnrr480o';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
 </script>
 </body>
 

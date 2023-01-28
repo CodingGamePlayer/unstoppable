@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.batisproject.mapper.UserMapper">
+
+    <select id="selectAll" resultType="User">
+        select *
+        from user
+    </select>
+
+    <select id="searchedUser" resultType="User">
+        SELECT * FROM user
+        <include refid="search"/>
+        ORDER BY u_id DESC LIMIT #{skip}, #{size}
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT count(u_id)
+        FROM user
+
+    </select>
+
+    <sql id="search">
+        <where>
+            <if test="keyword != null and type == 'username'.toString()">
+                username like concat('%', #{keyword}, '%')
+            </if>
+            <if test="keyword != null and type == 'nickname'.toString()">
+                nickname like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+    </sql>
+
+</mapper>

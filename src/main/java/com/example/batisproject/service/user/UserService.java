@@ -18,4 +18,6 @@ public interface UserService {
 
     UserDTO existsByNickName(String nickname);
 
+    List<User> selectAll();
+
 }
