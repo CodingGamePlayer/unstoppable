@@ -61,4 +61,22 @@ public class AdminServiceImpl implements AdminService {
                 .build();
         return pageResponseDTO;
     }
+
+    public PageResponseDTO<UserDTO> searchUser(PageRequestDTO pageRequestDTO) {
+
+        List<User> users = userMapper.searchedUser(pageRequestDTO);
+        List<UserDTO> dtoList = users.stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+
+        int total = userMapper.getCount();
+
+        PageResponseDTO<UserDTO> pageResponseDTO = PageResponseDTO.<UserDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+        return pageResponseDTO;
+    }
 }

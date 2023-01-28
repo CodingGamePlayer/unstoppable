@@ -41,7 +41,6 @@ class ArticleMapperTest {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
-                .types(new String[]{"t","w"})
                 .keyword("다른내용")
                 .build();
 

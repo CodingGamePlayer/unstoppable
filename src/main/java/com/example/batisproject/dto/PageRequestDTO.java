@@ -22,12 +22,12 @@ public class PageRequestDTO {
     private int page = 1;
 
     @Builder.Default
-    @Min(value = 8)
+    @Min(value = 10)
     @Max(value = 100)
     @Positive
-    private int size = 8;
+    private int size = 10;
 
-    private String[] types;
+    private String type;
 
     private String keyword;
 
@@ -40,7 +40,7 @@ public class PageRequestDTO {
 
 
     public int getSkip() {
-        return (page-1) * 8;
+        return (page-1) * 10;
     }
 
 }

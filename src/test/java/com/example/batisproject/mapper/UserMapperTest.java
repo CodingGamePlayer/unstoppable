@@ -73,7 +73,8 @@ class UserMapperTest {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
-                .keyword("otw1917")
+                .type("nickname")
+                .keyword("ÀÚ¸£")
                 .build();
 
         List<User> users = userMapper.searchedUser(pageRequestDTO);

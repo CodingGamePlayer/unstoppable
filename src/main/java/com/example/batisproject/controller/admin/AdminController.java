@@ -37,12 +37,18 @@ public class AdminController {
 //            return "redirect:/login";
 //        }
 
+        log.info("pageRequestDTO : " + pageRequestDTO.toString());
 
+        if(pageRequestDTO.getKeyword() != null){
+            pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
+        }
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()){
             pageRequestDTO = PageRequestDTO.builder().build();
+        }
 
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.selectAllForPaging(pageRequestDTO);
+
+        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(pageRequestDTO);
         User user = authenticationForModel.getAuthentication();
 
 

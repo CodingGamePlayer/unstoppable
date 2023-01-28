@@ -24,8 +24,11 @@
 
     <sql id="search">
         <where>
-            <if test="keyword != null">
+            <if test="keyword != null and type == 'username'.toString()">
                 username like concat('%', #{keyword}, '%')
+            </if>
+            <if test="keyword != null and type == 'nickname'.toString()">
+                nickname like concat('%', #{keyword}, '%')
             </if>
         </where>
     </sql>
