@@ -20,4 +20,6 @@ public interface UserService {
 
     List<User> selectAll();
 
+    int updateUser(UserDTO userDTO);
+
 }

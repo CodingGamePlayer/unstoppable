@@ -88,4 +88,19 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectAll();
     }
 
+    @Override
+    public int updateUser(UserDTO userDTO) {
+
+        User target = userMapper.existsByEmail(userDTO.getUsername());
+
+        int totalPoint = target.getPoint() + userDTO.getPoint();
+        target.setPoint(totalPoint);
+
+        int result = userMapper.updateUser(target);
+        if(!(result > 0))
+            return 0;
+
+        return 1;
+    }
+
 }

@@ -20,7 +20,10 @@
 
         <div class="col-sm-12">
 
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-3" id="navbarBlur"
+
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl mb-3 mt-4"
+                 id="navbarBlur"
+
 
                  data-scroll="false">
                 <div class="container-fluid py-1 px-3">
@@ -34,36 +37,6 @@
                     </nav>
 
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-4 me-sm-4" id="navbar">
-
-
-                        <script>
-                            {
-
-                                const logout = document.querySelector('#link-logout');
-
-                                logout.addEventListener("click", () => {
-                                    if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
-                                        window.location.href = "http://localhost:8888/logout"
-                                    } else {
-                                        window.location.reload();
-                                    }
-                                })
-
-                                const logout1 = document.querySelector('#side-link-logout');
-
-                                logout1.addEventListener("click", () => {
-                                    if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
-                                        window.location.href = "http://localhost:8888/logout"
-                                    } else {
-                                        window.location.reload();
-                                    }
-                                })
-                            }
-
-                        </script>
-
-
-                        </ul>
                     </div>
                 </div>
             </nav>
@@ -107,6 +80,13 @@
 
                                             조회수
                                         </th>
+
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">
+
+                                            삭제
+                                        </th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -121,35 +101,41 @@
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <a href="">
-                                                        <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
-                                                        <p class="text-xs text-secondary mb-0" th:text="${gathers.point}" />
+
+                                                            <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
+                                                            <p class="text-xs text-secondary mb-0"
+                                                               th:text="${gathers.point}"/>
+
                                                         </a>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td colspan="1">
-                                                <a href="#" th:onclick="">
 
-                                                    <p class="text-xs font-weight-bold mb-0 text-warning"
-                                                       th:text="${gathers.regDate}"/>
-
-                                                </a>
+                                           <span class="text-secondary text-xs font-weight-bold"
+                                                 th:text="${gathers.regDate}"/>
                                             </td>
-                                            <td class="align-middle text-center text-sm" colspan="1">
-                                                <span class="badge badge-sm bg-gradient-success"
-                                                      th:text="${gathers.startDate}"/>
+                                            <td class="align-middle text-center ">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${gathers.startDate}"/>
                                             </td>
-                                            <td class="align-middle text-center" colspan="1">
+                                            <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"
                                                   th:text="${gathers.endDate}"></span>
                                             </td>
-                                            <td class="align-middle text-center" colspan="1">
+                                            <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"
                                                   th:text="${gathers.peopleNum}"></span>
                                             </td>
-                                            <td class="align-middle text-center" colspan="1">
+                                            <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"
                                                   th:text="${gathers.viewCnt}"></span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <a href="#" th:onclick="openWindow([[${gathers.id}]]);">
+                                            <span class="badge badge-sm bg-gradient-success"
+                                                  th:text="모임삭제"/>
+                                                </a>
                                             </td>
 
                                         </tr>
@@ -158,7 +144,18 @@
 
 
                                                 function openWindow(id) {
-                                                    window.open("manage-user/change-role?username=" + id, "Child", "width:400, height=300, top=200, left=200")
+
+                                                    let option = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=50, height=50, top=0,left=0";
+                                                    if (window.confirm('모임을 삭제 하시겠습니까?')){
+
+                                                        window.open("manage-gather/delete?id=" + id, "_blank", option);
+                                                        alert('모임이 삭제 되었습니다.')
+                                                    } else {
+                                                        alert('모임삭제를 취소하였습니다.')
+
+                                                    }
+
+
                                                 }
                                             }
                                         </script>
