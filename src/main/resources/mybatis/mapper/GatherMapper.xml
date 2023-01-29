@@ -6,7 +6,27 @@
 
 <mapper namespace="com.example.batisproject.mapper.admin.AdminGatherMapper">
 
-    <select id="selectAll" resultType="Gather">
+    <resultMap id="GatherMapping" type="Gather">
+        <result property = "id" column = "g_id"/>
+        <result property = "user" column = "u_id"/>
+        <result property = "location" column = "l_id"/>
+        <result property = "category" column = "c_id" />
+        <result property = "title" column = "title"/>
+        <result property = "content" column = "content"/>
+        <result property = "regDate" column = "regdate"/>
+        <result property = "startDate" column = "startdate"/>
+        <result property = "endDate" column = "enddate"/>
+        <result property = "allDay" column = "allday"/>
+        <result property = "textColor" column = "textColor"/>
+        <result property = "backgroundColor" column = "backgroundColor"/>
+        <result property = "borderColor" column = "borderColor" />
+        <result property = "viewCnt" column = "view_cnt"/>
+        <result property = "peopleNum" column = "people_num"/>
+        <result property = "point" column = "point"/>
+    </resultMap>
+
+
+    <select id="selectAll" resultType="Gather" resultMap="GatherMapping">
         SELECT *
         FROM gather
         <include refid="search"/>

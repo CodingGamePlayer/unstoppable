@@ -33,4 +33,16 @@ class AdminServiceImplTest {
         dtoList.forEach(gatherDTO -> log.info(gatherDTO.toString()));
 
     }
+
+    @Test
+    void deleteGather() {
+
+        GatherDTO gatherDTO = GatherDTO.builder()
+                        .id(1L)
+                        .build();
+
+        int delete = adminService.deleteGather(gatherDTO);
+
+        log.info(String.valueOf(delete));
+    }
 }

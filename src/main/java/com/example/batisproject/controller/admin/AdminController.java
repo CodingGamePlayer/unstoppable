@@ -71,6 +71,14 @@ public class AdminController {
         return "admin/manage-gather";
     }
 
+    @GetMapping("manage-gather/delete")
+    public String gatherDelete(GatherDTO gatherDTO) {
+
+        adminService.deleteGather(gatherDTO);
+
+        return "admin/for-function/delete-gather";
+    }
+
 
 
     PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
