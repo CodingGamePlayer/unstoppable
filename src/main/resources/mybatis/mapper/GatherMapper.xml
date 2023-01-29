@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.batisproject.mapper.admin.AdminGatherMapper">
+
+    <select id="selectAll" resultType="Gather">
+        SELECT *
+        FROM gather
+        <include refid="search"/>
+        ORDER BY g_id DESC LIMIT #{skip}, #{size}
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT count(u_id)
+        FROM gather
+        <include refid="search"/>
+    </select>
+
+    <sql id="search">
+        <where>
+            <if test="keyword != null and type == 'title'.toString()">
+                title like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+    </sql>
+
+</mapper>

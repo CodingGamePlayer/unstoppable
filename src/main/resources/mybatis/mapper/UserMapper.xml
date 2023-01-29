@@ -19,7 +19,7 @@
     <select id="getCount" resultType="int">
         SELECT count(u_id)
         FROM user
-
+        <include refid="search"/>
     </select>
 
     <sql id="search">
