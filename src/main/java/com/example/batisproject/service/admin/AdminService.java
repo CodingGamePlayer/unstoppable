@@ -18,4 +18,5 @@ public interface AdminService {
 
     int deleteGather (GatherDTO gatherDTO);
 
+
 }

@@ -71,6 +71,7 @@ public class AdminController {
         return "admin/manage-gather";
     }
 
+
     @GetMapping("manage-gather/delete")
     public String gatherDelete(GatherDTO gatherDTO) {
 
@@ -78,6 +79,7 @@ public class AdminController {
 
         return "admin/for-function/delete-gather";
     }
+
 
 
 

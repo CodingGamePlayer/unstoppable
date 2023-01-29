@@ -25,7 +25,6 @@
         <result property = "point" column = "point"/>
     </resultMap>
 
-
     <select id="selectAll" resultType="Gather" resultMap="GatherMapping">
         SELECT *
         FROM gather
