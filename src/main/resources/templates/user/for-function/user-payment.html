@@ -112,18 +112,22 @@
                 console.log(rsp);
 
                 const user = {
-                    username : email
+                    username: email,
+                    point: price
                 }
-                const url = "";
+                const url = "/api/payment";
                 fetch(url, {
-                    method : 'POST',
-                    body : JSON.stringify(user),
-                    headers : {
-                        "Content-Type" : "application/json"
+                    method: 'POST',
+                    body: JSON.stringify(user),
+                    headers: {
+                        "Content-Type": "application/json"
                     }
                 }).then(response => {
-                    alert('결제가 완료 되었습니다.');
-                    window.close();
+                    if (response.ok) {
+                        alert('결제가 완료 되었습니다.');
+                        opener.location.reload();
+                        window.close();
+                    }
                 })
 
             } else {

@@ -74,62 +74,17 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.OK).body(authNum);
     }
 
-//    @GetMapping("/api/pay")
-//    public String pay() {
-//
-//        try {
-//            URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
-//            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//            httpURLConnection.setRequestMethod("POST");
-//            httpURLConnection.setRequestProperty("Authorization", "KakaoAK 305529f33234bb93678608a317d8889c");
-//            httpURLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//            // 서버에 전해 줄것이 있는지 없는지 설정이며 HttpURLConnection 의 기본값으로 input은 true로 되어져 있음.
-//            httpURLConnection.setDoOutput(true);
-//
-//            String parameter = "cid=TC0ONETIME" +
-//                    "&partner_order_id=partner_order_id" +
-//                    "&partner_user_id=partner_user_id" +
-//                    "&item_name=초코파이" +
-//                    "&quantity=1" +
-//                    "&total_amount=2200" +
-//                    "&vat_amount=200" +
-//                    "&tax_free_amount=0" +
-//                    "&approval_url=https://developers.kakao.com/success" +
-//                    "&fail_url=https://developers.kakao.com/fail" +
-//                    "&cancel_url=https://developers.kakao.com/cancel";
-//
-//            // 값을 보내기 위해서 사용함.
-//            OutputStream outputStream = httpURLConnection.getOutputStream();
-//            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-//            //데이터를 바이트 값으로 변경
-//            dataOutputStream.writeBytes(parameter);
-//            dataOutputStream.close();
-//
-//            // 송신 결과를 int 값으로 받음.
-//            int result = httpURLConnection.getResponseCode();
-//
-//            InputStream inputStream;
-//
-//            if (result == 200) {
-//                inputStream = httpURLConnection.getInputStream();
-//            } else {
-//                // 에러 상태값은 아래와 같은 코드로 받아야함.
-//                inputStream = httpURLConnection.getErrorStream();
-//            }
-//
-//            // 결과 값을 읽기 위한 코드
-//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//
-//            return bufferedReader.readLine();
-//
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
+    @PostMapping("/api/payment")
+    public ResponseEntity<String> payment(@RequestBody UserDTO userDTO) {
+
+        int result = userService.updateUser(userDTO);
+
+        if(result == 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 
 }
