@@ -123,7 +123,7 @@
         console.log(password);
         console.log(nickname);
 
-        if (booleanPassword1 != true || booleanPassword2 != true){
+        if (booleanPassword1 != true || booleanPassword2 != true) {
             alert('비밀번호를 인증 받으시기 바랍니다.');
             return;
         }
@@ -152,11 +152,21 @@
                 "Content-Type": "application/json"
             }
         }).then(response => {
-            const msg = (response.ok) ? "회원가입이 완료 되었습니다." : "회원가입에 문제가 발생했습니다.";
-            alert(msg);
+            if (response.ok) {
 
-            window.location.href = "http://localhost:8888/login";
-        })
+                const msg = "회원가입이 완료 되었습니다.";
+                alert(msg);
+
+                window.location.href = "http://localhost:8888/login";
+            } else {
+                const msg = "회원가입에 문제가 발생하였습니다.";
+                alert(msg);
+
+                window.location.href = "http://localhost:8888/signup";
+
+            }
+
+        });
 
     });
 
