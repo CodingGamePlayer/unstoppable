@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/user/default_layout.html}">
+
+    <!-- default_layout.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <!-- default_layout.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content">
+   
+    <div class="row" id="tq" style="margin-top: 200px;">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body" style="height: 500px;">
+            <h3 class="card-title">Title</h3>
+                        
+          </div>
+        </div>
+      </div>
+    </div> 
+
+</div>
+
+</html>
