@@ -120,6 +120,13 @@
             <artifactId>spring-context-support</artifactId>
             <version>5.3.9</version>
         </dependency>
+        <!-- AOP 기능 추가-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
 
     </dependencies>
 
