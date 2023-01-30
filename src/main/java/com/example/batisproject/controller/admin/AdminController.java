@@ -1,5 +1,7 @@
 package com.example.batisproject.controller.admin;
 
+import com.example.batisproject.annotaion.CurrentUser;
+import com.example.batisproject.annotaion.RunningTime;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.PageRequestDTO;
@@ -31,14 +33,15 @@ public class AdminController {
     @Autowired
     private AdminServiceImpl adminService;
 
+    @RunningTime
     @GetMapping("/manage-user")
-    public String showUserPage(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
+    public String showUserPage(@Valid PageRequestDTO pageRequestDTO, @CurrentUser User user,
+                               BindingResult bindingResult, Model model) {
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
         PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(revisedPageDTO);
-        User user = authenticationForModel.getAuthentication();
-        
+
         model.addAttribute("userList1", pageResponseDTO);
         model.addAttribute("user", user.getNickname());
 
@@ -56,6 +59,7 @@ public class AdminController {
         return "admin/for-function/change-role";
     }
 
+    @RunningTime
     @GetMapping("manage-gather")
     public String showGatherPage(@Valid PageRequestDTO pageRequestDTO,
                                  BindingResult bindingResult, Model model){
