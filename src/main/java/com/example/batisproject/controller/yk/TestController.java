@@ -6,4 +6,8 @@ import org.springframework.stereotype.Controller;
 public class TestController {
     
 
+    public String test_t(){
+        return null;
+    }
+
 }
