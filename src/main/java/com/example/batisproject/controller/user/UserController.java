@@ -22,7 +22,6 @@ public class UserController {
     @GetMapping("/user/main")
     public String main(Model model) {
 
-
         User user = new AuthenticationForModel().getAuthentication();
 
         UserDTO userDTO = userService.existsByEmail(user.getUsername());

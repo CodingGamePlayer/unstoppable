@@ -22,7 +22,10 @@ public interface LocationMapper {
     @ResultMap("locationMap")
     List<Location> getAllSido();
 
-    @Select("select * from location where dong like '%${dong}%'")
+    @Select("select * from location where dong like '%#{dong}%'")
     @ResultMap("locationMap")
     List<Location> getAllDong(@Param("dong") String dong);
+
+    @Select("select * from location where l_id = (select l_id from user where username = #{username})")
+    Location getByUsername(String username);
 }
