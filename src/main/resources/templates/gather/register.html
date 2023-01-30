@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/user/default_layout.html}">
+
+    <!-- default_layout.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <!-- default_layout.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content">
+    <h2>테스트용 레지스터</h2>
+    ㅅㅂ?
+    <div>테스트용 레지스터</div>
+    
+    <p>아니시발</p>
+
+
+</div>
+<!--Start of Tawk.to Script-->
+
+
+<!--End of Tawk.to Script-->
+
+</html>
