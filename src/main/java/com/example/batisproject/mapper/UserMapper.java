@@ -46,7 +46,7 @@ public interface UserMapper {
 
 
 
-    // 회원 정보 수정 (해당 mapper는 수정이 필요해 보임)
+    // 회원 정보 수정
     @Update("update user set c_id = #{user.category}, l_id = #{user.location}, point = #{user.point}, role = #{user.role}" +
             " where username = #{user.username}")
     int updateUser(@Param("user") User user);

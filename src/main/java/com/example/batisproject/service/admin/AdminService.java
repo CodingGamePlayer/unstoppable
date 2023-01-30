@@ -16,6 +16,7 @@ public interface AdminService {
 
     PageResponseDTO<GatherDTO> searchGather(PageRequestDTO pageRequestDTO);
 
+    int deleteGather (GatherDTO gatherDTO);
 
 
 }

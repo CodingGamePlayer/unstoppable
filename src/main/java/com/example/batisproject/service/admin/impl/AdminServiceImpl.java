@@ -89,4 +89,18 @@ public class AdminServiceImpl implements AdminService {
 
         return pageResponseDTO;
     }
+
+    @Override
+    public int deleteGather(GatherDTO gatherDTO) {
+
+        int id = Math.toIntExact(gatherDTO.getId());
+
+        int deleted = adminGatherMapper.delete(gatherDTO);
+
+        if(!(deleted > 0))
+            return 0;
+
+        return 1;
+    }
+
 }

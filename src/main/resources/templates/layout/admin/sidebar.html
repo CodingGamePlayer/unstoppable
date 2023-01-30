@@ -131,6 +131,21 @@
             <a class="btn btn-primary btn-sm mb-0 w-100" href="#" type="button">금액 충전하기😎</a>
         </div>
     </aside>
+    <script>
+        {
 
+            const logout = document.querySelector('#side-link-logout');
+
+            logout.addEventListener("click", () => {
+                if (window.confirm('로그아웃을 정말로 하실건가요?? 🥲')) {
+                    window.location.href = "http://localhost:8888/logout"
+                } else {
+                    window.location.reload();
+                }
+            })
+
+        }
+
+    </script>
 </div>
 </html>

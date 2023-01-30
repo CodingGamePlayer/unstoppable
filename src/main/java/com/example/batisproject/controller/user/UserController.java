@@ -1,5 +1,7 @@
 package com.example.batisproject.controller.user;
 
+import com.example.batisproject.controller.AuthenticationForModel;
+import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +22,26 @@ public class UserController {
     @GetMapping("/user/main")
     public String main(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            User user = (User) authentication.getPrincipal();
 
-            model.addAttribute("user", user.getNickname());
-        }
+        User user = new AuthenticationForModel().getAuthentication();
+
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        model.addAttribute("user", userDTO);
+
         return "user/main";
     }
 
+    @GetMapping("/user/payment")
+    public String payment(Model model) {
 
+        User user = new AuthenticationForModel().getAuthentication();
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
 
+        model.addAttribute("userDTO", userDTO);
 
+        return "user/for-function/user-payment";
+    }
 
 
 }
