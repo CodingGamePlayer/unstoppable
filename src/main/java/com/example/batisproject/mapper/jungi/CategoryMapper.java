@@ -1,6 +1,7 @@
 package com.example.batisproject.mapper.jungi;
 
 
+import com.example.batisproject.dto.CategoryDTO;
 import com.example.batisproject.entity.Category;
 import org.apache.ibatis.annotations.*;
 

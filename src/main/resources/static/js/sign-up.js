@@ -113,7 +113,6 @@
         const name = document.querySelector('#username').value;
         const freeFix = document.querySelector('#freefix').value;
 
-        const checkbox = document.querySelector('#flexCheckDefault');
         const userName = document.querySelector("#username").value;
         const password = document.querySelector("#password").value;
         const nickname = document.querySelector("#nickname").value;
@@ -130,11 +129,6 @@
         }
         if (userName === "" || password === "" || nickname === "") {
             alert("모든 칸을 채워주시기 바랍니다.");
-            return;
-        }
-
-        if (!checkbox.checked) {
-            alert("약관에 동의 해주시기 바랍니다.");
             return;
         }
 

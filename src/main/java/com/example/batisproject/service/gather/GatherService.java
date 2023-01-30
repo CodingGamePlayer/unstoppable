@@ -1,5 +1,6 @@
 package com.example.batisproject.service.gather;
 
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.entity.Gather;
 
 import java.util.List;
@@ -8,14 +9,14 @@ import java.util.Optional;
 public interface GatherService {
 
 
-    List<Gather> getAll();
+    List<GatherDTO> getAll();
 
-    List<Gather> getAllByNickname(String nickname);
+    List<GatherDTO> getAllByNickname(String nickname);
 
-    int create(Gather gather);
+    int create(GatherDTO gatherDTO);
 
-    List<Gather> getByCategory(Integer category);
+    List<GatherDTO> getByCategory(Integer category);
 
-    List<Gather> getByCategoryAndNickName(Integer category, String nickname);
+    List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname);
 
 }
