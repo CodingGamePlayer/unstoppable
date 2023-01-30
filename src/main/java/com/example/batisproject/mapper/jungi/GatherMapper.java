@@ -1,5 +1,6 @@
 package com.example.batisproject.mapper.jungi;
 
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.entity.Gather;
 import org.apache.ibatis.annotations.*;
 

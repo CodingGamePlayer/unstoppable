@@ -74,6 +74,7 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.OK).body(authNum);
     }
 
+    @Operation(summary = "Payment Method", description = "결재를 진행하고 유저 정보를 변경하는 method")
     @PostMapping("/api/payment")
     public ResponseEntity<String> payment(@RequestBody UserDTO userDTO) {
 

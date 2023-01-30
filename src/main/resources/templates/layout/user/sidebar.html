@@ -161,15 +161,13 @@
             <a href="#" type="button" class="btn btn-dark btn-sm w-100 mb-3 mt-3">모임 만들기👻</a>
             <a class="btn btn-primary btn-sm mb-0 w-100" href="#" type="button" onclick="payment()">금액 충전하기😎</a>
             <div class="d-flex justify-content-xl-center mt-3">
-                <span class="badge badge-sm bg-gradient-success">Point : [[${user.point}]]</span>
+                <th:block sec:authorize="isAuthenticated()"><span class="badge badge-sm bg-gradient-success">Point : [[${user.point}]]</span></th:block>
             </div>
         </div>
     </aside>
     <script>
         {
-
             function payment() {
-
                 let option = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=600, height=800, top=200,left=0";
                 window.open("/user/payment", "_blank", option);
             }

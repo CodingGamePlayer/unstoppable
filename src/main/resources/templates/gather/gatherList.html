@@ -20,28 +20,36 @@
       <div class="card mb-4">
         <div class="card-body px-0 pt-0 pb-2">
           <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
-            <th:block th:each="category : ${categoryList}">
-              <a th:href="@{/user/gather(category=${category.getId()})}" class="btn btn-primary" th:text="${category.getDetailName()}"></a>
+        <h1 th:text="|${location.getSido()} ${location.getGugun()} ${location.getDong()}|"></h1>
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
+            <th:block th:each="categoryDTO : ${categoryList}">
+              <a th:href="@{/user/gather(category=${categoryDTO.getId()})}" class="btn btn-primary" th:text="${categoryDTO.getDetailName()}"></a>
             </th:block>
           </div>
-          <th:block th:if="${gatherList.isEmpty()}">
-            <h1>모임이 존재하지 않습니다!!</h1>
-          </th:block>
-          <th:block th:if="${gatherList != null}">
-            <div class="list-group">
-              <th:block th:each="gather : ${gatherList}">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active my-4">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1" th:text="${gather.getTitle()}"></h5>
-                    <small th:text="|시작일 : ${gather.getStartDate()}|"></small>
-                    <small th:text="|종료일 : ${gather.getEndDate()}|"></small>
-                  </div>
-                  <p class="mb-1" th:text="${gather.getContent()}"></p>
-                  <small th:text="|인원수 : ${gather.getPeopleNum()}|"></small>
-                </a>
-              </th:block>
-            </div>
-          </th:block>
+          <hr class="gatherList_hr">
+          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
+            <th:block th:if="${gatherList.isEmpty()}">
+              <h1>모임이 존재하지 않습니다!!</h1>
+            </th:block>
+            <th:block th:if="${gatherList != null}">
+              <div class="list-group">
+                <th:block th:each="gatherDTO : ${gatherList}">
+                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active my-4">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1" th:text="${gatherDTO.getTitle()}"></h5>
+                      <small th:text="|시작일 : ${#temporals.format(gatherDTO.getStartDate(), 'yyyy-MM-dd HH:mm:ss')}|"></small>
+                      <small th:text="|종료일 : ${#temporals.format(gatherDTO.getEndDate(), 'yyyy-MM-dd HH:mm:ss')}|"></small>
+                    </div>
+                    <p class="mb-1" th:text="${gatherDTO.getContent()}"></p>
+                    <small th:text="|인원수 : ${gatherDTO.getPeopleNum()}|"></small>
+                  </a>
+                </th:block>
+              </div>
+            </th:block>
+          </div>
         </div>
       </div>
     </div>

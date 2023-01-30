@@ -2,6 +2,7 @@ package com.example.batisproject.controller.jungi;
 
 
 import com.example.batisproject.controller.AuthenticationForModel;
+import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.User;
 
@@ -46,7 +47,7 @@ public class CalendarController {
         HashMap<String, Object> hash = new HashMap<>();
 
         if (authentication.isAuthenticated()) {
-            List<Gather> listAll = gatherService.getAllByNickname(user.getNickname());
+            List<GatherDTO> listAll = gatherService.getAllByNickname(user.getNickname());
             for (int i = 0; i < listAll.size(); i++) {
                 hash.put("id", listAll.get(i).getId());
                 hash.put("title", listAll.get(i).getTitle());
