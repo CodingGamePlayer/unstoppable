@@ -1,5 +1,6 @@
 package com.example.batisproject.controller.user;
 
+import com.example.batisproject.annotaion.CurrentUser;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
@@ -20,9 +21,7 @@ public class UserController {
     private UserServiceImpl userService;
 
     @GetMapping("/user/main")
-    public String main(Model model) {
-
-        User user = new AuthenticationForModel().getAuthentication();
+    public String main(Model model, @CurrentUser User user) {
 
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
 
@@ -32,9 +31,8 @@ public class UserController {
     }
 
     @GetMapping("/user/payment")
-    public String payment(Model model) {
+    public String payment(Model model, @CurrentUser User user) {
 
-        User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
 
         model.addAttribute("userDTO", userDTO);

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         log.info("==================================");
         log.info("result : " + result);
 
-        if (result == 0) {
+        if (!(result > 0)) {
             log.info("==================================");
             log.info("DB에 저장되지 않았습니다.");
             return 0;

@@ -4,6 +4,7 @@ import com.example.batisproject.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 @Component
 public class AuthenticationForModel {
@@ -14,6 +15,18 @@ public class AuthenticationForModel {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             return(User) authentication.getPrincipal();
+        }
+
+        return null;
+    }
+
+
+    public Model getAuthentication1(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = (User) authentication.getPrincipal();
+            return model.addAttribute("user", user);
         }
 
         return null;

@@ -113,15 +113,15 @@
                                             <td colspan="1">
 
                                            <span class="text-secondary text-xs font-weight-bold"
-                                                 th:text="${gathers.regDate}"/>
+                                                 th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd HH:mm:ss')}"/>
                                             </td>
                                             <td class="align-middle text-center ">
                                             <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text="${gathers.startDate}"/>
+                                                  th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd HH:mm:ss')}"/>
                                             </td>
                                             <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text="${gathers.endDate}"></span>
+                                                  th:text=" ${#temporals.format(gathers.endDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                             </td>
                                             <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"
