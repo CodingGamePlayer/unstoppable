@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
 
 @Mapper
-public class GatherMapper {
+public class Yk_gatherMapper {
     
 
 }

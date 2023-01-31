@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import com.example.batisproject.entity.Category;
 
 @Mapper
-public interface Yk_category {
+public interface Yk_categoryMapper {
     
     @Select("select*from category;")
     List<Category> getList();
