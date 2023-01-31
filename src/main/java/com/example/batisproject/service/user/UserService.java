@@ -22,4 +22,5 @@ public interface UserService {
 
     int updateUser(UserDTO userDTO);
 
+    int updateUserByLocation(UserDTO userDTO);
 }
