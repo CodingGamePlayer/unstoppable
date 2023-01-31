@@ -20,20 +20,23 @@
 
     <div class="row">
       <div class="col-md-8">
-        <div class="card">
+        <div class="card" style="height: 700px;">
           <div class="card-text-center">
             <div class="card-body" style="height: 500px;">
               <h3 class="card-title">모임 생성하기</h3>
 
               <!-- 제목 -->
-              <div class="mb-3">
-                <label>제목</label>
-                <input type="text" class="form-control">
+              <div class="input-group" style="margin-bottom: 10px;">
+                <span class="input-group-text">제목</span>
+                <input type="text" aria-label="First name" class="form-control">
+                <span class="input-group-text">참여 인원</span>
+                <input type="text" aria-label="Last name" class="form-control">
               </div>
+              
               <!-- 본문내용 -->
               <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                  style="height: 200px"></textarea>
+                  style="height: 450px"></textarea>
                 <label for="floatingTextarea2">본문 내용</label>
               </div>
               <button type="submit" class="btn btn-primary" style="margin: 25px;">작성 완료</button>
@@ -46,8 +49,8 @@
       </div>
       <div class="col-md-4">
         <div class="row">
-          <div class="col-md-4">
-            <div class="card">
+          <div class="col-md-12">
+            <div class="card" style="margin-bottom: 35px;">
               <div class="card-body">
                 <!-- 카테고리 시작 -->
                 <h3 class="card-title" style="font-size: medium;">지역</h3>
@@ -65,26 +68,72 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-12">
+              <div class="card" style="margin-bottom: 35px;">
+                <div class="card-body">
+                  <!--로케이션 시작  -->
+                  <h3 class="card-title" style="font-size: medium;">날짜</h3>
+                  <!--드랍다운  -->
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+
+                  <!-- 카테고리 시작 -->
+                  <h3 class="card-title" style="font-size: medium;">카테고리</h3>
+                  <!--드랍다운  -->
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                  <h3 class="card-title" style="font-size: medium;">사진 업로드</h3>
+                </div>
+                <div class="card-body">
+                  <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
           </div>
-          <div class="col-md-4">
-            
-          </div>
-          <div class="col-md-4">
-            tq
-          </div>
+
         </div>
 
-
-
+        <!--  -->
 
       </div>
-
     </div>
-
-    <!--  -->
-
-  </div>
-</div>
 
 
 
