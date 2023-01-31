@@ -3,6 +3,7 @@ package com.example.batisproject.mapper;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -50,6 +51,9 @@ public interface UserMapper {
     @Update("update user set c_id = #{user.category}, l_id = #{user.location}, point = #{user.point}, role = #{user.role}" +
             " where username = #{user.username}")
     int updateUser(@Param("user") User user);
+
+    @Update("update user set l_id = #{user.location} where username = #{user.username}")
+    int updateUserByLocation(@Param("user") User user);
 
     // 유저권한을 변경하기 위한 mapper
     @Update("UPDATE user SET role = #{user.role} WHERE u_id = #{user.id}")
