@@ -8,12 +8,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 public class LocationServiceImpl implements LocationService {
 
     private final LocationMapper locationMapper;
     private ModelMapper modelMapper = new ModelMapper();
+
+    @Override
+    public List<LocationDTO> getAll() {
+        return locationMapper.getAll().stream().map(location -> modelMapper.map(location, LocationDTO.class)).collect(Collectors.toList());
+    }
+
     @Override
     public LocationDTO getByUsername(String username) {
         Location location = locationMapper.getByUsername(username);

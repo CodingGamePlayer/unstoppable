@@ -90,6 +90,36 @@ public class GatherController {
         return "/";
     }
 
+    @GetMapping("/user/locationSearch")
+    public String locationSearch(Model model) {
+        // point logic
+        User user = new AuthenticationForModel().getAuthentication();
+
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        model.addAttribute("user", userDTO);
+
+        List<LocationDTO> locationList = locationService.getAll();
+        model.addAttribute("locationList", locationList);
+        return "gather/locationSearchTest";
+    }
+
+    @PostMapping("/user/locationSubmit")
+    public String locationSubmit(@RequestParam String lid , Model model) {
+        // point logic
+        User user = new AuthenticationForModel().getAuthentication();
+
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        model.addAttribute("user", userDTO);
+        log.info("-----------------------");
+        log.info("lid : " + lid);
+        List<LocationDTO> locationList = locationService.getAll();
+        model.addAttribute("locationList", locationList);
+        return "gather/locationSearchTest";
+    }
+
+
     @Autowired
     public GatherController(GatherService gatherService, CategoryService categoryService, AuthenticationForModel authenticationForModel, UserService userService, LocationService locationService) {
         this.gatherService = gatherService;
