@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chatting {
+public class GatherComment {
 
-    private Long id;    // ct_id
+    private Long id;    // gc_id
     private Long gather; // g_id
     private Long user;   // u_id
     private int role;    // 채팅 권한

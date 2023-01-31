@@ -1,4 +1,4 @@
-package com.example.batisproject.dto;
+package com.example.batisproject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChattingMessageDTO {
+@NoArgsConstructor
+public class GatherCommentMessage {
+    
     private Long id;
-    private Long chatting;  // ct_id
-    private String body;    // chatting_message
+    private Long gatherComment;  // gc_id
+    private String body;    // chatting_message (gatherCommentMessage)
     private LocalDateTime regdate;  // 생성일 (default Now())
 }
