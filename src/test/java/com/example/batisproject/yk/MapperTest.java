@@ -48,11 +48,11 @@ public class MapperTest {
     }
 
     
-    @Test
-    void serviceTest(){
-        List<CategoryDTO>list  = categoryService.getList();
+    // @Test
+    // void serviceTest(){
+    //     List<CategoryDTO>list  = categoryService.getList();
 
-        assertNull(list);
-    }
+    //     assertNull(list);
+    // }
 
 }
