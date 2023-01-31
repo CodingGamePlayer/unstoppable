@@ -18,10 +18,12 @@ public class LocationServiceImpl implements LocationService {
     private final LocationMapper locationMapper;
     private ModelMapper modelMapper = new ModelMapper();
 
+
     @Override
     public List<LocationDTO> getAll() {
         return locationMapper.getAll().stream().map(location -> modelMapper.map(location, LocationDTO.class)).collect(Collectors.toList());
     }
+
 
     @Override
     public LocationDTO getByUsername(String username) {

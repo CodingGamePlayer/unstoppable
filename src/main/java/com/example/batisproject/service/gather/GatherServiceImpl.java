@@ -23,6 +23,7 @@ public class GatherServiceImpl implements GatherService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+
     @Override
     public List<GatherDTO> getAll() {
         return gatherMapper.getAll().stream()
@@ -33,6 +34,7 @@ public class GatherServiceImpl implements GatherService {
     @Override
     public List<GatherDTO> getAllByLocation(Integer location) {
         return gatherMapper.getAllByLocation(location).stream().map(gather -> modelMapper.map(gather, GatherDTO.class)).collect(Collectors.toList());
+
     }
 
     @Override
