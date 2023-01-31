@@ -90,6 +90,7 @@ public class GatherController {
         return "/";
     }
 
+
     @GetMapping("/user/locationSearch")
     public String locationSearch(Model model) {
         // point logic
@@ -118,6 +119,7 @@ public class GatherController {
         model.addAttribute("locationList", locationList);
         return "gather/locationSearchTest";
     }
+
 
 
     @Autowired
