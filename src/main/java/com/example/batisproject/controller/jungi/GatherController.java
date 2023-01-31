@@ -48,9 +48,9 @@ public class GatherController {
         List<GatherDTO> gatherList;
         LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
         if(category == null) {
-            gatherList = gatherService.getAll();
+            gatherList = gatherService.getAllOtherList(user.getNickname(), user.getLocation());
         } else{
-            gatherList = gatherService.getByCategory(category);
+            gatherList = gatherService.getAllOtherList(category, user.getNickname(), user.getLocation());
         }
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
@@ -72,9 +72,9 @@ public class GatherController {
         List<GatherDTO> gatherList;
 
         if(category == null) {
-            gatherList = gatherService.getAllByNickname(user.getNickname());
+            gatherList = gatherService.getAllMyList(user.getNickname(), user.getLocation());
         } else {
-            gatherList = gatherService.getByCategoryAndNickName(category, user.getNickname());
+            gatherList = gatherService.getAllMyList(category, user.getNickname(), user.getLocation());
         }
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);

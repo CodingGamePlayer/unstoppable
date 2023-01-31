@@ -25,6 +25,8 @@ public class Gather {
     private LocalDateTime startDate;
     @DateTimeFormat(pattern = "yyyy. MM. dd. HH:mm:ss")
     private LocalDateTime endDate;
+    @DateTimeFormat(pattern = "yyyy. MM. dd. HH:mm:ss")
+    private LocalDateTime modifyDate;
     private boolean allDay;
     private String textColor;
     private String backgroundColor;

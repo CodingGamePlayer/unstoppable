@@ -70,6 +70,32 @@ public class GatherServiceImpl implements GatherService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<GatherDTO> getAllMyList(Integer category, String nickname, int location) {
+        return gatherMapper.getAllMyList(category, nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GatherDTO> getAllMyList(String nickname, int location) {
+        return gatherMapper.getAllMyList(nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<GatherDTO> getAllOtherList(Integer category, String nickname, int location) {
+        return gatherMapper.getAllOtherList(category, nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<GatherDTO> getAllOtherList(String nickname, int location) {
+        return gatherMapper.getAllOtherList(nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Autowired
     public GatherServiceImpl(GatherMapper gatherMapper) {
         this.gatherMapper = gatherMapper;
