@@ -10,17 +10,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.batisproject.dto.CategoryDTO;
 import com.example.batisproject.entity.Category;
 import com.example.batisproject.entity.Location;
 import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.yk.Yk_categoryMapper;
 import com.example.batisproject.mapper.yk.Yk_locationMapper;
+import com.example.batisproject.service.yk.Yk_categoryService;
+import com.example.batisproject.service.yk.impl.Yk_categoryServiceImpl;
 
 
 
 @SpringBootTest
 public class MapperTest {
     
+    @Autowired
+    Yk_categoryService categoryService;
+
     @Autowired
     Yk_locationMapper locationMapper;
 
@@ -42,6 +48,11 @@ public class MapperTest {
     }
 
     
+    @Test
+    void serviceTest(){
+        List<CategoryDTO>list  = categoryService.getList();
 
+        assertNull(list);
+    }
 
 }
