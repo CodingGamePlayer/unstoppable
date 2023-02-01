@@ -22,9 +22,7 @@ public class yk_GatherController {
     @GetMapping("/user/gather/register")
     public String regiser(Model model){
         User user = new AuthenticationForModel().getAuthentication();
-
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
         model.addAttribute("user", userDTO);
 
         System.out.println("레즈스터 컨트롤 진입 성공");
