@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class DebuggingAspect {
 
     //대상 메소드 선택
-    @Pointcut("execution(* com.example.batisproject.controller.admin.AdminController.*(..))")
+
+    @Pointcut("execution(* com.example.batisproject.controller..*.*(..))")
     private void cut() {}
 
     // 실행시점 이전 : cut()의 대상이 수행되기 이전에 수행

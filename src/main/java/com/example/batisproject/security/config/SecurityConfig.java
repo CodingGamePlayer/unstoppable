@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         web.ignoring().requestMatchers(new AntPathRequestMatcher("/fonts/"));
-
+        web.ignoring().antMatchers("/api-doc",  "/configuration/ui","/swagger-resources", "/configuration/security","/swagger-ui.html", "/webjars/**","/swagger/**");
+        web.ignoring().antMatchers("/**/*.svg", "/favicon.ico", "/**/*.png", "/**/*.gif","/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css","/**/*.js");
     }
 
     @Override
@@ -63,8 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/login/**", "/api/**", "/signup","/**/*.svg", "/favicon.ico", "/**/*.png", "/**/*.gif","/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css","/**/*.js").permitAll()
-                .antMatchers("/api-doc",  "/configuration/ui","/swagger-resources", "/configuration/security","/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
+                .antMatchers("/","/login/**", "/api/**", "/signup").permitAll()
                 .antMatchers("/user/**","/articles", "/article/**").access("hasRole('USER') or hasRole('ADMIN')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
