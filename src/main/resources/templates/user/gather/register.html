@@ -72,19 +72,13 @@
               <div class="card" style="margin-bottom: 35px;">
                 <div class="card-body">
                   <!--로케이션 시작  -->
+                  
+                  <div th:replace="yk/tq.html :: location">
+
+                  </div>
                   <h3 class="card-title" style="font-size: medium;">날짜</h3>
                   <!--드랍다운  -->
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -95,17 +89,21 @@
                   <!-- 카테고리 시작 -->
                   <h3 class="card-title" style="font-size: medium;">카테고리</h3>
                   <!--드랍다운  -->
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </div>
+                 
+                    
+                    <!-- <ul class="dropdown-menu"> -->
+                      <select name="detailName" class="form-select">
+
+                        <th:block th:each="category : ${categoryList}">
+                          <option th:text="${category.detailName}"></option>
+                        </th:block>
+                        
+                      </select>
+
+                      
+                      
+                    <!-- </ul> -->
+                  
                 </div>
               </div>
             </div>
@@ -134,7 +132,6 @@
 
       </div>
     </div>
-
 
 
 

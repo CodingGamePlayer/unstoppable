@@ -5,7 +5,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-// import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Configuration;
@@ -26,16 +26,22 @@ public class Yk_categoryServiceImpl implements Yk_categoryService {
     @Autowired
     private ModelMapper modelMapper;
     
-    // private ModelMapper modelMapper = new ModelMapper();
+    
 
+
+    //카테고리 리스트 불러오기
     @Override
     public List<CategoryDTO> getList() {
         
-        // List<Category>list= categoryMapper.getList();
-        // list.stream()
+        // List<Category>listEntity= categoryMapper.getList();
+        
+
+        // List<CategoryDTO> listDTO = listEntity.stream()
         // .map(category->modelMapper.map(category, CategoryDTO.class))
         // .collect(Collectors.toList());
-        // return null;
+
+        
+        // return listDTO;
  
         return categoryMapper.getList().stream()
         .map(category-> modelMapper.map(category, CategoryDTO.class))
