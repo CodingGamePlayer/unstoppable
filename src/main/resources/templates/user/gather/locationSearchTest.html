@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content">
+
+
+
+
+          <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">지역정보 선택</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="#" th:action="@{locationSubmit}" method="post" id="locationSubmit">
+                    <div class="form-group">
+                      <label for="place">관심지역을 선택해주세요</label>
+                      <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
+                      <div class="alert-custom alert-light mt-2" role="alert">
+                        주소를 정확히 입력해주세요.
+                      </div>
+                      <datalist id="place-list">
+                        <select>
+                          <option th:each="location : ${locationList}"
+                                  th:value="${location.getDong()}"
+                                  th:label="|(${location.getSido()} ${location.getGugun()}) |"
+                                  th:data="${location.getId()}">
+                          </option>
+                        </select>
+                      </datalist>
+                      <input type="hidden" name="lid" id="place-hidden">
+                    </div>
+                    <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelector('.alert-custom').style.display = "none";
+      let myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {})
+      myModal.toggle()
+    });
+    let hiddenValue;
+    let inputValue;
+
+    document.querySelector('input[list]').addEventListener('input', function(e) {
+      document.querySelector('.alert-custom').style.display = "none";
+      hiddenValue = null;
+      let input = e.target,
+              list = input.getAttribute('list'),
+              options = document.querySelectorAll('#' + list + ' option'),
+              hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+              label = input.value;
+
+      hiddenInput.value = label;
+      inputValue = label;
+
+      for(let i = 0; i < options.length; i++) {
+        let option = options[i];
+
+        if(option.value === label) {
+          hiddenInput.value = option.getAttribute('data');
+          hiddenValue = hiddenInput.value;
+          console.log("hidden value :" + hiddenValue);
+          break;
+        }
+      }
+    });
+
+    document.getElementById('locationSubmit').addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      let inputPlace = document.getElementById('place');
+      inputValue = inputPlace.value;
+      if (!isNotEmpty(inputValue) || !isNotEmpty(hiddenValue)) {
+        document.querySelector('.alert-custom').style.display = "block";
+        this.focus();
+      } else if(isNotEmpty(inputValue) && Number.isInteger(hiddenValue)) {
+        console.log(inputValue);
+        console.log(hiddenValue);
+      }
+    });
+
+    function isNotEmpty(str){
+      if(typeof str == "undefined" || str == null || str == "")
+        return false;
+      else
+        return true ;
+    }
+
+  </script>
+</div>
+</html>

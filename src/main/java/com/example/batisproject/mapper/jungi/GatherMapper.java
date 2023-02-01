@@ -10,7 +10,7 @@ import java.util.Optional;
 @Mapper
 public interface GatherMapper {
 
-    @Select("Select * from gather")
+    @Select("Select * from gather where enddate > now() order by g_id desc")
     @Results(id = "gatherMap", value = {
             @Result(property = "id", column = "g_id"),
             @Result(property = "user", column = "u_id"),
@@ -31,23 +31,52 @@ public interface GatherMapper {
     })
     List<Gather> getAll();
 
+    @Select("select * from gather where l_id = #{location} and enddate > now() order by g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllByLocation(Integer location);
 
-    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) order by g_id desc")
+
+    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
     @ResultMap("gatherMap")
     List<Gather> getAllByNickname(@Param("nickname") String nickname);
 
-
-    @Insert("INSERT INTO gather (u_id, l_id, c_id, title, content, startdate, enddate, allday, people_num, point) values " +
-            " (#{gather.user}, #{gather.location}, #{gather.category}, #{gather.title}, #{gather.content}, #{gather.startDate}, #{gather.endDate}, #{gather.allDay}," +
+    @Insert("INSERT INTO gather (u_id, l_id, c_id, title, content, startdate, enddate, people_num, point) values " +
+            " (#{gather.user}, #{gather.location}, #{gather.category}, #{gather.title}, #{gather.content}, #{gather.startDate}, #{gather.endDate}," +
             " #{gather.peopleNum}, #{gather.point})")
     @Options(useGeneratedKeys = true, keyProperty = "id") // 입력할 때 생성된 id를 바로 반환함.
     int insert(@Param("gather") Gather gather);
 
-    @Select("select * from gather where c_id = #{category} order by g_id desc")
+    @Select("select * from gather where l_id = #{location} and enddate > now() order by g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllByLocation(Integer location);
+
+    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllByNickname(@Param("nickname") String nickname);
+
+    @Select("select * from gather where c_id = #{category} and enddate > now() order by g_id desc")
     @ResultMap("gatherMap")
     List<Gather> getByCategory(Integer category);
 
-    @Select("select * from gather where c_id = #{category} and u_id = (select u_id from user where nickname = #{nickname}) order by g_id desc")
+    @Select("select * from gather where c_id = #{category} and u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
     @ResultMap("gatherMap")
     List<Gather> getByCategoryAndNickname(Integer category, String nickname);
+
+
+    @Select("select * from gather g RIGHT join gather_comment gc on g.g_id = gc.g_id where gc.u_id = " +
+            "(select u_id from user where nickname = #{nickname}) g.enddate > now() and l_id = #{location} and c_id = #{category} order by g.g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllMyList(Integer category, String nickname, int location);
+    @Select("select * from gather g RIGHT join gather_comment gc on g.g_id = gc.g_id where gc.u_id = " +
+            "(select u_id from user where nickname = #{nickname}) g.enddate > now() and l_id = #{location} order by g.g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllMyList(String nickname, int location);
+    @Select("select * from gather g where g_id NOT IN (select g_id from gather_comment gc where u_id = " +
+            "(select u_id from user where nickname = #{nickname})) and enddate > now() and l_id = #{location} and c_id = #{category} order by g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllOtherList(Integer category, String nickname, int location);
+    @Select("select * from gather g where g_id NOT IN (select g_id from gather_comment gc where u_id = " +
+            "(select u_id from user where nickname = #{nickname})) and enddate > now() and l_id = #{location} order by g_id desc")
+    @ResultMap("gatherMap")
+    List<Gather> getAllOtherList(String nickname, int location);
 }

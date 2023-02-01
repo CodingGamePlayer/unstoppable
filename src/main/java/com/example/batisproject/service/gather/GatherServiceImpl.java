@@ -23,11 +23,18 @@ public class GatherServiceImpl implements GatherService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+
     @Override
     public List<GatherDTO> getAll() {
         return gatherMapper.getAll().stream()
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GatherDTO> getAllByLocation(Integer location) {
+        return gatherMapper.getAllByLocation(location).stream().map(gather -> modelMapper.map(gather, GatherDTO.class)).collect(Collectors.toList());
+
     }
 
     @Override
@@ -61,6 +68,32 @@ public class GatherServiceImpl implements GatherService {
     @Override
     public List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname) {
         return gatherMapper.getByCategoryAndNickname(category, nickname).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GatherDTO> getAllMyList(Integer category, String nickname, int location) {
+        return gatherMapper.getAllMyList(category, nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GatherDTO> getAllMyList(String nickname, int location) {
+        return gatherMapper.getAllMyList(nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<GatherDTO> getAllOtherList(Integer category, String nickname, int location) {
+        return gatherMapper.getAllOtherList(category, nickname, location).stream()
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<GatherDTO> getAllOtherList(String nickname, int location) {
+        return gatherMapper.getAllOtherList(nickname, location).stream()
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
     }

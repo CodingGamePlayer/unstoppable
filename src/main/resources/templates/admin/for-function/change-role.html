@@ -22,86 +22,96 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-100" style="overflow: hidden;">
-<div class="row d-flex justify-content-center">
-    <div class="col-sm-10 mt-3">
+
+<div class="card">
+    <div class="card-header">
         <h3>[[${user.username}]]님의 정보</h3>
-        <form>
-            <div class="form-group">
-                <label for="username" class="form-control-label">이메일</label>
-                <input class="form-control" type="text" th:value="${user.username}" id="username" disabled>
-            </div>
-            <div class="form-group">
-                <label for="nickname" class="form-control-label">닉네임</label>
-                <input class="form-control" type="search" th:value="${user.nickname}" id="nickname"
-                       disabled>
-            </div>
-            <div class="form-group">
-                <label for="role" class="form-control-label">계정권한</label>
-                <select class="form-control" id="role">
-                    <option>ROLE_USER</option>
-                    <option>ROLE_ADMIN</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="point" class="form-control-label">포인트</label>
-                <input class="form-control" type="url" th:value="${user.point}" id="point" disabled>
-            </div>
-            <input type="hidden" th:value="${user.category}" id="category"/>
-            <input type="hidden" th:value="${user.location}" id="location"/>
-            <input type="hidden" th:value="${user.id}" id="userid">
-            <div class="row mt-5">
-                <div class="col-sm-5"></div>
-                <div class="col-sm-3">
+    </div>
+    <div class="card-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-10 ">
+                <form>
+                    <div class="form-group">
+                        <label for="username" class="form-control-label">이메일</label>
+                        <input class="form-control" type="text" th:value="${user.username}" id="username" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="nickname" class="form-control-label">닉네임</label>
+                        <input class="form-control" type="search" th:value="${user.nickname}" id="nickname"
+                               disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="form-control-label">계정권한</label>
+                        <select class="form-control" id="role">
+                            <option>ROLE_USER</option>
+                            <option>ROLE_ADMIN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="point" class="form-control-label">포인트</label>
+                        <input class="form-control" type="url" th:value="${user.point}" id="point" disabled>
+                    </div>
+                    <input type="hidden" th:value="${user.category}" id="category"/>
+                    <input type="hidden" th:value="${user.location}" id="location"/>
+                    <input type="hidden" th:value="${user.id}" id="userid">
+                    <div class="row mt-5">
+                        <div class="col-sm-5"></div>
+                        <div class="col-sm-3">
 
-                    <button type="button" class="btn bg-gradient-primary" onclick="changeRole()">수정하기</button>
-                </div>
-                <div class="col-sm-4"></div>
-            </div>
+                            <button type="button" class="btn bg-gradient-primary" onclick="changeRole()">수정하기</button>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
 
-        </form>
+                </form>
 
-        <script>
-            {
-                function changeRole() {
-                    const username1 = document.querySelector('#username').value;
-                    const nickname1 = document.querySelector('#nickname').value;
-                    const role1 = document.querySelector('#role').value;
-                    const point1 = document.querySelector('#point').value;
-                    const userid = document.querySelector('#userid').value;
+                <script>
+                    {
+                        function changeRole() {
+                            const username1 = document.querySelector('#username').value;
+                            const nickname1 = document.querySelector('#nickname').value;
+                            const role1 = document.querySelector('#role').value;
+                            const point1 = document.querySelector('#point').value;
+                            const userid = document.querySelector('#userid').value;
 
 
-                    const user = {
-                        username : username1,
-                        nickname : nickname1,
-                        role : role1,
-                        point : point1,
-                        id : userid
+                            const user = {
+                                username : username1,
+                                nickname : nickname1,
+                                role : role1,
+                                point : point1,
+                                id : userid
+
+                            }
+
+                            const url = "/api/admin/user-role";
+
+                            fetch(url, {
+                                method : "PUT",
+                                body : JSON.stringify(user),
+                                headers : {
+                                    "Content-Type" : "application/json"
+                                }
+                            }).then(response => {
+                                if (response.ok){
+                                    alert("정보가 수정되었습니다.");
+                                    opener.location.reload();
+                                    window.close();
+                                }
+                            }).catch(() => alert("정보수정에 실패하였습니다."));
+                        }
 
                     }
+                </script>
 
-                    const url = "/api/admin/user-role";
+            </div>
 
-                    fetch(url, {
-                        method : "PUT",
-                        body : JSON.stringify(user),
-                        headers : {
-                            "Content-Type" : "application/json"
-                        }
-                    }).then(response => {
-                       if (response.ok){
-                           alert("정보가 수정되었습니다.");
-                           opener.location.reload();
-                           window.close();
-                       }
-                    }).catch(() => alert("정보수정에 실패하였습니다."));
-                }
-
-            }
-        </script>
+        </div>
 
     </div>
-
 </div>
+
+
 
 <!--   Core JS Files   -->
 <script src="../assets/js/core/popper.min.js"></script>

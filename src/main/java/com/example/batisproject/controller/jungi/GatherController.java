@@ -48,9 +48,9 @@ public class GatherController {
         List<GatherDTO> gatherList;
         LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
         if(category == null) {
-            gatherList = gatherService.getAll();
+            gatherList = gatherService.getAllOtherList(user.getNickname(), user.getLocation());
         } else{
-            gatherList = gatherService.getByCategory(category);
+            gatherList = gatherService.getAllOtherList(category, user.getNickname(), user.getLocation());
         }
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
@@ -72,9 +72,9 @@ public class GatherController {
         List<GatherDTO> gatherList;
 
         if(category == null) {
-            gatherList = gatherService.getAllByNickname(user.getNickname());
+            gatherList = gatherService.getAllMyList(user.getNickname(), user.getLocation());
         } else {
-            gatherList = gatherService.getByCategoryAndNickName(category, user.getNickname());
+            gatherList = gatherService.getAllMyList(category, user.getNickname(), user.getLocation());
         }
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
@@ -89,6 +89,38 @@ public class GatherController {
 
         return "/";
     }
+
+
+    @GetMapping("/user/locationSearch")
+    public String locationSearch(Model model) {
+        // point logic
+        User user = new AuthenticationForModel().getAuthentication();
+
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        model.addAttribute("user", userDTO);
+
+        List<LocationDTO> locationList = locationService.getAll();
+        model.addAttribute("locationList", locationList);
+        return "gather/locationSearchTest";
+    }
+
+    @PostMapping("/user/locationSubmit")
+    public String locationSubmit(@RequestParam String lid , Model model) {
+        // point logic
+        User user = new AuthenticationForModel().getAuthentication();
+
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        model.addAttribute("user", userDTO);
+        log.info("-----------------------");
+        log.info("lid : " + lid);
+        List<LocationDTO> locationList = locationService.getAll();
+        model.addAttribute("locationList", locationList);
+        return "gather/locationSearchTest";
+    }
+
+
 
     @Autowired
     public GatherController(GatherService gatherService, CategoryService categoryService, AuthenticationForModel authenticationForModel, UserService userService, LocationService locationService) {
