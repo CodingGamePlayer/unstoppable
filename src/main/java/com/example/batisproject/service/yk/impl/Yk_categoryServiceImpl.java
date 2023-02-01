@@ -1,6 +1,8 @@
 package com.example.batisproject.service.yk.impl;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 // import org.modelmapper.ModelMapper;
@@ -29,15 +31,16 @@ public class Yk_categoryServiceImpl implements Yk_categoryService {
     @Override
     public List<CategoryDTO> getList() {
         
-        List<Category>list= categoryMapper.getList();
-
-        
-
-        // return categoryMapper.getList().stream()
-        // .map(category-> modelMapper.map(category, CategoryDTO.class))
+        // List<Category>list= categoryMapper.getList();
+        // list.stream()
+        // .map(category->modelMapper.map(category, CategoryDTO.class))
         // .collect(Collectors.toList());
+        // return null;
+ 
+        return categoryMapper.getList().stream()
+        .map(category-> modelMapper.map(category, CategoryDTO.class))
+        .collect(Collectors.toList());
 
-        return null;
     }
 
     
