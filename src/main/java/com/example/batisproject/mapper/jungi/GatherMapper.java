@@ -47,14 +47,6 @@ public interface GatherMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id") // 입력할 때 생성된 id를 바로 반환함.
     int insert(@Param("gather") Gather gather);
 
-    @Select("select * from gather where l_id = #{location} and enddate > now() order by g_id desc")
-    @ResultMap("gatherMap")
-    List<Gather> getAllByLocation(Integer location);
-
-    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
-    @ResultMap("gatherMap")
-    List<Gather> getAllByNickname(@Param("nickname") String nickname);
-
     @Select("select * from gather where c_id = #{category} and enddate > now() order by g_id desc")
     @ResultMap("gatherMap")
     List<Gather> getByCategory(Integer category);

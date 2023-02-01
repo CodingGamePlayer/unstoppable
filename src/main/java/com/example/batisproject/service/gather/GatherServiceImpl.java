@@ -23,7 +23,6 @@ public class GatherServiceImpl implements GatherService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-
     @Override
     public List<GatherDTO> getAll() {
         return gatherMapper.getAll().stream()
