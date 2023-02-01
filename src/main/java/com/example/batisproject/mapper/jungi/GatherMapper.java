@@ -21,6 +21,7 @@ public interface GatherMapper {
             @Result(property = "regDate", column = "regdate"),
             @Result(property = "startDate", column = "startdate"),
             @Result(property = "endDate", column = "enddate"),
+            @Result(property = "modifyDate", column = "modifydate"),
             @Result(property = "allDay", column = "allday"),
             @Result(property = "textColor", column = "textColor"),
             @Result(property = "backgroundColor", column = "backgroundColor"),
@@ -57,7 +58,7 @@ public interface GatherMapper {
     @Select("select * from gather g RIGHT join gather_comment gc on g.g_id = gc.g_id where gc.u_id = " +
             "(select u_id from user where nickname = #{nickname}) g.enddate > now() and l_id = #{location} and c_id = #{category} order by g.g_id desc")
     @ResultMap("gatherMap")
-    List<Gather> getAllMyList(Integer category, String nickname, int location);
+    List<Gather> getAllMyListByCategoryNicknameLocation(Integer category, String nickname, int location);
     @Select("select * from gather g RIGHT join gather_comment gc on g.g_id = gc.g_id where gc.u_id = " +
             "(select u_id from user where nickname = #{nickname}) g.enddate > now() and l_id = #{location} order by g.g_id desc")
     @ResultMap("gatherMap")
@@ -65,7 +66,7 @@ public interface GatherMapper {
     @Select("select * from gather g where g_id NOT IN (select g_id from gather_comment gc where u_id = " +
             "(select u_id from user where nickname = #{nickname})) and enddate > now() and l_id = #{location} and c_id = #{category} order by g_id desc")
     @ResultMap("gatherMap")
-    List<Gather> getAllOtherList(Integer category, String nickname, int location);
+    List<Gather> getAllOtherListByCategoryNicknameLocation(Integer category, String nickname, int location);
     @Select("select * from gather g where g_id NOT IN (select g_id from gather_comment gc where u_id = " +
             "(select u_id from user where nickname = #{nickname})) and enddate > now() and l_id = #{location} order by g_id desc")
     @ResultMap("gatherMap")
