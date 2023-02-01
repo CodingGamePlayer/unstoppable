@@ -74,13 +74,11 @@ public class GatherServiceImpl implements GatherService {
 
     @Override
     public List<GatherDTO> getAllMyList(Integer category, String nickname, int location) {
-<<<<<<< HEAD
-        return gatherMapper.getAllMyList(category, nickname, location).stream()
-=======
+
 
         return gatherMapper.getAllMyListByCategoryNicknameLocation(category, nickname, location).stream()
 
->>>>>>> 8b0f756493091f967ba493abd4c98660a9c0bbaa
+
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
     }
@@ -93,13 +91,10 @@ public class GatherServiceImpl implements GatherService {
     }
     @Override
     public List<GatherDTO> getAllOtherList(Integer category, String nickname, int location) {
-<<<<<<< HEAD
-        return gatherMapper.getAllOtherList(category, nickname, location).stream()
-=======
+
 
         return gatherMapper.getAllOtherListByCategoryNicknameLocation(category, nickname, location).stream()
 
->>>>>>> 8b0f756493091f967ba493abd4c98660a9c0bbaa
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
     }
