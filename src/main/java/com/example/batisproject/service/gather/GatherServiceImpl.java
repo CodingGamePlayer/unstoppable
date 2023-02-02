@@ -74,8 +74,10 @@ public class GatherServiceImpl implements GatherService {
                 .collect(Collectors.toList());
     }
 
+
     private PageResponseDTO<GatherDTO> getGatherDTOPageResponseDTO(PageRequestDTO pageRequestDTO, List<Gather> gathers) {
         List<GatherDTO> dtoList = gathers.stream()
+
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
 
@@ -93,8 +95,13 @@ public class GatherServiceImpl implements GatherService {
     @Override
     public PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO) {
 
+
+
+        
+
         List<Gather> gathers = gatherMapper.selectMyList(pageRequestDTO);
         return getGatherDTOPageResponseDTO(pageRequestDTO, gathers);
+
     }
 
     @Override

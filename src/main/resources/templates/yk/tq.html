@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div th:fragment="location">
+            
+        <form action="#" th:action="@{locationSubmit}" method="post" id="locationSubmit">
+            <div class="form-group">
+              <label for="place">관심지역을 선택해주세요</label>
+              <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
+              <div class="alert-custom alert-light mt-2" role="alert">
+                주소를 정확히 입력해주세요.
+              </div>
+              <datalist id="place-list">
+                <select>
+                  <option th:each="location : ${locationList}"
+                  th:value="${location.getDong()}"
+                          th:label="|(${location.getSido()} ${location.getGugun()}) |"
+                          th:data="${location.getId()}">
+                  </option>
+                </select>
+              </datalist>
+              <input type="hidden" name="lid" id="place-hidden">
+            </div>
+            <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
+          </form>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              document.querySelector('.alert-custom').style.display = "none";
+              let myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {})
+              myModal.toggle()
+            });
+            let hiddenValue;
+            let inputValue;
+        
+            document.querySelector('input[list]').addEventListener('input', function(e) {
+              document.querySelector('.alert-custom').style.display = "none";
+              hiddenValue = null;
+              let input = e.target,
+                      list = input.getAttribute('list'),
+                      options = document.querySelectorAll('#' + list + ' option'),
+                      hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                      label = input.value;
+        
+              hiddenInput.value = label;
+              inputValue = label;
+        
+              for(let i = 0; i < options.length; i++) {
+                let option = options[i];
+        
+                if(option.value === label) {
+                  hiddenInput.value = option.getAttribute('data');
+                  hiddenValue = hiddenInput.value;
+                  console.log("hidden value :" + hiddenValue);
+                  break;
+                }
+              }
+            });
+        
+            document.getElementById('locationSubmit').addEventListener('submit', (e)=>{
+              e.preventDefault();
+        
+              let inputPlace = document.getElementById('place');
+              inputValue = inputPlace.value;
+              if (!isNotEmpty(inputValue) || !isNotEmpty(hiddenValue)) {
+                document.querySelector('.alert-custom').style.display = "block";
+                this.focus();
+              } else if(isNotEmpty(inputValue) && Number.isInteger(hiddenValue)) {
+                console.log(inputValue);
+                console.log(hiddenValue);
+              }
+            });
+        
+            function isNotEmpty(str){
+              if(typeof str == "undefined" || str == null || str == "")
+                return false;
+              else
+                return true ;
+            }
+        
+          </script>
+     </div>
+
+</body>
+
+</html>

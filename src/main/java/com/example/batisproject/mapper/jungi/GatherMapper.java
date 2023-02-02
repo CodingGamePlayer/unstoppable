@@ -62,5 +62,4 @@ public interface GatherMapper {
 
     List<Gather> selectOtherList(PageRequestDTO pageRequestDTO);
 
-
 }
