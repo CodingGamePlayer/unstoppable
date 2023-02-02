@@ -12,8 +12,6 @@ import com.example.batisproject.entity.Location;
 
 @Mapper
 public interface Yk_locationMapper {
-    
-
 
     @Select("select*from location;")
     @Results(id="locationMap",value = {
