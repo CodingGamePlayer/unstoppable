@@ -10,9 +10,9 @@
     
     <div th:fragment="location">
             
-        <form action="#" th:action="@{locationSubmit}" method="post" id="locationSubmit">
+        
             <div class="form-group">
-              <label for="place">관심지역을 선택해주세요</label>
+              <label for="place">해당모임의 장소 선택</label>
               <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
               <div class="alert-custom alert-light mt-2" role="alert">
                 주소를 정확히 입력해주세요.
@@ -28,8 +28,8 @@
               </datalist>
               <input type="hidden" name="lid" id="place-hidden">
             </div>
-            <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
-          </form>
+            
+          
 
           <script>
             document.addEventListener('DOMContentLoaded', function () {

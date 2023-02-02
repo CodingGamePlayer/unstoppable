@@ -17,100 +17,115 @@
 
 
   <div class="container">
-
+<form action="/register222" method="get">
     <div class="row">
-      <div class="col-md-8">
-        <div class="card" style="height: 700px;">
-          <div class="card-text-center">
-            <div class="card-body" style="height: 500px;">
-              <h3 class="card-title">모임 생성하기</h3>
+      
+        <div class="col-md-8">
+          <div class="card" style="height: 700px;">
+            <div class="card-text-center">
+              <div class="card-body" style="height: 500px;">
+                <h3 class="card-title">모임 생성하기</h3>
 
-              <!-- 제목 -->
-              <div class="input-group" style="margin-bottom: 10px;">
-                <span class="input-group-text">제목</span>
-                <input type="text" class="form-control" name="title">
-                <span class="input-group-text">참여 인원</span>
-                <input type="text" class="form-control" name="peopleNum">
-              </div>
-              
-              <!-- 본문내용 -->
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                  style="height: 450px"></textarea>
-                <label for="floatingTextarea2">본문 내용</label>
-              </div>
-              <button type="submit" class="btn btn-primary" style="margin: 25px;">작성 완료</button>
+                <!-- 제목 -->
+                <div class="input-group" style="margin-bottom: 10px;">
+                  <span class="input-group-text">제목</span>
+                  <input type="text" class="form-control" name="title" required>
+                  <span class="input-group-text">참여 인원</span>
+                  <input type="number" class="form-control" name="peopleNum" placeholder="숫자만 입력가능">
+                </div>
+                
+                <!-- 본문내용 -->
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                    style="height: 450px" name="content" required></textarea>
+                  <label for="floatingTextarea2">본문 내용</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="input-group" style="margin-top: 15px;">
+                      <span class="input-group-text">참여포인트</span>
+                      <input type="number" class="form-control" name="point" placeholder="모임참여시 필요한 금액을 숫자로 입력" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 offset-md-2">
+                    <button type="submit" class="btn btn-primary" style="margin: 25px;">작성 완료</button>
+                  </div>
+                </div>
+                
 
+              </div>
             </div>
+
+            <!--  -->
           </div>
-
-          <!--  -->
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card" style="margin-bottom: 35px;">
-              <div class="card-body">
-                <h3 class="card-title" style="font-size: medium;"> 날 짜 넣기</h3>
-                <!-- 자바스크립트 날짜 데이터 -->
-                <div id="dateScript">
-
-                </div>  
-              </div>
-            </div>
+        <div class="col-md-4">
+          <div class="row">
             <div class="col-md-12">
               <div class="card" style="margin-bottom: 35px;">
                 <div class="card-body">
-                  <h3 class="card-title" style="font-size: medium;">모임지역 선택</h3>
-                  <!--로케이션 시작, 조각내서 불러옴  -->
-                  <div th:replace="yk/tq.html :: location">
+                  <h3 class="card-title" style="font-size: medium;"> 날 짜 넣기</h3>
+                  <!-- 자바스크립트 날짜 데이터 -->
+                  <div id="dateScript">
 
+                  </div>  
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card" style="margin-bottom: 35px;">
+                  <div class="card-body">
+                    <h3 class="card-title" style="font-size: medium;">모임지역 선택</h3>
+                    <!--로케이션 시작, 조각내서 불러옴  -->
+                    <div th:replace="yk/tq.html :: location">
+
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
 
-                  <!-- 카테고리 시작 -->
-                  <h3 class="card-title" style="font-size: medium;">카테고리</h3>
+                    <!-- 카테고리 시작 -->
+                    <h3 class="card-title" style="font-size: medium;">카테고리</h3>
+                      
+                        <select name="detailName" class="form-select">
+                          <th:block th:each="category : ${categoryList}">
+                            <option th:text="${category.detailName}"></option>
+                          </th:block>
+                        </select>
                     
-                      <select name="detailName" class="form-select">
-                        <th:block th:each="category : ${categoryList}">
-                          <option th:text="${category.detailName}"></option>
-                        </th:block>
-                      </select>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="card" style="margin-top: 30px;">
-                <div class="card-header">
-                  <h3 class="card-title" style="font-size: medium;">사진 업로드</h3>
-                </div>
-                <div class="card-body">
-                  <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
                   </div>
                 </div>
               </div>
+              <div class="col-md-12">
+                <div class="card" style="margin-top: 30px;">
+                  <div class="card-header">
+                    <h3 class="card-title" style="font-size: medium;">사진 업로드</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="input-group mb-3">
+                      <input type="file" name="file" class="form-control" id="inputGroupFile02">
+                      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
 
             </div>
-
-
 
           </div>
 
+          <!--  -->
+          
         </div>
-
-        <!--  -->
         
-      </div>
     </div>
+  </form>
+  </div>  
 <script>
   let today = new Date();
 
@@ -147,6 +162,7 @@
 				tagArea.appendChild(insertTag2);
 
 </script>
+
 
 
 
