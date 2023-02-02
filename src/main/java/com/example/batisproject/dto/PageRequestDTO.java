@@ -37,6 +37,9 @@ public class PageRequestDTO {
 
     private LocalDate to;
 
+    private Integer category;
+    private String nickname;
+    private int location;
 
     public int getSkip() {
         return (page-1) * 10;

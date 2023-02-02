@@ -4,7 +4,7 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.batisproject.mapper.admin.AdminGatherMapper">
+<mapper namespace="com.example.batisproject.mapper.jungi.GatherMapper">
 
     <resultMap id="GatherMapping" type="Gather">
         <result property = "id" column = "g_id"/>
@@ -26,39 +26,18 @@
         <result property = "point" column = "point"/>
     </resultMap>
 
-    <select id="selectAll" resultType="Gather" resultMap="GatherMapping">
-        SELECT *
-        FROM gather
-        <include refid="search"/>
-        ORDER BY g_id DESC LIMIT #{skip}, #{size}
-    </select>
-
-    <select id="getCount" resultType="int">
-        SELECT count(u_id)
-        FROM gather
-        <include refid="search"/>
-    </select>
-
-    <sql id="search">
-        <where>
-            <if test="keyword != null and type == 'title'.toString()">
-                title like concat('%', #{keyword}, '%')
-            </if>
-        </where>
-    </sql>
-
     <select id="selectMyList" resultType="Gather" resultMap="GatherMapping">
         select * from gather g
-        <!--RIGHT join gather_comment gc
+        RIGHT join gather_comment gc
         on g.g_id = gc.g_id
         <include refid="searchMyList"/>
-        ORDER BY g_id DESC LIMIT #{skip}, #{size}-->
+        ORDER BY g.g_id DESC LIMIT #{skip}, #{size}
     </select>
 
     <select id="selectOtherList" resultType="Gather" resultMap="GatherMapping">
         select * from gather g
-        <!--<include refid="searchOtherList"/>-->
-        /*order by g_id desc LIMIT #{skip}, #{size}*/
+        <include refid="searchOtherList"/>
+        order by g_id desc LIMIT #{skip}, #{size}
     </select>
 
     <sql id="searchMyList">
