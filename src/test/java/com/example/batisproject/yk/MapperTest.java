@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
+import com.example.batisproject.service.yk.Yk_locationService;
 import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.yk.Yk_categoryMapper;
 import com.example.batisproject.mapper.yk.Yk_locationMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
-import com.example.batisproject.service.yk.Yk_locationService;
+
 import com.example.batisproject.service.yk.impl.Yk_categoryServiceImpl;
 
 
