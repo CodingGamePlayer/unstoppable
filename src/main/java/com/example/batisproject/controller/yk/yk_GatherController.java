@@ -47,7 +47,7 @@ public class yk_GatherController {
         List<CategoryDTO> categoryList =categoryService.getAllMainCategory();
         model.addAttribute("categoryList", categoryList);
         
-        return "user/gather/register";
+        return "gather/register";
     }
 
 }
