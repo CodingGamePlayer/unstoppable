@@ -1,13 +1,14 @@
 package com.example.batisproject.service.gather;
 
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.PageRequestDTO;
+import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.entity.Gather;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface GatherService {
-
 
     List<GatherDTO> getAll();
 
@@ -21,8 +22,7 @@ public interface GatherService {
 
     List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname);
 
-    List<GatherDTO> getAllMyList(Integer category, String nickname, int location);
-    List<GatherDTO> getAllMyList(String nickname, int location);
-    List<GatherDTO> getAllOtherList(Integer category, String nickname, int location);
-    List<GatherDTO> getAllOtherList(String nickname, int location);
+    PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO);
+    PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO);
+
 }

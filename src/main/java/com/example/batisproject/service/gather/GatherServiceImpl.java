@@ -1,6 +1,8 @@
 package com.example.batisproject.service.gather;
 
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.PageRequestDTO;
+import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.User;
@@ -47,6 +49,7 @@ public class GatherServiceImpl implements GatherService {
     public int create(GatherDTO gatherDTO) {
         Gather gather = modelMapper.map(gatherDTO, Gather.class);
         int result = gatherMapper.insert(gather);
+        log.info("insert gather Id : "+gather.getId());
         log.info("==================================");
         log.info("result : " + result);
         if (result == 0) {
@@ -54,7 +57,7 @@ public class GatherServiceImpl implements GatherService {
             log.info("DB에 저장되지 않았습니다.");
             return 0;
         }
-        return result;
+        return gather.getId().intValue();
     }
 
     @Override
@@ -71,34 +74,34 @@ public class GatherServiceImpl implements GatherService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<GatherDTO> getAllMyList(Integer category, String nickname, int location) {
-
-        return gatherMapper.getAllMyListByCategoryNicknameLocation(category, nickname, location).stream()
-
+    private PageResponseDTO<GatherDTO> getGatherDTOPageResponseDTO(PageRequestDTO pageRequestDTO, List<Gather> gathers) {
+        List<GatherDTO> dtoList = gathers.stream()
                 .map(gather -> modelMapper.map(gather, GatherDTO.class))
                 .collect(Collectors.toList());
+
+        int total = gatherMapper.getCount(pageRequestDTO);
+
+        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .dtoList(dtoList)
+                .build();
+
+        return pageResponseDTO;
     }
 
     @Override
-    public List<GatherDTO> getAllMyList(String nickname, int location) {
-        return gatherMapper.getAllMyList(nickname, location).stream()
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
-                .collect(Collectors.toList());
-    }
-    @Override
-    public List<GatherDTO> getAllOtherList(Integer category, String nickname, int location) {
+    public PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO) {
 
-        return gatherMapper.getAllOtherListByCategoryNicknameLocation(category, nickname, location).stream()
-
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
-                .collect(Collectors.toList());
+        List<Gather> gathers = gatherMapper.selectMyList(pageRequestDTO);
+        return getGatherDTOPageResponseDTO(pageRequestDTO, gathers);
     }
+
     @Override
-    public List<GatherDTO> getAllOtherList(String nickname, int location) {
-        return gatherMapper.getAllOtherList(nickname, location).stream()
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
-                .collect(Collectors.toList());
+    public PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
+
+        List<Gather> gathers = gatherMapper.selectOtherList(pageRequestDTO);
+        return getGatherDTOPageResponseDTO(pageRequestDTO, gathers);
     }
 
     @Autowired
