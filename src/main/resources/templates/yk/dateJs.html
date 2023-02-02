@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div th:fragment="dateJs">
+
+        <!-- 날짜넣음 -->
+        <div id="dateScript">
+
+        </div>  
+
+
+        <script>
+            let today = new Date();
+          
+            let year = today.getFullYear();
+            let month = ('0' + (today.getMonth() + 1)).slice(-2);
+            let day = ('0' + today.getDate()).slice(-2);
+          
+            let maxMonth = ('0' + (today.getMonth() + 3)).slice(-2);
+          
+            let startDateString = year + '-' + month  + '-' + day;
+            let maxDateString = year + '-' + maxMonth  + '-' + day;
+            console.log(startDateString);
+            console.log(maxDateString);
+          
+                  let tagArea = document.getElementById("dateScript")
+                          let insertTag = document.createElement("input");
+                          
+                  let tagArea2 = document.getElementById("dateScript")
+                          let insertTag2 = document.createElement("input");
+                  
+          
+                          insertTag.setAttribute("type", "date");//태그에 클래스 넣는거
+                          insertTag.innerHTML = "<input>"+startDateString+"</input>";
+                          tagArea.appendChild(insertTag);
+                  
+          
+                  insertTag2.setAttribute("type", "date");//태그에 클래스 넣는거
+                          insertTag2.innerHTML = "<input>"+maxDateString+"</input>";
+                  tagArea.appendChild(insertTag2);
+          
+          
+          
+          </script>
+
+    </div>
+
+</body>
+</html>

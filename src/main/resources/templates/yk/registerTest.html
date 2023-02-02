@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/user/default_layout.html}">
+
+    <!-- default_layout.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <!-- default_layout.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+   
+  
+    <div class="container">
+      <div class="card">
+        <form>  
+          <!-- 양식 입력 (제목,카테고리,지역) -->
+          <div class="row">
+            <!-- 제목 -->
+            <div class="col-md-4" style="padding-left: 20px; padding-top: 25px;">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title" style="font-size: medium;">날짜</h3>
+                  <!--드랍다운  -->
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+                  <!-- 종료 -->
+                </div>
+              </div>
+            </div>
+            <!-- 카테고리 -->
+            <div class="col-md-4" style="padding-top: 25px;">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title" style="font-size: medium;">카테고리</h3>     
+                   <!--드랍다운  -->
+                   <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+                  <!-- 종료 -->                  
+                </div>
+              </div>
+            </div>
+            <!-- 지역 -->
+            <div class="col-md-4" style="padding-right: 20px; padding-top: 25px;">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title" style="font-size: medium;">지역</h3>
+                   <!--드랍다운  -->
+                   <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+                  <!-- 종료 -->                 
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 본문 내용 작성 -->
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12" style="padding: 25px;">
+              <div class="card-text-center">
+                <div class="card-body" style="height: 500px;">
+                  <h3 class="card-title">모임 생성하기</h3>
+                  
+                    <!-- 제목 -->
+                    <div class="mb-3">
+                      <label>제목</label>                    
+                      <input type="text" class="form-control">                      
+                    </div>                
+                    <!-- 본문내용 -->
+                    <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
+                      <label for="floatingTextarea2">본문 내용</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin: 25px;">작성 완료</button>
+                              
+                </div>
+              </div>
+            </div>
+          </div> 
+        </form>  
+      </div>  
+    </div>
+       
+
+</div>
+
+</html>
