@@ -33,4 +33,9 @@
         </where>
     </sql>
 
+    <select id="selectSidoList" resultType="Location">
+        select sido from unstoppable.location group by sido
+    </select>
+
+
 </mapper>

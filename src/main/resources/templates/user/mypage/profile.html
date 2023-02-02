@@ -13,7 +13,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8" />
@@ -307,59 +307,58 @@
                 <button class="btn btn-primary btn-sm ms-auto">Settings</button>
               </div>
             </div>
-            <div class="card-body">
-              <p class="text-uppercase text-sm">User Information</p>
+            <div class="card-body" >
+              <p class="text-uppercase text-sm">회원정보 수정</p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Username</label>
-                    <input class="form-control" type="text" value="lucky.jesse">
+                    <label for="example-text-input" class="form-control-label">로그인아이디</label>
+                    <p><input readonly class="form-control" type="text" th:value="${user.username}"></p>
+
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Email address</label>
-                    <input class="form-control" type="email" value="jesse@example.com">
+                    <label for="example-text-input" class="form-control-label">비밀번호 변경</label>
+                    <input class="form-control" type="text" value="">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">First name</label>
-                    <input class="form-control" type="text" value="Jesse">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Last name</label>
-                    <input class="form-control" type="text" value="Lucky">
+                    <label for="example-text-input" class="form-control-label">닉네임</label>
+                    <input class="form-control" type="text" th:value="${user.nickname}">
                   </div>
                 </div>
               </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Contact Information</p>
+              <p class="text-uppercase text-sm">회원 지역정보</p>
               <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">시/도</label>
+                    <select name="sido" id="location_sido" class="form-control" type="text" onchange="sidoChange()">
+                      <th:block th:each="sidoList : ${sidoList}">
+                        <option th:text="${sidoList.sido}"></option>
+                      </th:block>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">군/구</label>
+                    <select name="sido" id="location_gugon" class="form-control" type="text" th:value="dd">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">읍/면/동</label>
+                    <select name="sido" id="location_dong" class="form-control" type="text" th:value="dd">
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Address</label>
+                    <label for="example-text-input" class="form-control-label">상세주소</label>
                     <input class="form-control" type="text" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">City</label>
-                    <input class="form-control" type="text" value="New York">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Country</label>
-                    <input class="form-control" type="text" value="United States">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Postal code</label>
-                    <input class="form-control" type="text" value="437300">
                   </div>
                 </div>
               </div>
@@ -551,6 +550,25 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+
+  <script>
+    function sidoChange(){
+      location_sido = $("#location_sido").val();
+
+      // $.ajax({
+      //   type : "post",
+      //   url : "url",
+      //   data : {"location_sido" : location_sido},
+      //   success:function(data){
+      //     console.log(data.msg);
+      //   },
+      //   error : function(error) {
+      //     alert(error);
+      //   }
+      // })
+    }
+
+  </script>
 </body>
 
 </html>

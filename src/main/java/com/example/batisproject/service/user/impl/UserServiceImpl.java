@@ -1,6 +1,7 @@
 package com.example.batisproject.service.user.impl;
 
 import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.entity.Location;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.UserMapper;
 import com.example.batisproject.service.user.UserService;
@@ -110,6 +111,11 @@ public class UserServiceImpl implements UserService {
         if(!(result > 0))
             return 0;
         return 1;
+    }
+
+    @Override
+    public List<Location> selectSidoList() {
+        return userMapper.selectSidoList();
     }
 
 }

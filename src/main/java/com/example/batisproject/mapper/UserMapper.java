@@ -1,6 +1,7 @@
 package com.example.batisproject.mapper;
 
 import com.example.batisproject.dto.PageRequestDTO;
+import com.example.batisproject.entity.Location;
 import com.example.batisproject.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
@@ -75,5 +76,8 @@ public interface UserMapper {
 
     // xml 테스트용 mapper
     List<User> selectAll();
+
+    // sido List 조회
+    List<Location> selectSidoList();
 
 }

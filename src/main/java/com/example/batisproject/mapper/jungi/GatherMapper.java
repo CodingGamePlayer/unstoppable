@@ -32,15 +32,6 @@ public interface GatherMapper {
     })
     List<Gather> getAll();
 
-    @Select("select * from gather where l_id = #{location} and enddate > now() order by g_id desc")
-    @ResultMap("gatherMap")
-    List<Gather> getAllByLocation(Integer location);
-
-
-    @Select("select * from gather where u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
-    @ResultMap("gatherMap")
-    List<Gather> getAllByNickname(@Param("nickname") String nickname);
-
     @Insert("INSERT INTO gather (u_id, l_id, c_id, title, content, startdate, enddate, people_num, point) values " +
             " (#{gather.user}, #{gather.location}, #{gather.category}, #{gather.title}, #{gather.content}, #{gather.startDate}, #{gather.endDate}," +
             " #{gather.peopleNum}, #{gather.point})")

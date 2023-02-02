@@ -17,9 +17,7 @@ public interface GatherService {
 
     int create(GatherDTO gatherDTO);
 
-    List<GatherDTO> getAll();
-    List<GatherDTO> getAllByLocation(Integer location);
-    List<GatherDTO> getAllByNickname(String nickname);
+
     List<GatherDTO> getByCategory(Integer category);
 
     List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname);

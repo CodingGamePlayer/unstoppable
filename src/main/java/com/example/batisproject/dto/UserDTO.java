@@ -16,7 +16,7 @@ public class UserDTO {
     private int id;
     private int category;
     private int location;
-    private String username;
+    private String username; // 요거를 가져와야하니까
     private String password;
     private String nickname;
     private String regdate;

@@ -1,5 +1,6 @@
 package com.example.batisproject.service.user;
 
+import com.example.batisproject.entity.Location;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.dto.UserDTO;
 
@@ -23,4 +24,7 @@ public interface UserService {
     int updateUser(UserDTO userDTO);
 
     int updateUserByLocation(UserDTO userDTO);
+
+    List<Location> selectSidoList();
+
 }
