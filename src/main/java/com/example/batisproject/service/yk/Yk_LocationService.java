@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.example.batisproject.dto.LocationDTO;
 
-public interface Yk_locationService  {
+public interface Yk_locationService {
     
-    public List<LocationDTO> getList();
+
+public List<LocationDTO> getList();
+
 
 }
