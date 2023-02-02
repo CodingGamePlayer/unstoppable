@@ -103,4 +103,13 @@ public class UserServiceImpl implements UserService {
         return 1;
     }
 
+    @Override
+    public int updateUserByLocation(UserDTO userDTO) {
+        User user = modelMapper.map(userDTO, User.class);
+        int result = userMapper.updateUserByLocation(user);
+        if(!(result > 0))
+            return 0;
+        return 1;
+    }
+
 }

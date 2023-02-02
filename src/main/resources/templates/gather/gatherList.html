@@ -25,6 +25,9 @@
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
+
+            <a th:href="@{/user/gather}" class="btn btn-primary">전체</a>
+
             <th:block th:each="categoryDTO : ${categoryList}">
               <a th:href="@{/user/gather(category=${categoryDTO.getId()})}" class="btn btn-primary" th:text="${categoryDTO.getDetailName()}"></a>
             </th:block>

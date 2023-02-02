@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class DebuggingAspect {
 
     //대상 메소드 선택
+
     @Pointcut("execution(* com.example.batisproject.controller..*.*(..))")
     private void cut() {}
 

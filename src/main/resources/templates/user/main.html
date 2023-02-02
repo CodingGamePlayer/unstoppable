@@ -28,6 +28,43 @@
             </div>
         </div>
     </div>
+
+    <th:block th:if="${user.getLocation() == 19000}">
+        <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">지역정보 선택</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/user/update/location"  method="get" id="locationForm">
+                            <div class="form-group">
+                                <label for="place">관심지역을 선택해주세요</label>
+                                <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
+                                <div class="alert-custom alert-light mt-2" role="alert">
+                                    주소를 정확히 입력해주세요.
+                                </div>
+                                <datalist id="place-list">
+                                    <select>
+                                        <option th:each="location : ${locationList}"
+                                                th:value="${location.getDong()}"
+                                                th:label="|(${location.getSido()} ${location.getGugun()}) |"
+                                                th:data="${location.getId()}">
+                                        </option>
+                                    </select>
+                                </datalist>
+                                <input type="hidden" name="location" id="place-hidden">
+                            </div>
+                            <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/locationModal.js"></script>
+    </th:block>
+
     <!--Start of calendar.js -->
     <script src="/js/calendar.js"></script>
     <!--End of calendar.js-->

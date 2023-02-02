@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface LocationMapper {
 
-    @Select("Select * from location")
+    @Select("Select * from location where sido not like 'none' ")
     @Results(id = "locationMap", value = {
             @Result(property = "id", column = "l_id"),
             @Result(property = "sido", column = "sido"),
