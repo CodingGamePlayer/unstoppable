@@ -1,6 +1,7 @@
 package com.example.batisproject.mapper.jungi;
 
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.entity.Gather;
 import org.apache.ibatis.annotations.*;
 
@@ -21,6 +22,7 @@ public interface GatherMapper {
             @Result(property = "regDate", column = "regdate"),
             @Result(property = "startDate", column = "startdate"),
             @Result(property = "endDate", column = "enddate"),
+            @Result(property = "modifyDate", column = "modifydate"),
             @Result(property = "allDay", column = "allday"),
             @Result(property = "textColor", column = "textColor"),
             @Result(property = "backgroundColor", column = "backgroundColor"),
@@ -40,11 +42,10 @@ public interface GatherMapper {
     @ResultMap("gatherMap")
     List<Gather> getAllByNickname(@Param("nickname") String nickname);
 
-
     @Insert("INSERT INTO gather (u_id, l_id, c_id, title, content, startdate, enddate, people_num, point) values " +
             " (#{gather.user}, #{gather.location}, #{gather.category}, #{gather.title}, #{gather.content}, #{gather.startDate}, #{gather.endDate}," +
             " #{gather.peopleNum}, #{gather.point})")
-    @Options(useGeneratedKeys = true, keyProperty = "id") // 입력할 때 생성된 id를 바로 반환함.
+    @Options(useGeneratedKeys = true, keyProperty = "id") // auto_increment할 id설정
     int insert(@Param("gather") Gather gather);
 
     @Select("select * from gather where c_id = #{category} and enddate > now() order by g_id desc")
@@ -54,4 +55,11 @@ public interface GatherMapper {
     @Select("select * from gather where c_id = #{category} and u_id = (select u_id from user where nickname = #{nickname}) and enddate > now() order by g_id desc")
     @ResultMap("gatherMap")
     List<Gather> getByCategoryAndNickname(Integer category, String nickname);
+    @Select("select count(*) from gather")
+    int getCount(PageRequestDTO pageRequestDTO);
+
+    List<Gather> selectMyList(PageRequestDTO pageRequestDTO);
+
+    List<Gather> selectOtherList(PageRequestDTO pageRequestDTO);
+
 }

@@ -44,5 +44,6 @@ class AdminServiceImplTest {
         int delete = adminService.deleteGather(gatherDTO);
 
         log.info(String.valueOf(delete));
+        System.out.println("ddd");
     }
 }
