@@ -2,6 +2,7 @@ package com.example.batisproject.controller.yk;
 
 import java.util.List;
 
+import com.example.batisproject.service.yk.Yk_locationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import com.example.batisproject.entity.User;
 import com.example.batisproject.service.category.CategoryService;
 import com.example.batisproject.service.user.UserService;
 import com.example.batisproject.service.yk.Yk_categoryService;
-import com.example.batisproject.service.yk.Yk_locationService;
 
 @Controller
 public class yk_GatherController {
