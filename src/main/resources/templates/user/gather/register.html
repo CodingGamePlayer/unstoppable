@@ -28,9 +28,9 @@
               <!-- 제목 -->
               <div class="input-group" style="margin-bottom: 10px;">
                 <span class="input-group-text">제목</span>
-                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" class="form-control" name="title">
                 <span class="input-group-text">참여 인원</span>
-                <input type="text" aria-label="Last name" class="form-control">
+                <input type="text" class="form-control" name="peopleNum">
               </div>
               
               <!-- 본문내용 -->
@@ -52,33 +52,21 @@
           <div class="col-md-12">
             <div class="card" style="margin-bottom: 35px;">
               <div class="card-body">
-                <!-- 카테고리 시작 -->
-                <h3 class="card-title" style="font-size: medium;">지역</h3>
-                <!--드랍다운  -->
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Dropdown button
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
-                </div>
+                <h3 class="card-title" style="font-size: medium;"> 날 짜 넣기</h3>
+                <!-- 자바스크립트 날짜 데이터 -->
+                <div id="dateScript">
+
+                </div>  
               </div>
             </div>
             <div class="col-md-12">
               <div class="card" style="margin-bottom: 35px;">
                 <div class="card-body">
-                  <!--로케이션 시작  -->
-                  
+                  <h3 class="card-title" style="font-size: medium;">모임지역 선택</h3>
+                  <!--로케이션 시작, 조각내서 불러옴  -->
                   <div th:replace="yk/tq.html :: location">
 
                   </div>
-                  <h3 class="card-title" style="font-size: medium;">날짜</h3>
-                  <!--드랍다운  -->
-                  
                 </div>
               </div>
             </div>
@@ -88,21 +76,12 @@
 
                   <!-- 카테고리 시작 -->
                   <h3 class="card-title" style="font-size: medium;">카테고리</h3>
-                  <!--드랍다운  -->
-                 
                     
-                    <!-- <ul class="dropdown-menu"> -->
                       <select name="detailName" class="form-select">
-
                         <th:block th:each="category : ${categoryList}">
                           <option th:text="${category.detailName}"></option>
                         </th:block>
-                        
                       </select>
-
-                      
-                      
-                    <!-- </ul> -->
                   
                 </div>
               </div>
@@ -129,10 +108,45 @@
         </div>
 
         <!--  -->
-
+        
       </div>
     </div>
+<script>
+  let today = new Date();
 
+  let year = today.getFullYear();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let day = ('0' + today.getDate()).slice(-2);
+
+  let maxMonth = ('0' + (today.getMonth() + 3)).slice(-2);
+
+  let startDateString = year + '-' + month  + '-' + day;
+  let maxDateString = year + '-' + maxMonth  + '-' + day;
+  
+
+        let tagArea = document.getElementById("dateScript")
+				let insertTag = document.createElement("input");
+				
+        let tagArea2 = document.getElementById("dateScript")
+				let insertTag2 = document.createElement("input");
+        
+
+				insertTag.setAttribute("type", "date");//태그에 클래스 넣는거
+        insertTag.setAttribute("name", "startDate");//태그에 안에 넣는거
+        insertTag.setAttribute("min", startDateString);//태그에 안에 넣는거
+        insertTag.setAttribute("max", maxDateString);//태그에 안에 넣는거
+				insertTag.innerHTML = "<input>";
+				tagArea.appendChild(insertTag);
+        
+
+        insertTag2.setAttribute("type", "date");//태그에 클래스 넣는거
+        insertTag2.setAttribute("name", "endDate");//태그에 안에 넣는거
+        insertTag2.setAttribute("min", startDateString);//태그에 안에 넣는거
+        insertTag2.setAttribute("max", maxDateString);//태그에 안에 넣는거
+				insertTag2.innerHTML = "<input>";
+				tagArea.appendChild(insertTag2);
+
+</script>
 
 
 
