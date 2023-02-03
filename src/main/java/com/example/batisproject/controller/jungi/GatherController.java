@@ -88,6 +88,7 @@ public class GatherController {
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("category", category);
         return "gather/myGatherList";
     }
 

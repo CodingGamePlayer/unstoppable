@@ -21,11 +21,11 @@ public class Gather {
     private String title;
     private String content;
     private LocalDateTime regDate;
-    @DateTimeFormat(pattern = "yyyy. MM. dd. HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy. MM. dd. HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime endDate;
-    @DateTimeFormat(pattern = "yyyy. MM. dd. HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime modifyDate;
     private boolean allDay;
     private String textColor;
