@@ -95,20 +95,41 @@ public class GatherServiceImpl implements GatherService {
     @Override
     public PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO) {
 
-
-
-        
-
         List<Gather> gathers = gatherMapper.selectMyList(pageRequestDTO);
-        return getGatherDTOPageResponseDTO(pageRequestDTO, gathers);
+        List<GatherDTO> dtoList = gathers.stream()
 
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+
+        int total = gatherMapper.getMyListCount(pageRequestDTO);
+
+        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .dtoList(dtoList)
+                .build();
+
+        return pageResponseDTO;
     }
 
     @Override
     public PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
 
         List<Gather> gathers = gatherMapper.selectOtherList(pageRequestDTO);
-        return getGatherDTOPageResponseDTO(pageRequestDTO, gathers);
+        List<GatherDTO> dtoList = gathers.stream()
+
+                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .collect(Collectors.toList());
+
+        int total = gatherMapper.getOtherListCount(pageRequestDTO);
+
+        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .dtoList(dtoList)
+                .build();
+
+        return pageResponseDTO;
     }
 
     @Autowired

@@ -18,11 +18,13 @@
   <div class="row">
     <div class="col-12">
       <div class="card mb-4">
-        <div class="card-body px-0 pt-0 pb-2">
-          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
-            <h1 th:text="|${location.getSido()} ${location.getGugun()} ${location.getDong()}|"></h1>
+        <div class="card-body align-items-center px-0 pt-0 pb-2">
+          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-3 mt-2">
+            <h1 th:text="|${location.getDong()} ${location.getSido()} ${location.getGugun()}|"></h1>
           </div>
         </div>
+      </div>
+      <div class="card mb-4">
         <div class="card-body px-0 pt-0 pb-2">
           <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
             <a th:href="@{/user/myGather}" class="btn btn-primary">전체</a>
@@ -30,210 +32,221 @@
               <a th:href="@{/user/myGather(category=${categoryDTO.getId()})}" class="btn btn-primary" th:text="${categoryDTO.getDetailName()}"></a>
             </th:block>
           </div>
-          <hr class="gatherList_hr">
-          <div class="card mb-4 me-5">
-            <div class="card-header pb-0">
-              <h6>User table</h6>
-            </div>
-            <div class="row d-flex justify-content-center">
-              <div class="col-sm-12">
-                <div class="card-body px-0 pt-0 pb-2">
-                  <div class="table-responsive p-0">
 
-                    <table class="table align-items-center mb-3 table-sm">
-                      <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
-                          모임명
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                            scope="col">
-                          등록일
-                        </th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
-                          시작일
-                        </th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
+        </div>
+      </div>
+      <div class="card mb-4 px-5">
 
-                          마감일
-                        </th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
+        <div>
 
-                          참여인원수
-                        </th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
+          <section class="pt-5 pb-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-3">Carousel cards title </h3>
+                </div>
+                <div class="col-6 text-right">
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
 
-                          조회수
-                        </th>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
 
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                            scope="col">
+                </div>
 
-                          삭제
-                        </th>
 
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <th:block th:each="gathers : ${gatherList.dtoList}">
-                        <tr>
-                          <td colspan="1">
-                            <div class="d-flex px-2 py-1">
-                              <div>
-                                <img src="/assets/img/team-2.jpg"
-                                     class="avatar avatar-sm me-3"
-                                     alt="user1">
+
+
+                <div class="col-12">
+                  <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+
+                    <div class="carousel-inner">
+
+                      <th:block th:each="gathers, iterstat : ${gatherList.dtoList}">
+                      <div th:classappend="${iterstat.index == 0} ? ' active' : ''" class="carousel-item">
+                        <div class="row">
+
+
+                          <div class="col-md-12 mb-3">
+                            <div class="card">
+                              <img class="img-fluid" alt="100%x280" src="https://images.unsplash.com/photo-1532781914607-2031eca2f00d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=7c625ea379640da3ef2e24f20df7ce8d">
+                              <div class="card-body">
+                                <h4 class="card-title" th:text="${gathers.title}"></h4>
+                                <p class="card-text" th:text="${gathers.content}"></p>
+
                               </div>
-                              <div class="d-flex flex-column justify-content-center">
-                                <a href="">
 
-                                  <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
-                                  <p class="text-xs text-secondary mb-0"
-                                     th:text="${gathers.point}"/>
-
-                                </a>
-                              </div>
                             </div>
-                          </td>
-                          <td colspan="1">
-
-                                           <span class="text-secondary text-xs font-weight-bold"
-                                                 th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd HH:mm:ss')}"/>
-                          </td>
-                          <td class="align-middle text-center ">
-                                            <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd HH:mm:ss')}"/>
-                          </td>
-                          <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text=" ${#temporals.format(gathers.endDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-                          </td>
-                          <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text="${gathers.peopleNum}"></span>
-                          </td>
-                          <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"
-                                                  th:text="${gathers.viewCnt}"></span>
-                          </td>
-                          <td class="align-middle text-center text-sm">
-                            <a href="#" th:onclick="openWindow([[${gathers.id}]]);">
-                                            <span class="badge badge-sm bg-gradient-success"
-                                                  th:text="모임삭제"/>
-                            </a>
-                          </td>
-
-                        </tr>
-                        <script>
-                          {
+                          </div>
 
 
-                            function openWindow(id) {
-
-                              let option = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=50, height=50, top=0,left=0";
-                              if (window.confirm('모임을 삭제 하시겠습니까?')){
-
-                                window.open("manage-gather/delete?id=" + id, "_blank", option);
-                                alert('모임이 삭제 되었습니다.')
-                              } else {
-                                alert('모임삭제를 취소하였습니다.')
-
-                              }
 
 
-                            }
-                          }
-                        </script>
+                        </div>
+                      </div>
                       </th:block>
 
-                      </tbody>
-                    </table>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
-          </div>
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-4 d-flex justify-content-center">
+          </section>
 
-              <th:block
-                      th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
-                <div class="col-md-9 d-flex flex-row-reverse ">
-                  <ul class="pagination">
-                    <li th:if="${start} == '1'" class="page-item disabled">
-                      <a class="page-link"
-                         th:href="@{/admin/manage-gather(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
-                    </li>
-                    <li th:if="${start} > '1'" class="page-item ">
-                      <a class="page-link"
-                         th:href="@{/admin/manage-gather(page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+        </div>
 
-                    </li>
 
-                    <th:block th:each="num : ${#numbers.sequence(start,end)}">
-                      <li class="page-item" th:if="${num} != ${gatherList.page}">
 
-                        <a class="page-link" th:text="${num}"
-                           th:href="@{/admin/manage-gather(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+
+        <div class="card-header pb-0">
+          <h6>모임 정보</h6>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12">
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+
+                <table class="table align-items-center mb-3 table-sm">
+                  <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                        scope="col">
+                      모임명
+                    </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                        scope="col">
+                      등록일
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                        scope="col">
+                      시작일
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                        scope="col">
+                      마감일
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                        scope="col">
+                      참여인원수
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                        scope="col">
+                      조회수
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <th:block th:each="gathers : ${gatherList.dtoList}">
+                    <tr>
+                      <td colspan="1">
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            <img src="/assets/img/team-2.jpg"
+                                 class="avatar avatar-sm me-3"
+                                 alt="user1">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <a href="">
+                              <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
+                              <p class="text-xs text-secondary mb-0"
+                                 th:text="${gathers.point}"/>
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                      <td colspan="1">
+                                           <span class="text-secondary text-xs font-weight-bold"
+                                                 th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd')}"/>
+                      </td>
+                      <td class="align-middle text-center ">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text=" ${#temporals.format(gathers.startDate, 'yyyy-MM-dd')}"/>
+                      </td>
+                      <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text=" ${#temporals.format(gathers.endDate, 'yyyy-MM-dd')}"></span>
+                      </td>
+                      <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${gathers.peopleNum}"></span>
+                      </td>
+                      <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"
+                                                  th:text="${gathers.viewCnt}"></span>
+                      </td>
+                    </tr>
+                  </th:block>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-4 d-flex justify-content-center">
+
+                <th:block
+                        th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
+                  <div class="col-md-9 d-flex flex-row-reverse ">
+                    <ul class="pagination">
+                      <li th:if="${start} == '1'" class="page-item disabled">
+                        <a class="page-link"
+                           th:href="@{/user/myGather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
                       </li>
-                      <li class="page-item active" th:if="${num} == ${gatherList.page}">
-                        <a class="page-link" th:text="${num}"
-                           th:href="@{/admin/manage-gather(page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                      <li th:if="${start} > '1'" class="page-item ">
+                        <a class="page-link"
+                           th:href="@{/user/myGather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
                       </li>
-                    </th:block>
-                    <!--                                <th:block th:if="keyword == null">-->
-                    <!--                                    <th:block th:each="num : ${#numbers.sequence(start,end)}">-->
-                    <!--                                        <li class="page-item" th:if="${num} != ${userList1.page}">-->
-                    <!--                                            <a class="page-link" th:text="${num}"-->
-                    <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
-                    <!--                                        </li>-->
-                    <!--                                        <li class="page-item active" th:if="${num} == ${userList1.page}">-->
-                    <!--                                            <a class="page-link" th:text="${num}"-->
-                    <!--                                               th:href="@{/admin/manage-user(page = ${num})}"></a>-->
-                    <!--                                        </li>-->
-                    <!--                                    </th:block>-->
-                    <!--                                </th:block>-->
-                    <li th:if="${end} >= ${gatherList.total} / 10" class="page-item disabled">
-                      <a class="page-link"
-                         th:href="@{/admin/manage-gather(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
-                    </li>
-                    <li th:if="${end} < ${gatherList.total} / 10" class="page-item">
-                      <a class="page-link"
-                         th:href="@{/admin/manage-gather(page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
-                    </li>
-                  </ul>
-                </div>
-              </th:block>
+
+                      <th:block th:each="num : ${#numbers.sequence(start,end)}">
+                        <li class="page-item" th:if="${num} != ${gatherList.page}">
+
+                          <a class="page-link" th:text="${num}"
+                             th:href="@{/user/myGather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                        </li>
+                        <li class="page-item active" th:if="${num} == ${gatherList.page}">
+                          <a class="page-link" th:text="${num}"
+                             th:href="@{/user/myGather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                        </li>
+                      </th:block>
+                      <li th:if="${end} >= ${gatherList.total} / 10" class="page-item disabled">
+                        <a class="page-link"
+                           th:href="@{/user/myGather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
+                      </li>
+                      <li th:if="${end} < ${gatherList.total} / 10" class="page-item">
+                        <a class="page-link"
+                           th:href="@{/user/myGather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
+                      </li>
+                    </ul>
+                  </div>
+                </th:block>
+              </div>
+              <div class="col-sm-4 ">
+                <form class="row g-3" action="/user/myGather" method="get">
+                  <div class="col-auto">
+                    <select class="form-select" aria-label="Default select example" id="category" name="type">
+                      <option value="title">모임 검색 &nbsp&nbsp</option>
+                    </select>
+                  </div>
+                  <div class="col-auto">
+                    <label for="keyword" class="visually-hidden">search</label>
+                    <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">검색</button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="col-sm-4 ">
-              <form class="row g-3" action="/admin/manage-gather" method="get">
-                <div class="col-auto">
-                  <select class="form-select" aria-label="Default select example" id="category" name="type">
-                    <option value="title">모임 검색 &nbsp&nbsp</option>
-                  </select>
-                </div>
-                <div class="col-auto">
-                  <label for="keyword" class="visually-hidden">search</label>
-                  <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
-                </div>
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-3">검색</button>
-                </div>
-
-              </form>
-            </div>
-
-
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
