@@ -1,5 +1,6 @@
 package com.example.batisproject.controller.yk;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,7 +70,7 @@ public class yk_GatherController {
 
 
     @PostMapping("/user/gather/register")
-    public String register(MultipartFile file, Model model,GatherDTO dto
+    public String register(MultipartFile file, Model model,@RequestParam("startDate")LocalDate startDate, @RequestParam("endDate")LocalDate endDate,GatherDTO dto
                             /*  @RequestParam("title")String title,@RequestParam("content")String content,
                              @RequestParam("peopleNum")int peopleNum,@RequestParam("point")int point, @RequestParam("lid") long location,
                              @RequestParam("detailName")String detailName,@RequestParam("startDate")String startDate, @RequestParam("endDate")String endDate*/ ){
