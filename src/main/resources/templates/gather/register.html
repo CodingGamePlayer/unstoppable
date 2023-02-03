@@ -17,7 +17,7 @@
 
 
   <div class="container">
-<form action="/register222" method="get">
+<form action="/user/gather/register" method="post" enctype="multipart/form-data">
     <div class="row">
       
         <div class="col-md-8">
@@ -77,7 +77,7 @@
                     <h3 class="card-title" style="font-size: medium;">모임지역 선택</h3>
                     <!--로케이션 시작, 조각내서 불러옴  -->
                     <div th:replace="yk/tq.html :: location">
-
+                      
                     </div>
                   </div>
                 </div>
