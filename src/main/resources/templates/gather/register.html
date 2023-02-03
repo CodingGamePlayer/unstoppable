@@ -31,7 +31,7 @@
                   <span class="input-group-text">제목</span>
                   <input type="text" class="form-control" name="title" required>
                   <span class="input-group-text">참여 인원</span>
-                  <input type="number" class="form-control" name="peopleNum" placeholder="숫자만 입력가능">
+                  <input type="number" class="form-control" name="peopleNum" placeholder="숫자만 입력가능" required>
                 </div>
                 
                 <!-- 본문내용 -->
@@ -44,7 +44,7 @@
                   <div class="col-md-6">
                     <div class="input-group" style="margin-top: 15px;">
                       <span class="input-group-text">참여포인트</span>
-                      <input type="number" class="form-control" name="point" placeholder="모임참여시 필요한 금액을 숫자로 입력" required>
+                      <input type="number" class="form-control" name="point" placeholder="모임참여시 필요한 금액을 숫자로 입력">
                     </div>
                   </div>
                   <div class="col-md-4 offset-md-2">
@@ -150,6 +150,7 @@
         insertTag.setAttribute("name", "startDate");//태그에 안에 넣는거
         insertTag.setAttribute("min", startDateString);//태그에 안에 넣는거
         insertTag.setAttribute("max", maxDateString);//태그에 안에 넣는거
+        insertTag.setAttribute("required", "true");//태그에 안에 넣는거
 				insertTag.innerHTML = "<input>";
 				tagArea.appendChild(insertTag);
         
@@ -158,6 +159,7 @@
         insertTag2.setAttribute("name", "endDate");//태그에 안에 넣는거
         insertTag2.setAttribute("min", startDateString);//태그에 안에 넣는거
         insertTag2.setAttribute("max", maxDateString);//태그에 안에 넣는거
+        insertTag2.setAttribute("required", "true");//태그에 안에 넣는거
 				insertTag2.innerHTML = "<input>";
 				tagArea.appendChild(insertTag2);
 

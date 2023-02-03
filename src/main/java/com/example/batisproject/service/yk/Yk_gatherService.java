@@ -1,11 +1,7 @@
 package com.example.batisproject.service.yk;
 
-
-
-import org.springframework.web.multipart.MultipartFile;
+import com.example.batisproject.dto.GatherDTO;
 
 public interface Yk_gatherService {
-    
-    int inputImg(MultipartFile file);
-
+    int gatherRegister(GatherDTO gatherDTO);    
 }

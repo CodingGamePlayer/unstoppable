@@ -27,7 +27,7 @@ import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.yk.Yk_categoryMapper;
 import com.example.batisproject.mapper.yk.Yk_locationMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
-import com.example.batisproject.service.yk.Yk_gatherService;
+import com.example.batisproject.service.yk.Yk_file_info_Service;
 import com.example.batisproject.service.yk.impl.Yk_categoryServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +54,7 @@ public class MapperTest {
     Yk_fileInfoMapper fileInfoMapper;
 
     @Autowired
-    Yk_gatherService gatherService;
+    Yk_file_info_Service gatherService;
 
 
 
