@@ -73,4 +73,26 @@
          </where>
     </sql>
 
+    <sql id="search">
+        <where>
+            <if test="keyword != null and type == 'title'.toString()">
+                title like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="getMyListCount" resultType="int">
+        select count(*) from gather g
+        RIGHT join gather_comment gc
+        on g.g_id = gc.g_id
+        <include refid="searchMyList"/>
+    </select>
+
+    <select id="getOtherListCount" resultType="int">
+        select count(*) from gather g
+        <include refid="searchOtherList"/>
+    </select>
+
+
+
 </mapper>

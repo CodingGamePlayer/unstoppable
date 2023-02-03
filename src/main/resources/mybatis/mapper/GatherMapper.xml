@@ -47,51 +47,8 @@
         </where>
     </sql>
 
-    <select id="selectMyList" resultType="Gather" resultMap="GatherMapping">
-        select * from gather g
-        <!--RIGHT join gather_comment gc
-        on g.g_id = gc.g_id
-        <include refid="searchMyList"/>
-        ORDER BY g_id DESC LIMIT #{skip}, #{size}-->
-    </select>
 
-    <select id="selectOtherList" resultType="Gather" resultMap="GatherMapping">
-        select * from gather g
-        <!--<include refid="searchOtherList"/>-->
-        /*order by g_id desc LIMIT #{skip}, #{size}*/
-    </select>
 
-    <sql id="searchMyList">
-        <where>
-            gc.u_id = (select u_id from user where nickname = #{nickname})
-            and g.enddate > now()
-            and l_id = #{location}
-        <choose>
-            <when test="category != null">
-                and c_id = #{category}
-            </when>
-             <when test="keyword != null and type == 'title'.toString()">
-                 and title like concat('%', #{keyword}, '%')
-             </when>
-        </choose>
-        </where>
-    </sql>
 
-    <sql id="searchOtherList">
-         <where>
-             g_id NOT IN (select g_id from gather_comment gc
-             where u_id = (select u_id from user where nickname = #{nickname}))
-                 and enddate > now()
-                 and l_id = #{location}
-             <choose>
-                 <when test="category != null">
-                     and c_id = #{category}
-                 </when>
-                 <when test="keyword != null and type == 'title'.toString()">
-                     and title like concat('%', #{keyword}, '%')
-                 </when>
-             </choose>
-         </where>
-    </sql>
 
 </mapper>
