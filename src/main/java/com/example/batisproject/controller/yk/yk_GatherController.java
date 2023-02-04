@@ -85,6 +85,7 @@ public class yk_GatherController {
         model.addAttribute("user", userDTO);
         
             
+
         //디티오에 데이터타입변환후 정보담기
         dto.setCategory(yk_categoryService.CategoryId(detailName));
         dto.setUser((long)userDTO.getId());
@@ -92,30 +93,29 @@ public class yk_GatherController {
         dto.setEndDate(gatherService.toLocalDateTime(beforEndDate));
         System.out.println(dto.toString());
 
+
         // 파일 저장하기
         if(!file.equals(null)){
             result = file_info_Service.inputImg(file);
             System.out.println("서비스 완료 후");
             if(result<0){
-                return "fale";
+                return "gather/register";
             }
+        }   
 
-        }
 
         //글쓰기 
         result = gatherService.gatherRegister(dto);
         if(result<0){
             System.out.println("글작성 실패");
-            return "fale";
+            return "gather/register";
         }
         
           
 
-
-
         System.out.println("글작성 성공");
 
-        return "gather/register";
+        return "user/main";
     }
 
 }
