@@ -1,25 +1,16 @@
 package com.example.batisproject.controller.yk;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
-import java.util.UUID;
-
 import com.example.batisproject.service.yk.Yk_locationService;
-import com.example.batisproject.service.yk.impl.Yk_File_info_ServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.CategoryDTO;
 import com.example.batisproject.dto.GatherDTO;
@@ -75,21 +66,14 @@ public class yk_GatherController {
 
         
 
-<<<<<<< HEAD
+
 
         return "gather/register";
     }
 
     
     //모임생성
-=======
 
-
-        return "gather/register";
-    }
-
-
->>>>>>> e995b4d90e2b1cf62b0d8e9c49372ae054bf9a41
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
                             @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
