@@ -25,22 +25,22 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     @Autowired
     Yk_fileInfoMapper fileInfoMapper;
 
-    //각자 상대경로(로컬)에 저장되는 주소로 갖기위해 설정
+    //각자 상대경로(로컬)에 저장되는 주소로 갖기위해 설정 각자의 컴퓨터 앞부분만 따짐
     private String rootPath = System.getProperty("user.dir");
+    //나머지 프로젝트 경로
     private String fileDir = "/src/main/resources/static/assets/img/upload_img_file";
+    private String save_path = rootPath+fileDir;
 
     
 
     @Override
     public int inputImg(MultipartFile file) {
-        System.out.println("서비스 진입");
-
-        String save_path = rootPath+fileDir;
         System.out.println(save_path);
         
-        
+        //image/png 이런식으로 나옴
         String contentType_name = file.getContentType();
         System.out.println(contentType_name);
+        // 뒤에 파일형식만 받게
         String[] afer_contentType_name = contentType_name.split("/");
         
         String fileName = file.getOriginalFilename();
@@ -55,15 +55,16 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             .saveFileName(saveFileName)
             .contentType(contentType)
             .build();
-
+        
             int result=fileInfoMapper.putImgInfo(fileInfo);
         if(result<0){
             return 0;
         }
-        
+        //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
 
         try {
+            //멀티파트파일 타입의 프랜스포 실직적으로 변환해서 로컬에 저장됨
             file.transferTo(savefile);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block

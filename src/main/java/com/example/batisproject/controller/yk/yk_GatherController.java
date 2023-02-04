@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +53,7 @@ public class yk_GatherController {
     @Autowired
     private Yk_categoryService yk_categoryService;
     
-
+    //글쓰기 폼으로 이동
     @GetMapping("/user/gather/register")
     public String regiser(Model model){
         //유저 던지기 사이드바에 유저 머니 있어서 매번넣어야함
@@ -73,7 +74,7 @@ public class yk_GatherController {
         return "gather/register";
     }
 
-
+    //모임생성
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
                             @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
@@ -117,5 +118,26 @@ public class yk_GatherController {
 
         return "user/main";
     }
+
+
+    //디테일 - 
+    @GetMapping("/user/gather/detail/{g_id}")
+    public String detail(@PathVariable String g_id, Model model){
+        //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
+        User user = new AuthenticationForModel().getAuthentication();
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user",userDTO);
+
+
+        //이미지 검색테이블로 검색후 이미지 뿌려줘야함
+
+        //글번호 조회 후 글 정보 뿌려줘야함 
+
+        return "gather/gatherDetail";
+    }
+
+    
+
+
 
 }
