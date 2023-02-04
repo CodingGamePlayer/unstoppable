@@ -1,6 +1,9 @@
 package com.example.batisproject.service.yk.impl;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,22 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
         Gather gather = modelMapper.map(gatherDTO, Gather.class);
 
         return gatherMapper.gatherRegister(gather);
+    }
+
+
+    //스트링에서 로컬데이터타입 으로 전환 메소드
+    @Override
+    public LocalDateTime toLocalDateTime(String date) {
+
+
+        String hhmm = " 12:00";
+        System.out.println(date+hhmm);                                                        
+        //데이터타입 스트링에서 로컬데이타로 변경
+        DateTimeFormatter fomatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime changeData = LocalDateTime.parse(date+hhmm, fomatter);
+        
+       
+        return changeData;
     }
     
     

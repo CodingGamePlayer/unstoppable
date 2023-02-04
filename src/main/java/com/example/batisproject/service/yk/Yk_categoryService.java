@@ -9,4 +9,6 @@ public interface Yk_categoryService {
 
     public List<CategoryDTO> getList();
 
+
+    Long CategoryId(String detailName);
 }

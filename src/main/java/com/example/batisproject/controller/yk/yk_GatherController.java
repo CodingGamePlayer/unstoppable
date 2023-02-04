@@ -1,6 +1,8 @@
 package com.example.batisproject.controller.yk;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +48,9 @@ public class yk_GatherController {
 
     @Autowired
     private Yk_file_info_Service file_info_Service;
+
+    @Autowired
+    private Yk_categoryService yk_categoryService;
     
 
     @GetMapping("/user/gather/register")
@@ -70,17 +75,24 @@ public class yk_GatherController {
 
 
     @PostMapping("/user/gather/register")
-    public String register(MultipartFile file, Model model,@RequestParam("startDate")LocalDate startDate, @RequestParam("endDate")LocalDate endDate,GatherDTO dto
-                            /*  @RequestParam("title")String title,@RequestParam("content")String content,
-                             @RequestParam("peopleNum")int peopleNum,@RequestParam("point")int point, @RequestParam("lid") long location,
-                             @RequestParam("detailName")String detailName,@RequestParam("startDate")String startDate, @RequestParam("endDate")String endDate*/ ){
+    public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
+                            @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
         System.out.println("컨트롤 진입");
+        int result = 0;
         //유저 던지기 사이드바에 유저 머니 있어서 매번넣어야함
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user", userDTO);
         
-        int result = 0;
+            
+
+        dto.setCategory(yk_categoryService.CategoryId(detailName));
+        dto.setUser((long)userDTO.getId());
+        dto.setStartDate(gatherService.toLocalDateTime(beforStartDate));
+        dto.setEndDate(gatherService.toLocalDateTime(beforEndDate));
+        System.out.println(dto.toString());
+
+
         //글쓰기 
         result = gatherService.gatherRegister(dto);
         if(result<0){
@@ -101,7 +113,7 @@ public class yk_GatherController {
 
         }
 
-        
+        System.out.println("글작성 성공");
 
         return "gather/register";
     }
