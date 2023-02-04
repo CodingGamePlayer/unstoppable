@@ -33,18 +33,6 @@ public class UserApiController {
     @Autowired
     private MailSendService mailSendService;
 
-    @Operation(summary = "Login method", description = "Login을 담당하는 method")
-    @PostMapping(value = "/api/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-
-        log.info("UserDTO : " + userDTO.toString());
-        int result = userService.insert(userDTO);
-        if (result == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 
     @Operation(summary = "Signup method", description = "회원가입을 담당하는 method")
     @PostMapping(value = "/api/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
