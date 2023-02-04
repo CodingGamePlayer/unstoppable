@@ -1,6 +1,7 @@
 package com.example.batisproject.service.yk.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,15 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         }
         
         File savefile = new File(save_path, saveFileName);
+        try {
+            file.transferTo(savefile);
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // System.out.println("세이브파일 저장후 "+savefile);
         return 1;
 
