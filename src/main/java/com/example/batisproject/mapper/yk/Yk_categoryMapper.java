@@ -25,6 +25,9 @@ public interface Yk_categoryMapper {
     })
     List<Category> getList();
 
+    @Select("select c_id from category where c_nm= '대분류' && c_d_nm= #{detailName};")
+    Long CategoryId(String detailName);
+
 }
 
 
