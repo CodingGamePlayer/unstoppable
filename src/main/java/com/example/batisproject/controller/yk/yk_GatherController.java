@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +52,8 @@ public class yk_GatherController {
     @Autowired
     private Yk_file_info_Service file_info_Service;
 
+
+
     @Autowired
     private Yk_categoryService yk_categoryService;
     
@@ -71,9 +75,11 @@ public class yk_GatherController {
 
         
 
+
         return "gather/register";
     }
 
+    
     //모임생성
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
@@ -137,6 +143,7 @@ public class yk_GatherController {
     }
 
     
+
 
 
 
