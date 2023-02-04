@@ -75,12 +75,21 @@ public class yk_GatherController {
 
         
 
+<<<<<<< HEAD
 
         return "gather/register";
     }
 
     
     //모임생성
+=======
+
+
+        return "gather/register";
+    }
+
+
+>>>>>>> e995b4d90e2b1cf62b0d8e9c49372ae054bf9a41
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
                             @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){

@@ -6,8 +6,11 @@ import java.io.File;
 import java.io.IOException;
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e995b4d90e2b1cf62b0d8e9c49372ae054bf9a41
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +80,10 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
+<<<<<<< HEAD
+=======
+
+>>>>>>> e995b4d90e2b1cf62b0d8e9c49372ae054bf9a41
 
         try {
             
@@ -92,8 +99,11 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e995b4d90e2b1cf62b0d8e9c49372ae054bf9a41
         // System.out.println("세이브파일 저장후 "+savefile);
         return 1;
 
