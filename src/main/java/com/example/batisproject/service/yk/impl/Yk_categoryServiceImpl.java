@@ -58,6 +58,11 @@ public class Yk_categoryServiceImpl implements Yk_categoryService {
         return categoryMapper.CategoryId(detailName);
     }
 
+
+    @Override
+    public String getCategoryName(Long c_id){
+        return categoryMapper.getCategoryName(c_id);
+    };
     
 
 }

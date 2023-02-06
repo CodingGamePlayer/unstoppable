@@ -31,5 +31,12 @@ public class Yk_locationServiceImpl implements Yk_locationService {
         .map(location->modelMapper.map(location, LocationDTO.class))
         .collect(Collectors.toList());
     }
+
+    @Override
+    public String getLocation_Dong(int l_id){
+        
+
+        return locationMapper.getLocation_Dong(l_id);
+    };
     
 }

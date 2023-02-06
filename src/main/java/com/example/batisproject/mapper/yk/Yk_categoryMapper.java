@@ -25,8 +25,12 @@ public interface Yk_categoryMapper {
     })
     List<Category> getList();
 
+    //카테고리 대분류에서 c_id 값 받기
     @Select("select c_id from category where c_nm= '대분류' && c_d_nm= #{detailName};")
     Long CategoryId(String detailName);
+
+    @Select("select c_d_nm from category where c_id = #{c_id};")
+    String getCategoryName(Long c_id);
 
 }
 

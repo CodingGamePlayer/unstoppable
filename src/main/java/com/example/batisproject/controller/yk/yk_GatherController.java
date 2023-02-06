@@ -53,6 +53,8 @@ public class yk_GatherController {
     @Autowired
     private Yk_categoryService yk_categoryService;
     
+
+
     //글쓰기 폼으로 이동
     @GetMapping("/user/gather/register")
     public String regiser(Model model){
@@ -160,14 +162,24 @@ public class yk_GatherController {
         //글번호 조회 후 글 정보 뿌려줘야함 
         GatherDTO gatherDTO = gatherService.get_Gather(g_id);
         model.addAttribute("gather",gatherDTO);
-
+        System.out.println(gatherDTO.toString());
         //관리번호 코맨트 롤 뿌려줘야함
+        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
+        model.addAttribute("comment", commentDTO);
+        System.out.println(commentDTO.toString());
+
+        //로케이션 동이랑, 카데고리 디테일네임(카테고리) 받고 뿌려주기 
+        // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
+        model.addAttribute("locationDong", locationService.getLocation_Dong(gatherDTO.getLocation()));
+        model.addAttribute("categoryName", yk_categoryService.getCategoryName(gatherDTO.getCategory()));
         
-
-
         //글번호랑 연관관계 이미지 뿌려줘야함
         FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
-        model.addAttribute("fileinfo", fileInfoDTO);
+        if(fileInfoDTO.equals(null)){
+            model.addAttribute("fileInfo", fileInfoDTO);
+            System.out.println(fileInfoDTO.toString());
+        }
+
         return "gather/gatherDetail";
     }
 
