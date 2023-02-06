@@ -162,8 +162,6 @@
                 const msg = "회원가입에 문제가 발생하였습니다.";
                 alert(msg);
 
-                window.location.href = "http://localhost:8888/signup";
-
             }
 
         });
