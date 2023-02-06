@@ -29,11 +29,11 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
 
     //글작성
     @Override
-    public int gatherRegister(GatherDTO gatherDTO) {
+    public Long gatherRegister(GatherDTO gatherDTO) {
         
         Gather gather = modelMapper.map(gatherDTO, Gather.class);
-
-        return gatherMapper.gatherRegister(gather);
+        gatherMapper.gatherRegister(gather);
+        return gather.getId();
     }
 
 
