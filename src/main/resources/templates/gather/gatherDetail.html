@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
 
 <!-- default_layout.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
 </th:block>
 <!-- default_layout.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 
 
@@ -16,72 +16,70 @@
 <div layout:fragment="content" style="margin-top: 50px;">
 
 
-  <div class="container">
-    
+    <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <div class="card text-center">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="margin-left: 20px;">제목 : <th:box th:text="${user.id}"></th:box>
+                    </h3>
+                    <!-- 여기부터 넣기 -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-sm">
+                                <thead>
+                                  <th>카테고리</th>
+                                  <th>지역</th>
+                                  <td><p class="text-center">참여포인트 <th:box th:text="${user.id}"></th:box> </p></td>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <p class="fs-2">주최자 : <th:box th:text="${user.id}"></th:box> </p>
+                        </div>
+                        <div class="col-md-3 offset-md-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="fs-6">참여인원 </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <p class="fs-3" style="height: 400px;">내용</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11">
+                                        <p class="fs-5">참여신청</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 여기까지 -->
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                    </div>
-                </div>
-            </div>        
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                    </div>
-                </div>
-            </div>
-            
         </div>
-        
-        <div class="card" style="height: 500px; margin-top: 35px;">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card text-center" >
-                        <div class="card-body">
-                            <p class="card-text">시작일</p>
-                            <p class="card-text">끝나는일</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <p class="card-text">주최자</p>
-                            <h5 class="card-title">글쓴이이름받기</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center" >
-                        <div class="card-body">
-                            <h5 class="card-header">현재참여인원 <th:box>dd</th:box> </h5>
-                            <p>현재 참여 인원<th:box>고민중</th:box> </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+
+
 
 
     </div>
 
 
-<script>
+    <script>
+        
 
-
-</script>
-</div>    
+    </script>
+</div>
 
 
 

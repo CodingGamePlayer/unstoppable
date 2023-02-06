@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.CategoryDTO;
+import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.GatherImageDTO;
 import com.example.batisproject.dto.LocationDTO;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
@@ -22,6 +24,7 @@ import com.example.batisproject.service.user.UserService;
 import com.example.batisproject.service.yk.Yk_categoryService;
 import com.example.batisproject.service.yk.Yk_file_info_Service;
 import com.example.batisproject.service.yk.Yk_gatherService;
+import com.example.batisproject.service.yk.Yk_gather_commentService;
 
 @Controller
 public class yk_GatherController {
@@ -43,7 +46,8 @@ public class yk_GatherController {
     @Autowired
     private Yk_file_info_Service file_info_Service;
 
-
+    @Autowired
+    Yk_gather_commentService commentService;
 
     @Autowired
     private Yk_categoryService yk_categoryService;
@@ -79,6 +83,8 @@ public class yk_GatherController {
                             @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
         System.out.println("컨트롤 진입");
         int result = 0;
+        Long fileID =0L;
+        Long gatherID = 0L;
         //유저 던지기 사이드바에 유저 머니 있어서 매번넣어야함
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
@@ -94,24 +100,44 @@ public class yk_GatherController {
         System.out.println(dto.toString());
 
 
-        // 파일 저장하기
-        if(!file.equals(null)){
-            result = file_info_Service.inputImg(file);
-            System.out.println("서비스 완료 후");
-            if(result<0){
-                return "gather/register";
-            }
-        }   
-
-
+        
+        
         //글쓰기 
-        result = gatherService.gatherRegister(dto);
-        if(result<0){
+        gatherID = gatherService.gatherRegister(dto);
+        if(gatherID<0){
             System.out.println("글작성 실패");
             return "gather/register";
         }
+
+        GatherCommentDTO commentDTO = GatherCommentDTO.builder()
+            .gather(gatherID)
+            .role(4)
+            .user((long)user.getId())
+            .build();
+
+        commentService.register_commnet(commentDTO);
         
-          
+        // 파일 저장하기
+        if(!file.equals(null)){
+            fileID = file_info_Service.inputImg(file);
+            System.out.println("서비스 완료 후");
+
+
+            // 글과 이미지 연관관계 테이블 디비 저장하기
+            GatherImageDTO imgDTO = GatherImageDTO.builder()
+            .fileInfo(fileID)
+            .gather(gatherID)
+            .build();
+            
+            
+            
+            file_info_Service.registerGather_img(imgDTO);
+            System.out.println("사진 작성 성공");
+            
+            if(fileID<0){
+                return "gather/register";
+            }
+        }   
 
         System.out.println("글작성 성공");
 
@@ -120,8 +146,8 @@ public class yk_GatherController {
 
 
     //디테일 - 
-    @GetMapping("/user/gather/detail/{g_id}")
-    public String detail(@PathVariable String g_id, Model model){
+    @GetMapping("/user/gather/detail/{id}")
+    public String detail(@PathVariable("id") String g_id, Model model){
         //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
@@ -131,6 +157,10 @@ public class yk_GatherController {
         //이미지 검색테이블로 검색후 이미지 뿌려줘야함
 
         //글번호 조회 후 글 정보 뿌려줘야함 
+
+        //관리번호 롤 뿌려줘야함
+
+        //글번호랑 연관관계 이미지 뿌려줘야함
 
         return "gather/gatherDetail";
     }

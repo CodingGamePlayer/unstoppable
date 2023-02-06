@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.example.batisproject.dto.GatherDTO;
 
 public interface Yk_gatherService {
-    int gatherRegister(GatherDTO gatherDTO);    
+    Long gatherRegister(GatherDTO gatherDTO);    
 
     LocalDateTime toLocalDateTime(String date);
 
