@@ -24,5 +24,4 @@ public interface Yk_fileInfoMapper {
 
     @Select("select * from file_info where f_id = (select f_id from gather_image where g_id = #{g_id});")
     FileInfo getFileInfo(Long g_id);
-
 }

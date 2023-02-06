@@ -116,19 +116,19 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     //이미지 + 글 연관관계 저장 메소드
     public int registerGather_img(GatherImageDTO imgDTO){
 
-        GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
-
-        return fileInfoMapper.registerGather_img(img);
-    }
-
+         GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
+    
+         return fileInfoMapper.registerGather_img(img);
+     }
+    
     //이미지 정보 불러오기
     public FileInfoDTO getFileInfo(Long g_id){
         FileInfo fileInfo = fileInfoMapper.getFileInfo(g_id);
-        
+            
         FileInfoDTO fileInfoDTO = modelMapper.map(fileInfo, FileInfoDTO.class);
-        
-
+            
+    
         return fileInfoDTO;
     }
-
+    
 }

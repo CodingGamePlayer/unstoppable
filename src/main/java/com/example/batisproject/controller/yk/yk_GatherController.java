@@ -168,7 +168,6 @@ public class yk_GatherController {
         //글번호랑 연관관계 이미지 뿌려줘야함
         FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
         model.addAttribute("fileinfo", fileInfoDTO);
-
         return "gather/gatherDetail";
     }
 
