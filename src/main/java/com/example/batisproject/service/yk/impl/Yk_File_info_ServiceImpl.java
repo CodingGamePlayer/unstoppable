@@ -12,12 +12,16 @@ import java.io.IOException;
 
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.batisproject.dto.GatherImageDTO;
 import com.example.batisproject.entity.FileInfo;
+import com.example.batisproject.entity.Gather;
+import com.example.batisproject.entity.GatherImage;
 import com.example.batisproject.mapper.Yk_fileInfoMapper;
 import com.example.batisproject.service.yk.Yk_file_info_Service;
 
@@ -31,6 +35,8 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     @Autowired
     Yk_fileInfoMapper fileInfoMapper;
 
+    @Autowired
+    ModelMapper modelMapper;
 
     //각자 상대경로(로컬)에 저장되는 주소로 갖기위해 설정 각자의 컴퓨터 앞부분만 따짐
     private String rootPath = System.getProperty("user.dir");
@@ -42,7 +48,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     
 
     @Override
-    public int inputImg(MultipartFile file) {
+    public Long inputImg(MultipartFile file) {
 
         System.out.println(save_path);
         
@@ -72,9 +78,9 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
 
 
-            int result=fileInfoMapper.putImgInfo(fileInfo);
+        int result=fileInfoMapper.putImgInfo(fileInfo);
         if(result<0){
-            return 0;
+            return fileInfo.getId();
         }
 
         //객체 파일타입의 new(경로,파일이름)
@@ -102,9 +108,17 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
 
         // System.out.println("세이브파일 저장후 "+savefile);
-        return 1;
+        return fileInfo.getId();
 
     }
     
     
+    public int registerGather_img(GatherImageDTO imgDTO){
+
+        GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
+
+        return fileInfoMapper.registerGather_img(img);
+    }
+
+
 }
