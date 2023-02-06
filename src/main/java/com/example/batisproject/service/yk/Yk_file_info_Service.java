@@ -14,6 +14,6 @@ public interface Yk_file_info_Service {
 
     public int registerGather_img(GatherImageDTO imgDTO);
 
-    
+    public FileInfoDTO getFileInfo(Long g_id);
 
 }
