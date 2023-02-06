@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherImageDTO;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
@@ -46,7 +47,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
 
     
-
+    //이미지 정보 저장
     @Override
     public Long inputImg(MultipartFile file) {
 
@@ -112,7 +113,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
     }
     
-    
+    //이미지 + 글 연관관계 저장 메소드
     public int registerGather_img(GatherImageDTO imgDTO){
 
         GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
@@ -120,5 +121,14 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         return fileInfoMapper.registerGather_img(img);
     }
 
+    //이미지 정보 불러오기
+    public FileInfoDTO getFileInfo(Long g_id){
+        FileInfo fileInfo = fileInfoMapper.getFileInfo(g_id);
+        
+        FileInfoDTO fileInfoDTO = modelMapper.map(fileInfo, FileInfoDTO.class);
+        
+
+        return fileInfoDTO;
+    }
 
 }

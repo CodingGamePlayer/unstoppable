@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.CategoryDTO;
+import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.GatherImageDTO;
@@ -147,20 +148,26 @@ public class yk_GatherController {
 
     //디테일 - 
     @GetMapping("/user/gather/detail/{id}")
-    public String detail(@PathVariable("id") String g_id, Model model){
+    public String detail(@PathVariable("id") Long g_id, Model model){
         //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user",userDTO);
 
 
-        //이미지 검색테이블로 검색후 이미지 뿌려줘야함
+        
 
         //글번호 조회 후 글 정보 뿌려줘야함 
+        GatherDTO gatherDTO = gatherService.get_Gather(g_id);
+        model.addAttribute("gather",gatherDTO);
 
-        //관리번호 롤 뿌려줘야함
+        //관리번호 코맨트 롤 뿌려줘야함
+        
+
 
         //글번호랑 연관관계 이미지 뿌려줘야함
+        FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
+        model.addAttribute("fileinfo", fileInfoDTO);
 
         return "gather/gatherDetail";
     }
