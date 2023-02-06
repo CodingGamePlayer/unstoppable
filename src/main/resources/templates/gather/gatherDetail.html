@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+
+
+  <div class="container">
+    
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                    </div>
+                </div>
+            </div>        
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="card" style="height: 500px; margin-top: 35px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center" >
+                        <div class="card-body">
+                            <p class="card-text">시작일</p>
+                            <p class="card-text">끝나는일</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <p class="card-text">주최자</p>
+                            <h5 class="card-title">글쓴이이름받기</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center" >
+                        <div class="card-body">
+                            <h5 class="card-header">현재참여인원 <th:box>dd</th:box> </h5>
+                            <p>현재 참여 인원<th:box>고민중</th:box> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+    </div>
+
+
+<script>
+
+
+</script>
+</div>    
+
+
+
+</html>
