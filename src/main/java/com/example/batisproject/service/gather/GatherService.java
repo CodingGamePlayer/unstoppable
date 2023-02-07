@@ -1,6 +1,7 @@
 package com.example.batisproject.service.gather;
 
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.GatherResponseDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.entity.Gather;
@@ -22,7 +23,7 @@ public interface GatherService {
 
     List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname);
 
-    PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO);
+    PageResponseDTO<GatherResponseDTO> getAllMyList(PageRequestDTO pageRequestDTO);
     PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO);
 
 }

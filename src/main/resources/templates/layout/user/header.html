@@ -31,7 +31,8 @@
           <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
             <a href="#" class="nav-link text-white font-weight-bold px-0" id="link-logout">
               <span>안녕하세요! &nbsp </span>
-              <i class="fa fa-user me-sm-1"></i>
+              <svg data-jdenticon-value="nickname" th:data-jdenticon-value="${#authentication.name}"
+                   width="40" height="40" class="avatar avatar-sm"></svg>
               <span class="d-sm-inline d-none">[[${user.nickname}]] 님</span>
             </a>
           </li>

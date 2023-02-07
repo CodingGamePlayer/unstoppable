@@ -38,7 +38,9 @@ public class GatherController {
     private final UserService userService;
 
     @GetMapping("/user/gather")
-    public String gatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category, Model model, @CurrentUser User user,
+    public String gatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category,
+                             @RequestParam(value = "viewMode", required = false, defaultValue = "")String viewMode,
+                             Model model, @CurrentUser User user,
                              @Valid PageRequestDTO pageRequestDTO,
                              BindingResult bindingResult) {
 
@@ -62,10 +64,13 @@ public class GatherController {
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        model.addAttribute("viewMode", viewMode);
         return "gather/gatherList";
     }
     @GetMapping("/user/myGather")
-    public String myGatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category, Model model, @CurrentUser User user,
+    public String myGatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category,
+                               @RequestParam(value = "viewMode", required = false, defaultValue = "")String viewMode,
+                               Model model, @CurrentUser User user,
                                @Valid PageRequestDTO pageRequestDTO,
                                BindingResult bindingResult) {
 
@@ -77,7 +82,7 @@ public class GatherController {
 
         LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherDTO> gatherList;
+        PageResponseDTO<GatherResponseDTO> gatherList;
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
@@ -90,6 +95,7 @@ public class GatherController {
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        model.addAttribute("viewMode", viewMode);
         return "gather/myGatherList";
     }
 

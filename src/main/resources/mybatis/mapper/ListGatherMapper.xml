@@ -26,10 +26,29 @@
         <result property = "point" column = "point"/>
     </resultMap>
 
-    <select id="selectMyList" resultType="Gather" resultMap="GatherMapping">
-        select * from gather g
-        RIGHT join gather_comment gc
-        on g.g_id = gc.g_id
+    <resultMap id="ResponseGatherMapping" type="GatherResponse">
+        <result property = "id" column = "g_id"/>
+        <result property = "user" column = "u_id"/>
+        <result property = "location" column = "l_id"/>
+        <result property = "category" column = "c_id" />
+        <result property = "title" column = "title"/>
+        <result property = "content" column = "content"/>
+        <result property = "regDate" column = "regdate"/>
+        <result property = "startDate" column = "startdate"/>
+        <result property = "endDate" column = "enddate"/>
+        <result property = "modifyDate" column = "modifydate"/>
+        <result property = "viewCnt" column = "view_cnt"/>
+        <result property = "peopleNum" column = "people_num"/>
+        <result property = "point" column = "point"/>
+        <result property = "saveFileName" column="save_file_name" />
+    </resultMap>
+
+    <select id="selectMyList" resultType="GatherResponse" resultMap="ResponseGatherMapping">
+        select g.g_id, g.u_id, g.l_id, g.c_id, g.title, g.content, g.regdate, g.startdate, g.enddate, g.modifydate, g.view_cnt,
+        g.people_num, g.point, fi.save_file_name from gather g
+        right join gather_comment gc on g.g_id = gc.g_id
+        left join gather_image gi on gi.g_id = g.g_id
+        left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchMyList"/>
         ORDER BY g.g_id DESC LIMIT #{skip}, #{size}
     </select>
@@ -83,8 +102,9 @@
 
     <select id="getMyListCount" resultType="int">
         select count(*) from gather g
-        RIGHT join gather_comment gc
-        on g.g_id = gc.g_id
+        right join gather_comment gc on g.g_id = gc.g_id
+        left join gather_image gi on gi.g_id = g.g_id
+        left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchMyList"/>
     </select>
 
