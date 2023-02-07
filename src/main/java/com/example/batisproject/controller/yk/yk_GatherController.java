@@ -83,7 +83,7 @@ public class yk_GatherController {
 
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
-                            @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
+                            @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO gatherDTO ){
         System.out.println("컨트롤 진입");
         int result = 0;
         Long fileID =0L;
@@ -96,17 +96,17 @@ public class yk_GatherController {
             
 
         //디티오에 데이터타입변환후 정보담기
-        dto.setCategory(yk_categoryService.CategoryId(detailName));
-        dto.setUser((long)userDTO.getId());
-        dto.setStartDate(gatherService.toLocalDateTime(beforStartDate));
-        dto.setEndDate(gatherService.toLocalDateTime(beforEndDate));
-        System.out.println(dto.toString());
+        gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
+        gatherDTO.setUser((long)userDTO.getId());
+        gatherDTO.setStartDate(gatherService.toLocalDateTime(beforStartDate));
+        gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
+        System.out.println(gatherDTO.toString());
 
 
         
         
         //글쓰기 
-        gatherID = gatherService.gatherRegister(dto);
+        gatherID = gatherService.gatherRegister(gatherDTO);
         if(gatherID<0){
             System.out.println("글작성 실패");
             return "gather/register";
