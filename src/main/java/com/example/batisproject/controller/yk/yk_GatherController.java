@@ -146,14 +146,13 @@ public class yk_GatherController {
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user",userDTO);
-
         //글번호 조회 후 글 정보 뿌려줘야함 
         GatherDTO gatherDTO = gatherService.get_Gather(g_id);
         model.addAttribute("gather",gatherDTO);
         //관리번호 코맨트 롤 뿌려줘야함
         GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
         model.addAttribute("comment", commentDTO);
-        System.out.println(commentDTO.toString());
+        System.out.println("디테일컨트롤러"+commentDTO.toString());
         //현재참여중인 인원 보여주기
         int peopleCounting = commentService.peopleCount((long)user.getId(), g_id);
         model.addAttribute("peopleCount", peopleCounting);
@@ -161,10 +160,9 @@ public class yk_GatherController {
         // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
         model.addAttribute("locationDong", locationService.getLocation_Dong(gatherDTO.getLocation()));
         model.addAttribute("categoryName", yk_categoryService.getCategoryName(gatherDTO.getCategory()));
-        
         //글번호랑 연관관계 이미지 뿌려줘야함
         FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
-        if(fileInfoDTO.equals(null)){
+        if(!fileInfoDTO.equals(null)){
             model.addAttribute("fileInfo", fileInfoDTO);
             System.out.println(fileInfoDTO.toString());
         }

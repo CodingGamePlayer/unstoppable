@@ -109,15 +109,14 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         .fileInfo(setToFileInfo.getId())
         .gather(g_id)
         .build();
+        //파일 연관간계 저장
+        result = registerGather_img(imgDTO);
+        if(result<0){
+            return 0L;
+        }
         
         
-        
-        
-        registerGather_img(imgDTO);
-
         System.out.println("사진 작성 성공");
-        
-        
         return setToFileInfo.getId();
 
     }
@@ -135,26 +134,21 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     //이미지 정보 불러오기
     public FileInfoDTO getFileInfo(Long g_id){
         FileInfo fileInfo = fileInfoMapper.getFileInfo(g_id);
-            
-        FileInfoDTO fileInfoDTO = modelMapper.map(fileInfo, FileInfoDTO.class);
-            
-    
-        return fileInfoDTO;
+        FileInfoDTO chackNullDTO = new FileInfoDTO();
+        try {
+                if(!fileInfo.equals(null)){
+                    FileInfoDTO fileInfoDTO = modelMapper.map(fileInfo, FileInfoDTO.class);
+                    return fileInfoDTO;
+                }    
+            } catch (Exception e) {
+                return chackNullDTO;
+                
+            }
+        
+        return chackNullDTO;
     }
     
-}
 
-/* // 글과 이미지 연관관계 테이블 디비 저장하기
-            GatherImageDTO imgDTO = GatherImageDTO.builder()
-            .fileInfo(fileID)
-            .gather(gatherID)
-            .build();
-            
-            
-            
-            file_info_Service.registerGather_img(imgDTO);
-            System.out.println("사진 작성 성공");
-            
-            if(fileID<0){
-                return "gather/register";
-            } */
+
+
+}

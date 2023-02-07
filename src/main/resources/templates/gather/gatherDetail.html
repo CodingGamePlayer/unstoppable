@@ -56,26 +56,27 @@
                     </div>
                     <div class="row">
                         <div class="text-center">   
-                            <!-- 밑에 대로 이미지 넣고 경로는 두개 넣을수있음 그러니 디비에 패스경로만 잡아놓거 저장하면됨 -->
-                            <!-- <img id="imgId" th:src="|src/main/resources/static/img/uploda_img_file/${fileInfo.saveFileName}|" alt="첨부이미지" th:if="${fileInfo.saveFileName != null}" /> -->
-                            <img src="/assets/img/upload_img_file/f1b5be37-1fac-482c-975f-b4d1a6b84889.jpeg" alt="tq">
+                            <img th:if="${fileInfo.saveFileName != null}" class="img-fluid" th:src="${'/assets/img/upload_img_file/' + fileInfo.saveFileName}">
+                            <!-- <img src="/assets/img/upload_img_file/f1b5be37-1fac-482c-975f-b4d1a6b84889.jpeg" alt="tq"> -->
                             <!-- <a th:href="@{'detail/'+${gather.location}+'/'+${gather.category}}" >테스트</a> -->
-                            <!-- ${fileInfo.saveFileName} -->
-                            <p class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</p>
-
+                            <div class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</div>
+                            <!-- <p class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</p> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-11">
-                                        <a href="#"><p class="fs-5" th:if="${comment.role==0}">참여신청 하기</p></a>
-                                        <a href="#"><p class="fs-5" th:if="${comment.role==1}">참여신청 취소</p></a>
-                                        <a href="#"><p class="fs-5" th:if="${comment.role==2}">답글(채팅) 이동</p></a>
-                                        <a href="#"><p class="fs-5" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
+                                    <div class="col-md-9">
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">답글(채팅) 이동</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
                                         
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="btn btn-outline-success" href="#" role="button">글수정</a>
+                                        <a class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
                                     </div>
 
                                 </div>

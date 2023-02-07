@@ -18,7 +18,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.example.batisproject.controller.jungi.GatherController;
+import com.example.batisproject.controller.yk.yk_GatherController;
 import com.example.batisproject.dto.CategoryDTO;
+import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.LocationDTO;
 import com.example.batisproject.entity.Category;
@@ -76,6 +79,8 @@ public class MapperTest {
     @Autowired
     Yk_gather_commentMapper commentMapper;
 
+    @Autowired
+    Yk_file_info_Service file_info_Service;
      
 
     @Test
@@ -156,7 +161,7 @@ public class MapperTest {
 
     @Test
     void gatherMapperTest(){
-        Long g_id = 31L;
+        Long g_id = 39L;
         Gather g = gm.get_Gather(g_id);
         assertNotNull(g);
     }
@@ -188,5 +193,16 @@ public class MapperTest {
         // assertNull(r);
         assertNotNull(r);
     }
+
+    @Test
+    void getF(){
+        FileInfo ff=fileInfoMapper.getFileInfo(31L);
+        FileInfoDTO dto =file_info_Service.getFileInfo(31L);
+        assertNotNull(dto);
+
+    }
+
+
+    
 
 }
