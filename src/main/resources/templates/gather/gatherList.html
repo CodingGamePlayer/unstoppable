@@ -21,16 +21,16 @@
         <div class="card-body align-items-center px-0 pt-0 pb-2">
           <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-3 mt-2">
             <h1 th:text="${location.dong}"></h1>
-            <h6 class="text-secondary text-bolder" th:text="|${location.getDong()} ${location.getSido()} ${location.getGugun()}|"></h6>
+            <h6 class="text-secondary text-bolder" th:text="|${location.getSido()} ${location.getGugun()}|"></h6>
           </div>
         </div>
       </div>
       <div class="card mb-4">
-        <div class="card-body px-0 pt-0 pb-2">
-          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4">
-            <a th:href="@{/user/gather}" class="btn btn-primary">전체</a>
-            <th:block th:each="categoryDTO : ${categoryList}">
-              <a th:href="@{/user/gather(category=${categoryDTO.getId()})}" class="btn btn-primary" th:text="${categoryDTO.getDetailName()}"></a>
+        <div class="card-body px-0 pt-0 pb-0">
+          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4" id="categories">
+            <a data-th-id="0" th:href="@{/user/gather}" class="btn btn-primary" id="c_all">전체</a>
+            <th:block th:each="categoryDTO, categoryIter: ${categoryList}">
+              <a data-th-id="${categoryIter.count}" th:href="@{/user/gather(category=${categoryDTO.getId()})}" class="btn btn-primary" id="c_others" th:text="${categoryDTO.getDetailName()}"></a>
             </th:block>
           </div>
         </div>
@@ -46,10 +46,10 @@
         <section class="pt-3 pb-5" id="cardView">
           <div class="container">
             <div class="row">
-              <div class="col-6">
+              <div class="col-12 d-flex justify-content-center">
                 <h3 class="mb-3">모임 정보</h3>
               </div>
-              <div class="col-6 text-right">
+              <div class="col-12 text-right">
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
@@ -64,14 +64,16 @@
                   <div class="carousel-inner">
                     <th:block th:each="gathers, iterstat : ${gatherList.dtoList}">
                       <div th:classappend="${iterstat.index == 0} ? ' active' : ''" class="carousel-item">
-                        <div class="row">
-                          <div class="col-md-12 mb-3">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-md-6 mb-3">
                             <div class="card">
+                              <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gathers.id})}">
                               <img class="img-fluid" alt="100%x280" src="https://images.unsplash.com/photo-1532781914607-2031eca2f00d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=7c625ea379640da3ef2e24f20df7ce8d">
                               <div class="card-body">
                                 <h4 class="card-title" th:text="${gathers.title}"></h4>
                                 <p class="card-text" th:text="${gathers.content}"></p>
                               </div>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -127,12 +129,11 @@
                         <td colspan="1">
                           <div class="d-flex px-2 py-1">
                             <div>
-                              <img src="/assets/img/team-2.jpg"
-                                   class="avatar avatar-sm me-3"
-                                   alt="user1">
+                              <svg data-jdenticon-value="nickname" th:data-jdenticon-value="${gathers.getUser()}"
+                                   width="40" height="40" class="avatar avatar-sm me-3"></svg>
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <a href="">
+                              <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gathers.id})}">
                                 <h6 class="mb-0 text-sm" th:text="${gathers.title}"/>
                                 <p class="text-xs text-secondary mb-0"
                                    th:text="${gathers.point}"/>
@@ -179,7 +180,7 @@
               <th:block
                       th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
                 <div class="col-md-9 d-flex flex-row-reverse ">
-                  <ul class="pagination">
+                  <ul class="pagination" id="paginations">
                     <li th:if="${start} == '1'" class="page-item disabled">
                       <a class="page-link"
                          th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
@@ -234,6 +235,80 @@
     </div>
   </div>
   <script src="/js/listViewToggle.js"></script>
+  <script th:inline="javascript">
+
+    let viewMode;
+    let defaultViewMode = [[${viewMode}]];
+    let cardBtn = document.getElementById("cardViewBtn");
+    let listBtn = document.getElementById("listViewBtn");
+    let cardView = document.getElementById("cardView");
+    let listView = document.getElementById("listView");
+    let categories = document.querySelectorAll("#categories > a");
+    let pagination = document.querySelectorAll(".pagination > li > a");
+    if(defaultViewMode != null) {
+      viewMode = defaultViewMode;
+    }
+
+    cardBtn.addEventListener('click', function (){
+      cardView.style.display = "";
+      listView.style.display = "none";
+      viewMode = "slide";
+      changeHref(viewMode, categories, pagination);
+    });
+    listBtn.addEventListener('click', function (){
+      cardView.style.display = "none";
+      listView.style.display = "";
+      viewMode = "list"
+      changeHref(viewMode, categories, pagination);
+    });
+
+    function changeHref(viewMode, categories, pagination) {
+      for (let idx = 0; idx < pagination.length; idx++){
+        let page = pagination[idx];
+        let pageLocation = page.href;
+        if(pageLocation.toString().indexOf('list') == -1 && pageLocation.toString().indexOf('slide') == -1) {
+          pageLocation = pageLocation + '&viewMode=' +viewMode;
+          page.href = pageLocation;
+        }
+      }
+
+      for(let i = 0; i < categories.length; i++) {
+        let category = categories[i];
+        let location = category.href;
+        if(location.toString().indexOf('list') == -1 && location.toString().indexOf('slide') == -1) {
+          location = location + '&viewMode=' +viewMode;
+          category.href = location;
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if(defaultViewMode == 'list') {
+        cardBtn.checked = false;
+        listBtn.checked = true;
+        cardView.style.display = "none";
+        listView.style.display = "";
+      }else if(defaultViewMode == 'slide') {
+        cardView.style.display = "";
+        listView.style.display = "none";
+      }else {
+        cardView.style.display = "";
+        listView.style.display = "none";
+      }
+      if(isNotEmpty(defaultViewMode)) {
+        console.log(defaultViewMode);
+        viewMode = defaultViewMode;
+        changeHref(viewMode, categories, pagination);
+      }
+    });
+
+    function isNotEmpty(str){
+      if(typeof str == "undefined" || str == null || str == "")
+        return false;
+      else
+        return true ;
+    }
+  </script>
 </div>
 
 </html>
