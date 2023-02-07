@@ -106,9 +106,8 @@
                                             <td colspan="1">
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="../assets/img/team-2.jpg"
-                                                             class="avatar avatar-sm me-3"
-                                                             alt="user1">
+                                                        <svg data-jdenticon-value="nickname" th:data-jdenticon-value="${users.username}"
+                                                             width="40" height="40" class="avatar avatar-sm me-3"></svg>
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm" th:text="${users.username}"/>
@@ -155,7 +154,9 @@
 
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
+            <div class="card mb-4 me-5">
+                <div class="card-body px-0 pt-4 pb-2">
+                    <div class="row d-flex justify-content-center">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4 d-flex justify-content-center">
 
@@ -223,6 +224,8 @@
                 </div>
 
 
+            </div>
+                </div>
             </div>
         </div>
     </div>
