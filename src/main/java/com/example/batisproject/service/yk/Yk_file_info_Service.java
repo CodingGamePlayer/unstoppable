@@ -10,7 +10,7 @@ import com.example.batisproject.entity.FileInfo;
 
 public interface Yk_file_info_Service {
     
-    Long inputImg(MultipartFile file);
+    Long inputImg(MultipartFile file, Long g_id);
 
     public int registerGather_img(GatherImageDTO imgDTO);
 

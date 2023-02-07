@@ -57,11 +57,12 @@
                     <div class="row">
                         <div class="text-center">   
                             <!-- 밑에 대로 이미지 넣고 경로는 두개 넣을수있음 그러니 디비에 패스경로만 잡아놓거 저장하면됨 -->
-                            <!-- <img id="imgId" th:src="${fileInfo.}" alt="첨부이미지" th:if="${data.imgUrl != null}" /> -->
+                            <!-- <img id="imgId" th:src="|src/main/resources/static/img/uploda_img_file/${fileInfo.saveFileName}|" alt="첨부이미지" th:if="${fileInfo.saveFileName != null}" /> -->
+                            <img src="/assets/img/upload_img_file/f1b5be37-1fac-482c-975f-b4d1a6b84889.jpeg" alt="tq">
                             <!-- <a th:href="@{'detail/'+${gather.location}+'/'+${gather.category}}" >테스트</a> -->
-                            
+                            <!-- ${fileInfo.saveFileName} -->
                             <p class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</p>
-                            
+
                         </div>
                     </div>
                     <div class="row">

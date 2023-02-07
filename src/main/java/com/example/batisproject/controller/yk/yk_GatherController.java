@@ -121,26 +121,17 @@ public class yk_GatherController {
         commentService.register_commnet(commentDTO);
         
         // 파일 저장하기
-        if(!file.equals(null)){
-            fileID = file_info_Service.inputImg(file);
+        
+            fileID = file_info_Service.inputImg(file,gatherID);
             System.out.println("서비스 완료 후");
 
 
-            // 글과 이미지 연관관계 테이블 디비 저장하기
-            GatherImageDTO imgDTO = GatherImageDTO.builder()
-            .fileInfo(fileID)
-            .gather(gatherID)
-            .build();
-            
-            
-            
-            file_info_Service.registerGather_img(imgDTO);
-            System.out.println("사진 작성 성공");
+         
             
             if(fileID<0){
                 return "gather/register";
             }
-        }   
+        
 
         System.out.println("글작성 성공");
 
