@@ -15,4 +15,8 @@ public interface Yk_gatherService {
     //글 디테일 하나 불러오기 메소드
     GatherDTO get_Gather(Long g_id);
 
+    //글조회수 카운트하기
+    int viewCount(Long g_id);
+
+    
 }

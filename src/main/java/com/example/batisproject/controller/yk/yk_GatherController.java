@@ -156,18 +156,16 @@ public class yk_GatherController {
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user",userDTO);
 
-
-        
-
         //글번호 조회 후 글 정보 뿌려줘야함 
         GatherDTO gatherDTO = gatherService.get_Gather(g_id);
         model.addAttribute("gather",gatherDTO);
-        System.out.println(gatherDTO.toString());
         //관리번호 코맨트 롤 뿌려줘야함
         GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
         model.addAttribute("comment", commentDTO);
         System.out.println(commentDTO.toString());
-
+        //현재참여중인 인원 보여주기
+        int peopleCounting = commentService.peopleCount((long)user.getId(), g_id);
+        model.addAttribute("peopleCount", peopleCounting);
         //로케이션 동이랑, 카데고리 디테일네임(카테고리) 받고 뿌려주기 
         // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
         model.addAttribute("locationDong", locationService.getLocation_Dong(gatherDTO.getLocation()));
@@ -179,6 +177,9 @@ public class yk_GatherController {
             model.addAttribute("fileInfo", fileInfoDTO);
             System.out.println(fileInfoDTO.toString());
         }
+
+        //글 조회수 카운트하기
+        gatherService.viewCount(g_id);
 
         return "gather/gatherDetail";
     }

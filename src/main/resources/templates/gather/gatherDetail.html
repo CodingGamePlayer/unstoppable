@@ -21,7 +21,11 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h3 style="margin-left: 20px;">제목 : &nbsp;&nbsp; <th:box th:text="${gather.title}"></th:box>
+                    <div class="row">
+                        <div class="col-md-12"><h3 style="margin-left: 20px;">제목 : &nbsp;&nbsp; <th:box th:text="${gather.title}"></th:box></h3></div>
+                        <div class="col-md-2" style="margin-left: 15px; margin-top: 5px;"><p>조회수 &nbsp;&nbsp; <th:box th:text="${gather.viewCnt}"></th:box> </p></div>
+                    </div>
+                    
                     </h3>
                     <!-- 여기부터 넣기 -->
                     <div class="row">
@@ -45,7 +49,7 @@
                         <div class="col-md-3 offset-md-1">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="fs-6">현재 참여인원 &nbsp;&nbsp; 쿼리문추가 :&nbsp; <th:box  th:text="${gather.peopleNum}"></th:box>  </p>
+                                    <p class="fs-6">현재 참여인원 &nbsp;&nbsp; <th:box th:text="${peopleCount}"></th:box> :&nbsp; <th:box  th:text="${gather.peopleNum}"></th:box>  </p>
                                 </div>
                             </div>
                         </div>

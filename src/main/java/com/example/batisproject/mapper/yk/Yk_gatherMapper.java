@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.Gather;
 
@@ -36,4 +37,9 @@ public interface Yk_gatherMapper {
         @Result(property = "viewCnt", column = "view_cnt")
     })
     Gather get_Gather(Long g_id);
+
+    //글조회수 카운트
+    @Update("update gather set view_cnt= view_cnt+ 1 where g_id = #{g_id};")
+    int viewCount(Long g_id);
+
 }

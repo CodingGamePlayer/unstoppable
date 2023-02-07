@@ -38,6 +38,12 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         return commentDTO;
     }
 
+    @Override
+    public int peopleCount(Long u_id, Long g_id) {
+        int result = commentMapper.peopleCount(u_id, g_id);
+        return result;
+    }
+
 
 
 }

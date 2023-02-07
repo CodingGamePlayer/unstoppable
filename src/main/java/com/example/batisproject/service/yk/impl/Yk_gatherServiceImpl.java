@@ -60,9 +60,16 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
 
         return gatherDTO;
     }
-    
-    
+
+
+    @Override
+    public int viewCount(Long g_id) {
         
+        return gatherMapper.viewCount(g_id);
+    }
+    
+    
+    
     
     
     

@@ -16,7 +16,7 @@ public interface Yk_gather_commentMapper {
     @Insert("insert into gather_comment (g_id,u_id,role) values (#{gather},#{user},#{role});") 
     int registerGather_comment(GatherComment comment);
 
-    @Select("select * from gather_comment where u_id=#{u_id} && #{g_id};")
+    @Select("select * from gather_comment where u_id=#{u_id} && g_id= #{g_id};")
     @Results(id="commnet",value = {
         @Result(property = "user", column = "u_id"),
         @Result(property = "gather", column = "g_id"),
@@ -25,6 +25,7 @@ public interface Yk_gather_commentMapper {
     GatherComment get_gather_userRole(Long g_id, Long u_id);
 
 
-
+    @Select("select count(u_id) as cnt from gather_comment where u_id=7 && g_id =31;")
+    int peopleCount(Long u_id,Long g_id);
 
 }
