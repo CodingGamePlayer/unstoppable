@@ -65,6 +65,7 @@ public class GatherController {
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
         model.addAttribute("viewMode", viewMode);
+        model.addAttribute("locationList", locationService.getAll());
         return "gather/gatherList";
     }
     @GetMapping("/user/myGather")
@@ -96,6 +97,7 @@ public class GatherController {
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
         model.addAttribute("viewMode", viewMode);
+        model.addAttribute("locationList", locationService.getAll());
         return "gather/myGatherList";
     }
 

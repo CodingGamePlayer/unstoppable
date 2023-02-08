@@ -30,7 +30,7 @@ class UserMapperTest {
         User user = User.builder()
                 .password("123123")
                 .nickname("none112")
-                .point(1000000)
+                .point(1000000L)
                 .role("ROLE_USER")
                 .build();
 

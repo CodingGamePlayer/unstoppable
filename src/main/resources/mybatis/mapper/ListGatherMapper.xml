@@ -81,7 +81,7 @@
     <sql id="searchOtherList">
          <where>
              g.g_id NOT IN (select g_id from gather_comment gc
-             where u_id = (select u_id from user where nickname = #{nickname}))
+             where u_id = (select u_id from user u where nickname = #{nickname}))
                  and enddate > now()
                  and l_id = #{location}
              <choose>
@@ -90,6 +90,10 @@
                  </when>
                  <when test="keyword != null and type == 'title'.toString()">
                      and title like concat('%', #{keyword}, '%')
+                 </when>
+                 <when test="allSearchKeyword != null">
+                    or title like concat('%', #{allSearchKeyword}, '%')
+                    or content like concat('%', #{allSearchKeyword}, '%')
                  </when>
              </choose>
          </where>
