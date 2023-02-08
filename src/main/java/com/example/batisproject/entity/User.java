@@ -18,7 +18,7 @@ public class User {
     private String password;
     private String nickname;
     private String regdate;
-    private int point;
+    private Long point;
     private String role;
 
 

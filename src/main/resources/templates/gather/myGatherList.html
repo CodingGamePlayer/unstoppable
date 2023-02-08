@@ -69,8 +69,8 @@
                             <div class="card">
                               <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gathers.id})}">
                                 <th:block>
-                                  <img th:if="${gathers.getSaveFileName() != null}" class="img-fluid" th:src="${'/assets/img/upload_img_file/' + gathers.saveFileName}">
-                                  <img th:if="${gathers.getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://images.unsplash.com/photo-1532781914607-2031eca2f00d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=7c625ea379640da3ef2e24f20df7ce8d">
+                                  <img th:if="${gathers.getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gathers.saveFileName}">
+                                  <img th:if="${gathers.getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/FF0000/FFFFFF?text=No+Image">
                                 </th:block>
                               <div class="card-body">
                                 <h4 class="card-title" th:text="${gathers.title}"></h4>
@@ -226,6 +226,9 @@
                 <div class="col-auto">
                   <label for="keyword" class="visually-hidden">search</label>
                   <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
+                  <th:block th:if="${viewMode != null}">
+                    <input class="searchViewMode" type="hidden" name="viewMode" th:value="${viewMode}">
+                  </th:block>
                 </div>
                 <div class="col-auto">
                   <button type="submit" class="btn btn-primary mb-3">검색</button>
@@ -237,7 +240,6 @@
       </div>
     </div>
   </div>
-  <script src="/js/listViewToggle.js"></script>
   <script th:inline="javascript">
 
     let viewMode;
@@ -248,6 +250,8 @@
     let listView = document.getElementById("listView");
     let categories = document.querySelectorAll("#categories > a");
     let pagination = document.querySelectorAll(".pagination > li > a");
+    let searchViewMode = document.querySelector('.searchViewMode');
+
     if(defaultViewMode != null) {
       viewMode = defaultViewMode;
     }
@@ -256,16 +260,16 @@
       cardView.style.display = "";
       listView.style.display = "none";
       viewMode = "slide";
-      changeHref(viewMode, categories, pagination);
+      changeHref(viewMode, categories, pagination, searchViewMode);
     });
     listBtn.addEventListener('click', function (){
       cardView.style.display = "none";
       listView.style.display = "";
       viewMode = "list"
-      changeHref(viewMode, categories, pagination);
+      changeHref(viewMode, categories, pagination, searchViewMode);
     });
 
-    function changeHref(viewMode, categories, pagination) {
+    function changeHref(viewMode, categories, pagination, searchViewMode) {
       for (let idx = 0; idx < pagination.length; idx++){
         let page = pagination[idx];
         let pageLocation = page.href;
@@ -279,9 +283,19 @@
         let category = categories[i];
         let location = category.href;
         if(location.toString().indexOf('list') == -1 && location.toString().indexOf('slide') == -1) {
-          location = location + '&viewMode=' +viewMode;
-          category.href = location;
+          if(location.toString().indexOf('?') == -1){
+            location = location + '?viewMode=' +viewMode;
+            category.href = location;
+          }else{
+            location = location + '&viewMode=' +viewMode;
+            category.href = location;
+          }
         }
+      }
+      console.log(searchViewMode);
+      let initValue = searchViewMode.valueOf();
+      if(initValue.toString().indexOf('list') == -1 && initValue.toString().indexOf('list') == -1){
+        searchViewMode.value = viewMode;
       }
     }
 
