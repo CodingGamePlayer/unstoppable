@@ -31,6 +31,8 @@ public class PageRequestDTO {
 
     private String keyword;
 
+    private String allSearchKeyword;
+
     private boolean finished;
 
     private LocalDate from;
