@@ -17,47 +17,66 @@
 
 
     <div class="container">
+        
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h3 style="margin-left: 20px;">제목 : <th:box th:text="${user.id}"></th:box>
+                    <div class="row">
+                        <div class="col-md-12"><h3 style="margin-left: 20px;">제목 : &nbsp;&nbsp; <th:box th:text="${gather.title}"></th:box></h3></div>
+                        <div class="col-md-2" style="margin-left: 15px; margin-top: 5px;"><p>조회수 &nbsp;&nbsp; <th:box th:text="${gather.viewCnt}"></th:box> </p></div>
+                    </div>
+                    
                     </h3>
                     <!-- 여기부터 넣기 -->
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-sm">
                                 <thead>
-                                  <th>카테고리</th>
-                                  <th>지역</th>
-                                  <td><p class="text-center">참여포인트 <th:box th:text="${user.id}"></th:box> </p></td>
+                                    <th th:text="${categoryName}">카테고리</th>
+                                    <th th:text="${locationDong}">지역</th>
+                                    <td>
+                                        <p class="text-center" th:if="${gather.point!=null}">참여포인트 <th:box th:text="${gather.point}"></th:box> </p>
+                                        <p class="text-center" th:if="${gather.point==null}">참여포인트 &nbsp;&nbsp; 해당없음 </p>
+                                    </td>
                                 </thead>
                             </table>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <p class="fs-2">주최자 : <th:box th:text="${user.id}"></th:box> </p>
+                            <p class="fs-2">주최자 : <th:box th:text="${user.nickname}"></th:box> </p>
                         </div>
                         <div class="col-md-3 offset-md-1">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="fs-6">참여인원 </p>
+                                    <p class="fs-6">현재 참여인원 &nbsp;&nbsp; <th:box th:text="${peopleCount}"></th:box> :&nbsp; <th:box  th:text="${gather.peopleNum}"></th:box>  </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="text-center">
-                            <p class="fs-3" style="height: 400px;">내용</p>
+                        <div class="text-center">   
+                            <img th:if="${fileInfo.saveFileName != null}" class="img-fluid" th:src="${'/assets/img/upload_img_file/' + fileInfo.saveFileName}">
+                            <!-- <img src="/assets/img/upload_img_file/f1b5be37-1fac-482c-975f-b4d1a6b84889.jpeg" alt="tq"> -->
+                            <!-- <a th:href="@{'detail/'+${gather.location}+'/'+${gather.category}}" >테스트</a> -->
+                            <div class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</div>
+                            <!-- <p class="fs-3" style="height: 400px;" th:text="${gather.content}">내용</p> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-11">
-                                        <p class="fs-5">참여신청</p>
+                                    <div class="col-md-9">
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">답글(채팅) 이동</p></a>
+                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
+                                        
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="btn btn-outline-success" href="#" role="button">글수정</a>
+                                        <a class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
                                     </div>
 
                                 </div>
@@ -74,11 +93,14 @@
 
     </div>
 
+<script>
+   
 
-    <script>
-        
 
-    </script>
+    
+</script>
+
+
 </div>
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="card" style="height: 600px;">
+                <div class="card-body">
+                    <!-- 작성시작 -->
+                    <div class="row">
+                        <div class="col-md-12"></div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th colspan="4" scope="col">
+                                <div class="row" style="margin-bottom: 25px;">
+                                    <div class="col-md-5 offset-md-4">제목</div>
+                                    <div class="col-md-2">수락 삭제</div>
+                                </div>
+                            </th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <div class="row">
+                                <tr>
+                                    <div class="col-md-1"><td>프사</td></div>
+                                    <div class="col-md-2"><td class="table-success"><div class="card">tq</div></td></div>
+                                    <div class="col-md-7"><td class="table-success"><div class="card">tq</div></td></div>
+                                    <div class="col-md-2"><td>체크박스</td></div>
+                                </tr>
+                            </div> 
+                            <div class="row">
+                                <tr>
+                                    <div class="col-md-1"><td>프사</td></div>
+                                    <div class="col-md-2"><td>기본정보</td></div>
+                                    <div class="col-md-7"><td><div class="bg-success">신청시입력한문구</div></td></div>
+                                    <div class="col-md-2"><td>체크박스</td></div>
+                                </tr>
+                            </div>      
+                         
+                        </tbody>
+                      </table>
+                    <!-- 작성 종료 -->
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+    </div>
+
+<script>
+   
+
+
+    
+</script>
+
+
+</div>
+
+
+
+</html>

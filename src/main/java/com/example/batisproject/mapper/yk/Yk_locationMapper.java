@@ -24,7 +24,8 @@ public interface Yk_locationMapper {
     })
     public List<Location> getList();
 
-    
+    @Select("select dong from location where l_id = #{l_id};")
+    String getLocation_Dong(int l_id);
 
 
 }
