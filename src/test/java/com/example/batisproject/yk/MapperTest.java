@@ -23,6 +23,7 @@ import com.example.batisproject.controller.jungi.GatherController;
 import com.example.batisproject.controller.yk.yk_GatherController;
 import com.example.batisproject.dto.CategoryDTO;
 import com.example.batisproject.dto.FileInfoDTO;
+import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.LocationDTO;
 import com.example.batisproject.entity.Category;
@@ -39,8 +40,10 @@ import com.example.batisproject.mapper.yk.Yk_locationMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
 import com.example.batisproject.service.yk.Yk_file_info_Service;
 import com.example.batisproject.service.yk.Yk_gatherService;
+import com.example.batisproject.service.yk.Yk_gather_commentService;
 import com.example.batisproject.service.yk.impl.Yk_categoryServiceImpl;
 import com.example.batisproject.service.yk.impl.Yk_gatherServiceImpl;
+import com.example.batisproject.service.yk.impl.Yk_gather_commnetServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -216,6 +219,29 @@ public class MapperTest {
 
         
     }
-    
+
+    Yk_gather_commnetServiceImpl cs= new Yk_gather_commnetServiceImpl();
+
+    @Autowired
+    Yk_gather_commentService cms; 
+
+    @Test
+    void roleService(){
+        GatherCommentDTO dto = new GatherCommentDTO();
+        dto.setUser(8L);
+        dto.setGather(24L);
+        int r=cms.checkRole(dto);
+
+        assertNotNull(r);
+    }
+
+    @Test
+    void roleMapper(){
+        GatherComment dto = new GatherComment();
+        dto.setUser(10L);
+        dto.setGather(21L);
+        String r =commentMapper.checkRole(dto);
+        assertNull(r);
+    }
 
 }

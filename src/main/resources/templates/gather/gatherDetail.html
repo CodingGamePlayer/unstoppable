@@ -67,16 +67,16 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-9">
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">답글(채팅) 이동</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
-                                        
+                                    <div class="col-md-7">
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role>=3}">참가자인포,코맨트 방 이동</p></a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a class="btn btn-outline-success" href="#" role="button">글수정</a>
-                                        <a class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
+                                        <a th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button">글수정</a>
+                                        <a th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
                                     </div>
 
                                 </div>

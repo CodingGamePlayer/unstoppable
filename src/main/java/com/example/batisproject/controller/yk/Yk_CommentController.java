@@ -55,34 +55,34 @@ public class Yk_CommentController {
         commentDTO.setUser((long)userDTO.getId());
         commentDTO.setGather(g_id);
         commentDTO.setRole(commentService.checkRole(commentDTO));
-        //comment 객체로 던져줄거란 말이지 - 그러면 커멘트.getRole  이 조건이 될거고 케이스는 그 안에 있는 값이지 근데 0
-        // 맵퍼에서 받아온거 0인 건지 먼저 확인하기
         int result =0;
         switch (commentDTO.getRole()) {
             case 0:
-                result = commentService.register_commnet(commentDTO);
-                if(result==0){
-                    return "redirect:/";
+                result = commentService.joinComment(commentDTO);
+                if(result>0){
+                    return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             case 1:
                 result = commentService.joinCancel(commentDTO);
-                if(result==0){
-                    return "redirect:/";
+                if(result>0){
+                    return "redirect:/user/gather/detail/"+g_id;
+                }
+                break;
+            case 2:
+                result = commentService.againJoin(commentDTO);
+                if(result>0){
+                    return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             default:
-                //채팅방진입
+                //3~4 번 채팅방진입
                 return "/user/gather/"+g_id+"/comment";
                 
         }
 
-
-
-
-
-
-        return "";
+        //요청 성공적 완료
+        return "/user/gather/detail/"+g_id;
     }
 
 

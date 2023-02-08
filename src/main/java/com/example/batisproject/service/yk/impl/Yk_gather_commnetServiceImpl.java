@@ -22,12 +22,12 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
     ModelMapper modelMapper;
 
     @Override
-    public int register_commnet(GatherCommentDTO commentDTO) {
+    public int joinComment(GatherCommentDTO commentDTO) {
         
         GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
         
 
-        return commentMapper.registerGather_comment(comment);
+        return commentMapper.joinComment(comment);
     }
 
     @Override
@@ -59,10 +59,16 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
         String role= commentMapper.checkRole(comment);
         //글에 참여신청을 하지않으면 테이블에 저장된 값이 없으니 null반환 참여신청하지않은 사람은 권한 0
-        if(role.equals(null)){
-           return 0; 
+        try {
+            //웃긴게 조건에 널값비교이지만 널이아니기 때문에 통과해서 발생을 안시킴
+            if(role.equals(null)){
+               return 0; 
+            }
+        } catch (Exception e) {
+            //널값 비교일때 에러를 발생시킴
+            return 0; 
         }
-
+        
         return Integer.parseInt(role);
     }
 
@@ -72,6 +78,21 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         int result = commentMapper.joinCancel(comment);
         
         return result;
+    }
+
+
+    @Override
+    public int registerComment(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        
+        return commentMapper.joinComment(comment);
+    }
+
+    @Override
+    public int againJoin(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        
+        return commentMapper.againJoin(comment);
     }
 
 
