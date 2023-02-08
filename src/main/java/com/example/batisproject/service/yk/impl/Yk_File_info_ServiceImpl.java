@@ -71,11 +71,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             System.out.println("---------------octet로 비교로 잘됨");
             return 0L;
         }
-        // if(fileName.equals(" ")){
-        //     System.out.println("-----------파일내임이 띄워쓰기 로되어있음");
-        //     return 0L;
-        // }
-        //디비에 저장하기
+        
         FileInfo setToFileInfo = FileInfo.builder()
             .fileName(fileName)
             .saveFileName(saveFileName)

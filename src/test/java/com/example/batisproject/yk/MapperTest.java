@@ -1,5 +1,6 @@
 package com.example.batisproject.yk;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -27,6 +28,7 @@ import com.example.batisproject.dto.LocationDTO;
 import com.example.batisproject.entity.Category;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
+import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.entity.Location;
 import com.example.batisproject.mapper.Yk_fileInfoMapper;
 import com.example.batisproject.mapper.jungi.CategoryMapper;
@@ -188,7 +190,7 @@ public class MapperTest {
     @Test
     void gatherRegiTest(){
         Long g_id = 31L;
-        int r =commentMapper.peopleCount(7L, g_id);
+        int r =commentMapper.peopleCount(g_id);
 
         // assertNull(r);
         assertNotNull(r);
@@ -202,7 +204,18 @@ public class MapperTest {
 
     }
 
+    @Test
+    void checkRoleTest(){
+        GatherComment comment = GatherComment.builder()
+        .user(10L)
+        .gather(39L)
+        .build();
+        // int role = commentMapper.checkRole(comment);
+        String role = commentMapper.checkRole(comment);
+        assertNull(role);
 
+        
+    }
     
 
 }

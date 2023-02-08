@@ -47,8 +47,30 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
     }
 
     @Override
-    public int peopleCount(Long u_id, Long g_id) {
-        int result = commentMapper.peopleCount(u_id, g_id);
+    public int peopleCount(Long g_id) {
+        int result = commentMapper.peopleCount(g_id);
+        return result;
+    }
+
+
+
+    @Override
+    public int checkRole(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        String role= commentMapper.checkRole(comment);
+        //글에 참여신청을 하지않으면 테이블에 저장된 값이 없으니 null반환 참여신청하지않은 사람은 권한 0
+        if(role.equals(null)){
+           return 0; 
+        }
+
+        return Integer.parseInt(role);
+    }
+
+    @Override
+    public int joinCancel(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        int result = commentMapper.joinCancel(comment);
+        
         return result;
     }
 

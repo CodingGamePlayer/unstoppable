@@ -154,7 +154,7 @@ public class yk_GatherController {
         model.addAttribute("comment", commentDTO);
         System.out.println("디테일컨트롤러"+commentDTO.toString());
         //현재참여중인 인원 보여주기
-        int peopleCounting = commentService.peopleCount((long)user.getId(), g_id);
+        int peopleCounting = commentService.peopleCount(g_id);
         model.addAttribute("peopleCount", peopleCounting);
         //로케이션 동이랑, 카데고리 디테일네임(카테고리) 받고 뿌려주기 
         // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
