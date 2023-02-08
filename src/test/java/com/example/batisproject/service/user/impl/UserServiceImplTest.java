@@ -31,7 +31,7 @@ class UserServiceImplTest {
 
         UserDTO userDto = UserDTO.builder()
                 .username("otw1917@naver.com")
-                .point(10000)
+                .point(10000L)
                 .build();
 
         int result = userService.updateUser(userDto);

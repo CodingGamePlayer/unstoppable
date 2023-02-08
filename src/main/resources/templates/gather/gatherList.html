@@ -18,10 +18,34 @@
   <div class="row">
     <div class="col-12">
       <div class="card mb-4">
-        <div class="card-body align-items-center px-0 pt-0 pb-2">
-          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-3 mt-2">
-            <h1 th:text="${location.dong}"></h1>
-            <h6 class="text-secondary text-bolder" th:text="|${location.getSido()} ${location.getGugun()}|"></h6>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="container d-flex justify-content-evenly col-sm-12 py-3 mt-2 ">
+            <div class="col-sm-6 p-4">
+              <h1 th:text="${location.dong}"></h1>
+              <h6 class="text-secondary text-bolder" th:text="|${location.getSido()} ${location.getGugun()}|"></h6>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-evenly">
+              <form action="#" th:action="@{/user/update/listLocation}" method="get" id="locationSubmit">
+                <div class="form-group">
+                  <label for="place">관심 지역 변경</label>
+                  <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
+                  <div class="alert-custom alert-light mt-2" role="alert">
+                    주소를 정확히 입력해주세요.
+                  </div>
+                  <datalist id="place-list">
+                    <select>
+                      <option th:each="location : ${locationList}"
+                              th:value="${location.getDong()}"
+                              th:label="|(${location.getSido()} ${location.getGugun()}) |"
+                              th:data="${location.getId()}">
+                      </option>
+                    </select>
+                  </datalist>
+                  <input type="hidden" name="location" id="place-hidden">
+                </div>
+                <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -35,6 +59,7 @@
           </div>
         </div>
       </div>
+      <th:block th:if="${gatherList.getDtoList().size() != 0}">
       <div class="card mb-4 px-5">
         <div class="d-flex justify-content-center pt-3">
           <input type="radio" class="btn-check" name="options-outlined" id="cardViewBtn" autocomplete="off" checked>
@@ -69,8 +94,8 @@
                             <div class="card">
                               <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gathers.id})}">
                                 <th:block>
-                                  <img th:if="${gathers.getSaveFileName() != null}" class="img-fluid" th:src="${'/assets/img/upload_img_file/' + gathers.saveFileName}">
-                                  <img th:if="${gathers.getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://images.unsplash.com/photo-1532781914607-2031eca2f00d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=7c625ea379640da3ef2e24f20df7ce8d">
+                                  <img th:if="${gathers.getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gathers.saveFileName}">
+                                  <img th:if="${gathers.getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
                                 </th:block>
                               <div class="card-body">
                                 <h4 class="card-title" th:text="${gathers.title}"></h4>
@@ -174,6 +199,24 @@
           </div>
         </div>
       </div>
+      </th:block>
+      <th:block th:if="${gatherList.getDtoList().size() == 0}">
+        <div class="card mb-4 px-5 d-flex justify-content-center align-items-center">
+          <div class="card-header pb-0 text-center">
+            <h6>내 모임 정보</h6>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="row text-center">
+                  <h2>모임이 없어요!</h2>
+                  <a href="/user/gather/register" type="button" class="btn btn-dark btn-sm w-100 mb-3 mt-3">모임 만들기👻</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </th:block>
       <div class="card mb-5">
         <div class="card-body px-0 pt-4 pb-2">
           <div class="row d-flex justify-content-center">
@@ -193,7 +236,7 @@
                          th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
                     </li>
 
-                    <th:block th:each="num : ${#numbers.sequence(start,end)}">
+                    <th:block th:if="${gatherList.getDtoList().size() != 0}" th:each="num : ${#numbers.sequence(start,end)}">
                       <li class="page-item" th:if="${num} != ${gatherList.page}">
 
                         <a class="page-link" th:text="${num}"
@@ -241,6 +284,7 @@
     </div>
   </div>
 
+  <script src="/js/locationModal.js"></script>
   <script th:inline="javascript">
 
     let viewMode;
