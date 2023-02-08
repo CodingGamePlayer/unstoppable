@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.CategoryDTO;
+import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.GatherImageDTO;
@@ -52,6 +53,8 @@ public class yk_GatherController {
     @Autowired
     private Yk_categoryService yk_categoryService;
     
+
+
     //글쓰기 폼으로 이동
     @GetMapping("/user/gather/register")
     public String regiser(Model model){
@@ -80,7 +83,7 @@ public class yk_GatherController {
 
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
-                            @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO dto ){
+                            @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO gatherDTO ){
         System.out.println("컨트롤 진입");
         int result = 0;
         Long fileID =0L;
@@ -93,17 +96,17 @@ public class yk_GatherController {
             
 
         //디티오에 데이터타입변환후 정보담기
-        dto.setCategory(yk_categoryService.CategoryId(detailName));
-        dto.setUser((long)userDTO.getId());
-        dto.setStartDate(gatherService.toLocalDateTime(beforStartDate));
-        dto.setEndDate(gatherService.toLocalDateTime(beforEndDate));
-        System.out.println(dto.toString());
+        gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
+        gatherDTO.setUser((long)userDTO.getId());
+        gatherDTO.setStartDate(gatherService.toLocalDateTime(beforStartDate));
+        gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
+        System.out.println(gatherDTO.toString());
 
 
         
         
         //글쓰기 
-        gatherID = gatherService.gatherRegister(dto);
+        gatherID = gatherService.gatherRegister(gatherDTO);
         if(gatherID<0){
             System.out.println("글작성 실패");
             return "gather/register";
@@ -118,26 +121,17 @@ public class yk_GatherController {
         commentService.register_commnet(commentDTO);
         
         // 파일 저장하기
-        if(!file.equals(null)){
-            fileID = file_info_Service.inputImg(file);
+        
+            fileID = file_info_Service.inputImg(file,gatherID);
             System.out.println("서비스 완료 후");
 
 
-            // 글과 이미지 연관관계 테이블 디비 저장하기
-            GatherImageDTO imgDTO = GatherImageDTO.builder()
-            .fileInfo(fileID)
-            .gather(gatherID)
-            .build();
-            
-            
-            
-            file_info_Service.registerGather_img(imgDTO);
-            System.out.println("사진 작성 성공");
+         
             
             if(fileID<0){
                 return "gather/register";
             }
-        }   
+        
 
         System.out.println("글작성 성공");
 
@@ -147,20 +141,34 @@ public class yk_GatherController {
 
     //디테일 - 
     @GetMapping("/user/gather/detail/{id}")
-    public String detail(@PathVariable("id") String g_id, Model model){
+    public String detail(@PathVariable("id") Long g_id, Model model){
         //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
         User user = new AuthenticationForModel().getAuthentication();
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user",userDTO);
-
-
-        //이미지 검색테이블로 검색후 이미지 뿌려줘야함
-
         //글번호 조회 후 글 정보 뿌려줘야함 
-
-        //관리번호 롤 뿌려줘야함
-
+        GatherDTO gatherDTO = gatherService.get_Gather(g_id);
+        model.addAttribute("gather",gatherDTO);
+        //관리번호 코맨트 롤 뿌려줘야함
+        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
+        model.addAttribute("comment", commentDTO);
+        System.out.println("디테일컨트롤러"+commentDTO.toString());
+        //현재참여중인 인원 보여주기
+        int peopleCounting = commentService.peopleCount((long)user.getId(), g_id);
+        model.addAttribute("peopleCount", peopleCounting);
+        //로케이션 동이랑, 카데고리 디테일네임(카테고리) 받고 뿌려주기 
+        // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
+        model.addAttribute("locationDong", locationService.getLocation_Dong(gatherDTO.getLocation()));
+        model.addAttribute("categoryName", yk_categoryService.getCategoryName(gatherDTO.getCategory()));
         //글번호랑 연관관계 이미지 뿌려줘야함
+        FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
+        if(!fileInfoDTO.equals(null)){
+            model.addAttribute("fileInfo", fileInfoDTO);
+            System.out.println(fileInfoDTO.toString());
+        }
+
+        //글 조회수 카운트하기
+        gatherService.viewCount(g_id);
 
         return "gather/gatherDetail";
     }

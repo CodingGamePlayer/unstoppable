@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherImageDTO;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
@@ -46,19 +47,19 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
 
 
     
-
+    //이미지 정보 저장
     @Override
-    public Long inputImg(MultipartFile file) {
+    public Long inputImg(MultipartFile file,Long g_id) {
 
         System.out.println(save_path);
         
         //image/png 이런식으로 나옴
         String contentType_name = file.getContentType();
         System.out.println(contentType_name);
-        // 뒤에 파일형식만 받게
-
-     
-
+        
+        
+        
+        // 뒤에 파일형식만 받게 뒷부분만 잘라줌
         String[] afer_contentType_name = contentType_name.split("/");
         
         String fileName = file.getOriginalFilename();
@@ -66,28 +67,30 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         String saveFileName = UUID.randomUUID().toString()+"."+contentType;
         System.out.println("이미지 uuid "+saveFileName+ "파일이름 잘나오나" +fileName +"컨탠츠 패스 확인" +contentType);
 
-
+        if(contentType.equals("octet-stream")){
+            System.out.println("---------------octet로 비교로 잘됨");
+            return 0L;
+        }
+        // if(fileName.equals(" ")){
+        //     System.out.println("-----------파일내임이 띄워쓰기 로되어있음");
+        //     return 0L;
+        // }
         //디비에 저장하기
-        FileInfo fileInfo = FileInfo.builder()
+        FileInfo setToFileInfo = FileInfo.builder()
             .fileName(fileName)
             .saveFileName(saveFileName)
             .contentType(contentType)
             .build();
 
-        
 
-
-
-        int result=fileInfoMapper.putImgInfo(fileInfo);
+        int result=fileInfoMapper.putImgInfo(setToFileInfo);
         if(result<0){
-            return fileInfo.getId();
+            //정보 저장 실패시
+            return setToFileInfo.getId();
         }
 
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
-
-
-
 
         try {
             
@@ -100,25 +103,52 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
-
-
-
-
-
         // System.out.println("세이브파일 저장후 "+savefile);
-        return fileInfo.getId();
+        // 글과 이미지 연관관계 테이블 디비 저장하기
+        GatherImageDTO imgDTO = GatherImageDTO.builder()
+        .fileInfo(setToFileInfo.getId())
+        .gather(g_id)
+        .build();
+        //파일 연관간계 저장
+        result = registerGather_img(imgDTO);
+        if(result<0){
+            return 0L;
+        }
+        
+        
+        System.out.println("사진 작성 성공");
+        return setToFileInfo.getId();
 
     }
+
+
     
-    
+    //이미지 + 글 연관관계 저장 메소드
     public int registerGather_img(GatherImageDTO imgDTO){
 
-        GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
-
-        return fileInfoMapper.registerGather_img(img);
+         GatherImage img = modelMapper.map(imgDTO, GatherImage.class);
+    
+         return fileInfoMapper.registerGather_img(img);
+     }
+    
+    //이미지 정보 불러오기
+    public FileInfoDTO getFileInfo(Long g_id){
+        FileInfo fileInfo = fileInfoMapper.getFileInfo(g_id);
+        FileInfoDTO chackNullDTO = new FileInfoDTO();
+        try {
+                if(!fileInfo.equals(null)){
+                    FileInfoDTO fileInfoDTO = modelMapper.map(fileInfo, FileInfoDTO.class);
+                    return fileInfoDTO;
+                }    
+            } catch (Exception e) {
+                return chackNullDTO;
+                
+            }
+        
+        return chackNullDTO;
     }
+    
+
 
 
 }

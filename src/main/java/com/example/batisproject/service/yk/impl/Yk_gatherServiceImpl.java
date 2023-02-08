@@ -51,9 +51,25 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
        
         return changeData;
     }
-    
-    
+
+    //글하나 불러오는 메소드
+    @Override
+    public GatherDTO get_Gather(Long g_id) {
+        Gather gather =gatherMapper.get_Gather(g_id);
+        GatherDTO gatherDTO = modelMapper.map(gather,GatherDTO.class);
+
+        return gatherDTO;
+    }
+
+
+    @Override
+    public int viewCount(Long g_id) {
         
+        return gatherMapper.viewCount(g_id);
+    }
+    
+    
+    
     
     
     

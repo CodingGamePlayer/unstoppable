@@ -30,6 +30,28 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         return commentMapper.registerGather_comment(comment);
     }
 
+    @Override
+    public GatherCommentDTO get_gather_userRole(Long g_id, Long u_id) {
+        GatherComment comment = commentMapper.get_gather_userRole(g_id, u_id);
+        GatherCommentDTO checkNullDTO = new GatherCommentDTO();
+
+        try {
+            GatherCommentDTO commentDTO = modelMapper.map(comment, GatherCommentDTO.class);
+            return commentDTO;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return checkNullDTO;
+        }
+
+        
+    }
+
+    @Override
+    public int peopleCount(Long u_id, Long g_id) {
+        int result = commentMapper.peopleCount(u_id, g_id);
+        return result;
+    }
+
 
 
 }
