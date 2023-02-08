@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
         User target = userMapper.existsByEmail(userDTO.getUsername());
 
-        int totalPoint = target.getPoint() + userDTO.getPoint();
+        Long totalPoint = target.getPoint() + userDTO.getPoint();
         target.setPoint(totalPoint);
 
         int result = userMapper.updateUser(target);

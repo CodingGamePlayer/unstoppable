@@ -62,7 +62,7 @@ public interface GatherMapper {
 
     List<GatherResponse> selectMyList(PageRequestDTO pageRequestDTO);
 
-    List<Gather> selectOtherList(PageRequestDTO pageRequestDTO);
+    List<GatherResponse> selectOtherList(PageRequestDTO pageRequestDTO);
 
     int getOtherListCount(PageRequestDTO pageRequestDTO);
     int getMyListCount(PageRequestDTO pageRequestDTO);

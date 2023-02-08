@@ -94,17 +94,17 @@ public class GatherServiceImpl implements GatherService {
     }
 
     @Override
-    public PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<GatherResponseDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
 
-        List<Gather> gathers = gatherMapper.selectOtherList(pageRequestDTO);
-        List<GatherDTO> dtoList = gathers.stream()
+        List<GatherResponse> gathers = gatherMapper.selectOtherList(pageRequestDTO);
+        List<GatherResponseDTO> dtoList = gathers.stream()
 
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .map(gatherResponse -> modelMapper.map(gatherResponse, GatherResponseDTO.class))
                 .collect(Collectors.toList());
 
         int total = gatherMapper.getOtherListCount(pageRequestDTO);
 
-        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+        PageResponseDTO<GatherResponseDTO> pageResponseDTO = PageResponseDTO.<GatherResponseDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .total(total)
                 .dtoList(dtoList)

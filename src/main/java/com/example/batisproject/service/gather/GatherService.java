@@ -24,6 +24,6 @@ public interface GatherService {
     List<GatherDTO> getByCategoryAndNickName(Integer category, String nickname);
 
     PageResponseDTO<GatherResponseDTO> getAllMyList(PageRequestDTO pageRequestDTO);
-    PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO);
+    PageResponseDTO<GatherResponseDTO> getAllOtherList(PageRequestDTO pageRequestDTO);
 
 }
