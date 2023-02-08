@@ -7,6 +7,8 @@ import com.example.batisproject.entity.User;
 import com.example.batisproject.service.location.LocationService;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +25,9 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/user/main")
     public String main(Model model, @CurrentUser User user) {
@@ -49,7 +54,7 @@ public class UserController {
     @GetMapping("/user/update/location")
     public String updateUserLocation(Integer location, @CurrentUser User user, Model model) {
         System.out.println("locaiton : " + location);
-        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         userDTO.setLocation(location);
         int result = userService.updateUserByLocation(userDTO);
         log.info("result : " + result);

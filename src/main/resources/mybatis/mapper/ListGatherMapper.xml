@@ -53,8 +53,11 @@
         ORDER BY g.g_id DESC LIMIT #{skip}, #{size}
     </select>
 
-    <select id="selectOtherList" resultType="Gather" resultMap="GatherMapping">
-        select * from gather g
+    <select id="selectOtherList" resultType="GatherResponse" resultMap="ResponseGatherMapping">
+        select g.g_id, g.u_id, g.l_id, g.c_id, g.title, g.content, g.regdate, g.startdate, g.enddate, g.modifydate, g.view_cnt,
+        g.people_num, g.point, fi.save_file_name from gather g
+        left join gather_image gi on gi.g_id = g.g_id
+        left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchOtherList"/>
         order by g_id desc LIMIT #{skip}, #{size}
     </select>
@@ -77,7 +80,7 @@
 
     <sql id="searchOtherList">
          <where>
-             g_id NOT IN (select g_id from gather_comment gc
+             g.g_id NOT IN (select g_id from gather_comment gc
              where u_id = (select u_id from user where nickname = #{nickname}))
                  and enddate > now()
                  and l_id = #{location}
@@ -110,6 +113,8 @@
 
     <select id="getOtherListCount" resultType="int">
         select count(*) from gather g
+        left join gather_image gi on gi.g_id = g.g_id
+        left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchOtherList"/>
     </select>
 

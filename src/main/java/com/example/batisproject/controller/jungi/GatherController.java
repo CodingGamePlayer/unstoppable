@@ -51,13 +51,13 @@ public class GatherController {
         // gather logic
 
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherDTO> gatherList;
-        LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
+        PageResponseDTO<GatherResponseDTO> gatherList;
+        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
         revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(user.getLocation());
-        revisedPageDTO.setNickname(user.getNickname());
+        revisedPageDTO.setLocation(userDTO.getLocation());
+        revisedPageDTO.setNickname(userDTO.getNickname());
         gatherList = gatherService.getAllOtherList(revisedPageDTO);
 
         model.addAttribute("location", locationDTO);
@@ -80,15 +80,15 @@ public class GatherController {
 
         model.addAttribute("user", userDTO);
 
-        LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
+        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
         PageResponseDTO<GatherResponseDTO> gatherList;
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
         revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(user.getLocation());
-        revisedPageDTO.setNickname(user.getNickname());
+        revisedPageDTO.setLocation(userDTO.getLocation());
+        revisedPageDTO.setNickname(userDTO.getNickname());
         gatherList = gatherService.getAllMyList(revisedPageDTO);
 
         model.addAttribute("location", locationDTO);
