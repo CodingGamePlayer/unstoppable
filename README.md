@@ -11,17 +11,17 @@
 <div>### 설계 : 2023-01-16 ~ 2023-01-29</div>
 <div>### 개발 : 2023-01-30 ~ 2023-02-28</div>
 <br>
-1차 프로토타입 리뷰 : 2023-02-10 (금)
 
+## 일정
 
-# Spring Boot Project
-
-This is a sample Spring Boot project that demonstrates how to build a RESTful web service using Spring Boot.
+- 설계 : 2023-1-16 ~ 2023-1-29
+- 개발 : 2023-1-30 ~ 2023-2-28
+- 1차 프로토타입 리뷰 : 2023-02-10
 
 ## Prerequisites
 
-- Java 8 or higher
-- Maven 3.x
+- Java 11 or higher
+- Maven 4.x
 
 ## How to Run
 
@@ -36,7 +36,9 @@ To run this application, simply execute the following command from the root dire
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Maven](https://maven.apache.org/)
-- [Java 8](https://www.java.com/en/download/)
+- [Java 11](https://www.java.com/en/download/)
+- [Thymeleaf](https://www.thymeleaf.org/)
+- 
 
 ## Contributing
 
