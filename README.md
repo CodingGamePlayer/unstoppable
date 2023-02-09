@@ -13,6 +13,20 @@
 <br>
 1차 프로토타입 리뷰 : 2023-02-10 (금)
 
+
+# Spring Boot Project
+
+This is a sample Spring Boot project that demonstrates how to build a RESTful web service using Spring Boot.
+
+## Prerequisites
+
+- Java 8 or higher
+- Maven 3.x
+
+## How to Run
+
+To run this application, simply execute the following command from the root directory:
+
 ## Endpoints
 
 - `GET /api/hello`: Returns a greeting message
