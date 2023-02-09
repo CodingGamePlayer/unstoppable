@@ -52,14 +52,35 @@ public class UserController {
     }
 
     @GetMapping("/user/update/location")
-    public String updateUserLocation(Integer location, @CurrentUser User user, Model model) {
+    public void updateUserLocation(Integer location, @CurrentUser User user, Model model) {
         System.out.println("locaiton : " + location);
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         userDTO.setLocation(location);
         int result = userService.updateUserByLocation(userDTO);
         log.info("result : " + result);
         model.addAttribute("user", userDTO);
-        return "user/main";
+
+    }
+    @GetMapping("/user/update/myListLocation")
+    public String updateUserListLocation(Integer location, @CurrentUser User user, Model model) {
+        System.out.println("locaiton : " + location);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        userDTO.setLocation(location);
+        int result = userService.updateUserByLocation(userDTO);
+        log.info("result : " + result);
+        model.addAttribute("user", userDTO);
+        return "redirect:/user/myGather";
+    }
+
+    @GetMapping("/user/update/listLocation")
+    public String updateUserMyListLocation(Integer location, @CurrentUser User user, Model model) {
+        System.out.println("locaiton : " + location);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        userDTO.setLocation(location);
+        int result = userService.updateUserByLocation(userDTO);
+        log.info("result : " + result);
+        model.addAttribute("user", userDTO);
+        return "redirect:/user/gather";
     }
 
 }

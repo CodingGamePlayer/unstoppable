@@ -114,11 +114,10 @@ public class yk_GatherController {
 
         GatherCommentDTO commentDTO = GatherCommentDTO.builder()
             .gather(gatherID)
-            .role(4)
             .user((long)user.getId())
             .build();
 
-        commentService.register_commnet(commentDTO);
+        commentService.registerComment(commentDTO);
         
         // 파일 저장하기
         
@@ -150,7 +149,7 @@ public class yk_GatherController {
         GatherDTO gatherDTO = gatherService.get_Gather(g_id);
         model.addAttribute("gather",gatherDTO);
         //관리번호 코맨트 롤 뿌려줘야함
-        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
+        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());  //이부분 체크 이상한데
         model.addAttribute("comment", commentDTO);
         System.out.println("디테일컨트롤러"+commentDTO.toString());
         //현재참여중인 인원 보여주기

@@ -5,7 +5,8 @@ import com.example.batisproject.entity.GatherComment;
 
 public interface Yk_gather_commentService {
     
-    int register_commnet(GatherCommentDTO commentDTO);
+    //모임참여신청시
+    int joinComment(GatherCommentDTO commentDTO);
 
     //참여중~관리까지 권한 가져오기
     GatherCommentDTO get_gather_userRole(Long g_id, Long u_id);
@@ -18,4 +19,10 @@ public interface Yk_gather_commentService {
 
     //참여신청 취소
     int joinCancel(GatherCommentDTO commentDTO);
+
+    //신청 취소후 재신청
+    int againJoin(GatherCommentDTO commentDTO);
+
+    //글생성시 연관테이블 잡아주면서 권한 4로 설정
+    int registerComment(GatherCommentDTO commentDTO);
 }
