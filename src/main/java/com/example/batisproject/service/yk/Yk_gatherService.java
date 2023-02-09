@@ -18,5 +18,9 @@ public interface Yk_gatherService {
     //글조회수 카운트하기
     int viewCount(Long g_id);
 
-    
+    //참여포인트 만큼 유저 포인트 차감
+    int userPointMinus(Long point,int u_id);
+
+    //참여취소,거절하면 포인트 복구
+    int userPointReset(Long point,int u_id);
 }

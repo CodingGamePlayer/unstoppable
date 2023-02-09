@@ -1,5 +1,7 @@
 package com.example.batisproject.service.yk;
 
+import java.util.List;
+
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.entity.GatherComment;
 
@@ -25,4 +27,7 @@ public interface Yk_gather_commentService {
 
     //글생성시 연관테이블 잡아주면서 권한 4로 설정
     int registerComment(GatherCommentDTO commentDTO);
+
+    //참여신청자 관리 보여주기
+    List<GatherCommentDTO> getJoinList(Long g_id);
 }

@@ -42,4 +42,12 @@ public interface Yk_gatherMapper {
     @Update("update gather set view_cnt= view_cnt+ 1 where g_id = #{g_id};")
     int viewCount(Long g_id);
 
+    //모임참여하면 참여포인트 차감
+    @Update("update user set point=point-#{point} where u_id =#{u_id};")
+    int userPointMinus(Long point,int u_id);
+    
+
+    //참여취소,거절하면 포인트 복구
+    @Update("update user set point=point+#{point} where u_id =#{u_id};")
+    int userPointReset(Long point,int u_id);
 }

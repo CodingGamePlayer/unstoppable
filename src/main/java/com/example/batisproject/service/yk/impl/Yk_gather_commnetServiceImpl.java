@@ -1,5 +1,8 @@
 package com.example.batisproject.service.yk.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +88,7 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
     public int registerComment(GatherCommentDTO commentDTO) {
         GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
         
-        return commentMapper.joinComment(comment);
+        return commentMapper.registerComment(comment);
     }
 
     @Override
@@ -93,6 +96,18 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
         
         return commentMapper.againJoin(comment);
+    }
+
+    //참여신청자 관리 보여주기
+    @Override
+    public List<GatherCommentDTO> getJoinList(Long g_id) {
+        List<GatherComment> joinListBefor = commentMapper.getJoinList(g_id);
+
+        List<GatherCommentDTO> joinList = joinListBefor.stream()
+        .map(GatherComment->modelMapper.map(GatherComment, GatherCommentDTO.class))
+        .collect(Collectors.toList());
+
+        return joinList;
     }
 
 

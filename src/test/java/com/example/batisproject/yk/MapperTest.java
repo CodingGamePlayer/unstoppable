@@ -244,4 +244,8 @@ public class MapperTest {
         assertNull(r);
     }
 
+    @Test
+    void joinListTest(){
+        
+    }
 }

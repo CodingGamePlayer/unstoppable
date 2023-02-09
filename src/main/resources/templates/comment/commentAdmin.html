@@ -17,7 +17,6 @@
 
 
     <div class="container">
-        
         <div class="row">
             <div class="card" style="height: 600px;">
                 <div class="card-body">
@@ -27,53 +26,150 @@
                     </div>
                     <table class="table">
                         <thead>
-                          <tr>
-                            <th colspan="4" scope="col">
-                                <div class="row" style="margin-bottom: 25px;">
-                                    <div class="col-md-5 offset-md-4">제목</div>
-                                    <div class="col-md-2">수락 삭제</div>
-                                </div>
-                            </th>
-                            
-                          </tr>
+                            <tr>
+                                <th colspan="4" scope="col">
+                                    <div class="row" style="margin-bottom: 25px;">
+                                        <div class="col-md-8 offset-md-4">제목</div>
+                                        <div id="oks" class="col-md-1 offset-md-8"><button onclick="joinOk()">다중 수락</button></div>
+                                        <div id="deletes" class="col-md-1"><button onclick="joinfail()">다중 삭제</button></div>
+                                    </div>
+                                </th>
+
+                            </tr>
                         </thead>
-                        <tbody>
-                            <div class="row">
-                                <tr>
-                                    <div class="col-md-1"><td>프사</td></div>
-                                    <div class="col-md-2"><td class="table-success"><div class="card">tq</div></td></div>
-                                    <div class="col-md-7"><td class="table-success"><div class="card">tq</div></td></div>
-                                    <div class="col-md-2"><td>체크박스</td></div>
+                        <tbody id="joinYest">
+                            <form action="">
+                                <tr th:each="comment : ${joinList}">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <td>
+                                                <th:box th:text="${comment.user}"></th:box>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <td class="table-success">
+                                                <div class="card">기본정보</div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <td class="table-success">
+                                                <div class="card">
+                                                    <th:box th:text="${comment.joinMent}"></th:box>
+                                                </div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <td>
+                                                <input id="userValue" type="checkbox" name="user" th:value="${comment.user}" style="display: none;">수락
+
+                                            </td>
+                                        </div>
+                                    </div>
                                 </tr>
-                            </div> 
-                            <div class="row">
-                                <tr>
-                                    <div class="col-md-1"><td>프사</td></div>
-                                    <div class="col-md-2"><td>기본정보</td></div>
-                                    <div class="col-md-7"><td><div class="bg-success">신청시입력한문구</div></td></div>
-                                    <div class="col-md-2"><td>체크박스</td></div>
-                                </tr>
-                            </div>      
-                         
+                                <div class="row" style="margin-top: 25px;">
+                                    <div class="col-md-2 offset-md-8"><td></td><td></td><td></td>
+                                        <td>
+                                            <input id="clear" class="btn btn-secondary" type="submit" value="제출" style="display: none;">
+                                        </td>
+                                    </div>
+                                </div>
+                            </form>
                         </tbody>
-                      </table>
+                        <!-- 다중삭제 클릭시 보임 -->
+                        <tbody id="joinNo" style="display: none;">
+                            <form action="">
+                                <tr th:each="comment : ${joinList}">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <td>
+                                                <th:box th:text="${comment.user}"></th:box>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <td class="table-success">
+                                                <div class="card">기본정보</div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <td class="table-success">
+                                                <div class="card">
+                                                    <th:box th:text="${comment.joinMent}"></th:box>
+                                                </div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <td>
+                                                <input type="checkbox" name="user" th:value="${comment.user}">거절
+
+                                            </td>
+                                        </div>
+                                    </div>
+                                </tr>
+                                <div class="row" style="margin-top: 25px;">
+                                    <div class="col-md-2 offset-md-8"><td></td><td></td><td></td>
+                                        <td>
+                                            <input class="btn btn-secondary" type="submit" value="제출">
+                                        </td>
+                                    </div>
+                                </div>
+                            </form>
+                        </tbody>
+                        <!-- 요까지 -->
+
+                    </table>
                     <!-- 작성 종료 -->
                 </div>
             </div>
+
         </div>
-        
 
 
 
 
     </div>
 
-<script>
-   
+    <script>
+        
+         let temp = 0;
+         let temp1 = 0;
+        
+        
+
+        function joinOk(){
+            if(temp==1){
+                document.getElementById("userValue").style.display="none";
+                document.getElementById("clear").style.display="none";
+                document.getElementById("deletes").style.display="";
+                temp =0;
+            }
+
+            else{
+            document.getElementById("userValue").style.display="";
+			document.getElementById("clear").style.display="";
+            document.getElementById("deletes").style.display="none";
+            temp = 1;
+        }
+        
+        }
 
 
-    
-</script>
+        function joinfail(){
+            if(temp1==1){
+                document.getElementById("joinNo").style.display="";
+                document.getElementById("oks").style.display="none";
+                document.getElementById("joinYes").style.display="none";    
+                temp1 =0;
+            }
+            else{
+                document.getElementById("joinNo").style.display="none";
+                document.getElementById("oks").style.display="";
+                document.getElementById("joinYes").style.display="";    
+                temp1 = 1;
+            }
+        }
+
+
+    </script>
 
 
 </div>

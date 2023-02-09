@@ -1,8 +1,11 @@
 package com.example.batisproject.mapper.yk;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -22,12 +25,12 @@ public interface Yk_gather_commentMapper {
 
 
     //글참여
-    @Insert("insert into gather_comment (g_id,u_id,role) values (#{gather},#{user},1);") 
+    @Insert("insert into gather_comment (g_id,u_id,role,joinMent) values (#{gather},#{user},1,#{joinMent});") 
     int joinComment(GatherComment comment);
 
 
     //참여취소 후 재참여
-    @Update("update gather_comment set role=1 where g_id=#{gather} AND u_id =#{user};")
+    @Update("update gather_comment set role=1,joinMent=#{joinMent} where g_id=#{gather} AND u_id =#{user};")
     int againJoin(GatherComment comment);
 
     //롤권한 객체로 가져오기 이거대신 체크롤써야하나 냅둬도 되나 고민좀해봐야함
@@ -53,8 +56,13 @@ public interface Yk_gather_commentMapper {
 
     // mysql에서 스브쿼리에 테이블이 메인쿼리테이블과 같아서 안되서 두개로 만들기
     // 참여 신청 취소
-    @Update("update gather_comment set role=2 where gc_id = (select A.gc_id from(select gc_id from gather_comment where u_id = #{user} AND g_id = #{gather}) A );")
+    @Update("update gather_comment set role=2,joinMent=null where gc_id = (select A.gc_id from(select gc_id from gather_comment where u_id = #{user} AND g_id = #{gather}) A );")
     int joinCancel(GatherComment comment);
 
+    
+    //참여자신청자 보기
+    @Select("select * from gather_comment where g_id=#{g_id} AND role = 1;")
+    @ResultMap("commnet")
+    List<GatherComment> getJoinList(Long g_id);
 
 }

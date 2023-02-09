@@ -94,7 +94,9 @@ public class yk_GatherController {
         model.addAttribute("user", userDTO);
         
             
-
+        if(gatherDTO.getPoint()==null){
+            gatherDTO.setPoint(0L);
+        }                         
         //디티오에 데이터타입변환후 정보담기
         gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
         gatherDTO.setUser((long)userDTO.getId());
@@ -116,7 +118,7 @@ public class yk_GatherController {
             .gather(gatherID)
             .user((long)user.getId())
             .build();
-
+            
         commentService.registerComment(commentDTO);
         
         // 파일 저장하기

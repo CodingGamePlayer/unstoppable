@@ -67,6 +67,20 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
         
         return gatherMapper.viewCount(g_id);
     }
+
+
+    @Override
+    public int userPointMinus(Long point, int u_id) {
+        
+        return gatherMapper.userPointMinus(point, u_id);
+    }
+
+
+    @Override
+    public int userPointReset(Long point, int u_id) {
+        
+        return gatherMapper.userPointReset(point, u_id);
+    }
     
     
     
