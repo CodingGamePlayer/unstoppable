@@ -38,7 +38,9 @@ public class GatherController {
     private final UserService userService;
 
     @GetMapping("/user/gather")
-    public String gatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category, Model model, @CurrentUser User user,
+    public String gatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category,
+                             @RequestParam(value = "viewMode", required = false, defaultValue = "")String viewMode,
+                             Model model, @CurrentUser User user,
                              @Valid PageRequestDTO pageRequestDTO,
                              BindingResult bindingResult) {
 
@@ -49,23 +51,27 @@ public class GatherController {
         // gather logic
 
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherDTO> gatherList;
-        LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
+        PageResponseDTO<GatherResponseDTO> gatherList;
+        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
         revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(user.getLocation());
-        revisedPageDTO.setNickname(user.getNickname());
+        revisedPageDTO.setLocation(userDTO.getLocation());
+        revisedPageDTO.setNickname(userDTO.getNickname());
         gatherList = gatherService.getAllOtherList(revisedPageDTO);
 
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        model.addAttribute("viewMode", viewMode);
+        model.addAttribute("locationList", locationService.getAll());
         return "gather/gatherList";
     }
     @GetMapping("/user/myGather")
-    public String myGatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category, Model model, @CurrentUser User user,
+    public String myGatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category,
+                               @RequestParam(value = "viewMode", required = false, defaultValue = "")String viewMode,
+                               Model model, @CurrentUser User user,
                                @Valid PageRequestDTO pageRequestDTO,
                                BindingResult bindingResult) {
 
@@ -75,21 +81,23 @@ public class GatherController {
 
         model.addAttribute("user", userDTO);
 
-        LocationDTO locationDTO = locationService.getByUsername(user.getUsername());
+        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherDTO> gatherList;
+        PageResponseDTO<GatherResponseDTO> gatherList;
 
         PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
         revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(user.getLocation());
-        revisedPageDTO.setNickname(user.getNickname());
+        revisedPageDTO.setLocation(userDTO.getLocation());
+        revisedPageDTO.setNickname(userDTO.getNickname());
         gatherList = gatherService.getAllMyList(revisedPageDTO);
 
         model.addAttribute("location", locationDTO);
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        model.addAttribute("viewMode", viewMode);
+        model.addAttribute("locationList", locationService.getAll());
         return "gather/myGatherList";
     }
 

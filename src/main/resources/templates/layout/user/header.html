@@ -17,7 +17,9 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           <div class="input-group">
             <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" placeholder="모임 검색하기..">
+            <form th:action="@{/user/gather}">
+            <input type="text" name="allSearchKeyword" class="form-control" placeholder="모임 검색하기">
+            </form>
           </div>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -31,7 +33,8 @@
           <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
             <a href="#" class="nav-link text-white font-weight-bold px-0" id="link-logout">
               <span>안녕하세요! &nbsp </span>
-              <i class="fa fa-user me-sm-1"></i>
+              <svg data-jdenticon-value="nickname" th:data-jdenticon-value="${#authentication.name}"
+                   width="40" height="40" class="avatar avatar-sm"></svg>
               <span class="d-sm-inline d-none">[[${user.nickname}]] 님</span>
             </a>
           </li>

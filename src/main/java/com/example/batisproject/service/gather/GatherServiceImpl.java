@@ -1,10 +1,8 @@
 package com.example.batisproject.service.gather;
 
-import com.example.batisproject.dto.GatherDTO;
-import com.example.batisproject.dto.PageRequestDTO;
-import com.example.batisproject.dto.PageResponseDTO;
-import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.dto.*;
 import com.example.batisproject.entity.Gather;
+import com.example.batisproject.entity.GatherResponse;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.jungi.GatherMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -74,36 +72,19 @@ public class GatherServiceImpl implements GatherService {
                 .collect(Collectors.toList());
     }
 
-
-    private PageResponseDTO<GatherDTO> getGatherDTOPageResponseDTO(PageRequestDTO pageRequestDTO, List<Gather> gathers) {
-        List<GatherDTO> dtoList = gathers.stream()
-
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
-                .collect(Collectors.toList());
-
-        int total = gatherMapper.getCount(pageRequestDTO);
-
-        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
-                .pageRequestDTO(pageRequestDTO)
-                .total(total)
-                .dtoList(dtoList)
-                .build();
-
-        return pageResponseDTO;
-    }
-
     @Override
-    public PageResponseDTO<GatherDTO> getAllMyList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<GatherResponseDTO> getAllMyList(PageRequestDTO pageRequestDTO) {
 
-        List<Gather> gathers = gatherMapper.selectMyList(pageRequestDTO);
-        List<GatherDTO> dtoList = gathers.stream()
+        List<GatherResponse> gathers = gatherMapper.selectMyList(pageRequestDTO);
 
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+        List<GatherResponseDTO> dtoList = gathers.stream()
+
+                .map(gatherResponse -> modelMapper.map(gatherResponse, GatherResponseDTO.class))
                 .collect(Collectors.toList());
 
         int total = gatherMapper.getMyListCount(pageRequestDTO);
 
-        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+        PageResponseDTO<GatherResponseDTO> pageResponseDTO = PageResponseDTO.<GatherResponseDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .total(total)
                 .dtoList(dtoList)
@@ -113,17 +94,17 @@ public class GatherServiceImpl implements GatherService {
     }
 
     @Override
-    public PageResponseDTO<GatherDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<GatherResponseDTO> getAllOtherList(PageRequestDTO pageRequestDTO) {
 
-        List<Gather> gathers = gatherMapper.selectOtherList(pageRequestDTO);
-        List<GatherDTO> dtoList = gathers.stream()
+        List<GatherResponse> gathers = gatherMapper.selectOtherList(pageRequestDTO);
+        List<GatherResponseDTO> dtoList = gathers.stream()
 
-                .map(gather -> modelMapper.map(gather, GatherDTO.class))
+                .map(gatherResponse -> modelMapper.map(gatherResponse, GatherResponseDTO.class))
                 .collect(Collectors.toList());
 
         int total = gatherMapper.getOtherListCount(pageRequestDTO);
 
-        PageResponseDTO<GatherDTO> pageResponseDTO = PageResponseDTO.<GatherDTO>withAll()
+        PageResponseDTO<GatherResponseDTO> pageResponseDTO = PageResponseDTO.<GatherResponseDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .total(total)
                 .dtoList(dtoList)

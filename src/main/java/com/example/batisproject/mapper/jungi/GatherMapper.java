@@ -1,8 +1,10 @@
 package com.example.batisproject.mapper.jungi;
 
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.GatherResponseDTO;
 import com.example.batisproject.dto.PageRequestDTO;
 import com.example.batisproject.entity.Gather;
+import com.example.batisproject.entity.GatherResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -58,9 +60,9 @@ public interface GatherMapper {
     @Select("select count(*) from gather")
     int getCount(PageRequestDTO pageRequestDTO);
 
-    List<Gather> selectMyList(PageRequestDTO pageRequestDTO);
+    List<GatherResponse> selectMyList(PageRequestDTO pageRequestDTO);
 
-    List<Gather> selectOtherList(PageRequestDTO pageRequestDTO);
+    List<GatherResponse> selectOtherList(PageRequestDTO pageRequestDTO);
 
     int getOtherListCount(PageRequestDTO pageRequestDTO);
     int getMyListCount(PageRequestDTO pageRequestDTO);

@@ -22,4 +22,6 @@ public interface Yk_fileInfoMapper {
     @Insert("insert into gather_image (f_id,g_id) values (#{fileInfo},#{gather});")
     int registerGather_img(GatherImage image);
 
+    @Select("select * from file_info where f_id = (select f_id from gather_image where g_id = #{g_id});")
+    FileInfo getFileInfo(Long g_id);
 }
