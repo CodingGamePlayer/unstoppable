@@ -13,7 +13,24 @@
 <br>
 1차 프로토타입 리뷰 : 2023-02-10 (금)
 
+## Endpoints
 
+- `GET /api/hello`: Returns a greeting message
+- `GET /api/users`: Returns a list of users
+
+## Built With
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [Maven](https://maven.apache.org/)
+- [Java 8](https://www.java.com/en/download/)
+
+## Contributing
+
+Feel free to submit pull requests and issues. Any contributions, big or small, major features, bug fixes, are welcomed and appreciated!
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 
 
