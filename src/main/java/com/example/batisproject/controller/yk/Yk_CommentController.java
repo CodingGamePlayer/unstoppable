@@ -19,6 +19,7 @@ import com.example.batisproject.entity.User;
 import com.example.batisproject.service.user.UserService;
 import com.example.batisproject.service.yk.Yk_gatherService;
 import com.example.batisproject.service.yk.Yk_gather_commentService;
+import com.example.batisproject.service.yk.Yk_userSevice;
 
 @Controller
 public class Yk_CommentController {
@@ -32,66 +33,41 @@ public class Yk_CommentController {
     @Autowired
     Yk_gatherService gatherService;
 
+    @Autowired
+    Yk_userSevice yUserSevice;
+
 
     
     
 
-    //요청이 온 이후
+    //요청 승인 거절 하기
     @GetMapping("/user/gather/detail/{g_id}/commentAdmin")
     public String commentAdmin(@PathVariable("g_id")Long g_id,@CurrentUser User user ,Model model){
+        //  List<String> userIdList2= null;
         System.out.println("코멘트관리 컨트롤");
+
          //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
          UserDTO userDTO = userService.existsByEmail(user.getUsername());
          model.addAttribute("user", userDTO);
-        
+         
+         
+         //모임참가 요청자들 정보 보내주기
+         List<GatherCommentDTO> joinList =commentService.getJoinList(g_id);
+         model.addAttribute("joinList", joinList);
+         
+        //참가자들 닉네임 실어다 주기
+        List<UserDTO> userList = commentService.nicknameList(joinList);
+        model.addAttribute("userList", userList);
 
-        List<GatherCommentDTO> joinList =commentService.getJoinList(g_id);
-        model.addAttribute("joinList", joinList);
+
+        //참가자들 기본정보와 글번호 실어보내주기
         model.addAttribute("g_id", g_id);
 
         return "comment/commentAdmin";
     }
     
 
-    //유저 참가상태별로 요청
-    @GetMapping("/user/gather/detail/{g_id}/roleRequest")
-    public String commentJoin2(@PathVariable("g_id")Long g_id ,@CurrentUser User user,Model model){
-        UserDTO userDTO =userService.existsByEmail(user.getUsername());
-        model.addAttribute("userDTO",userDTO);
-        
-        GatherCommentDTO commentDTO = new GatherCommentDTO();
-        commentDTO.setUser((long)userDTO.getId());
-        commentDTO.setGather(g_id);
-        commentDTO.setRole(commentService.checkRole(commentDTO));
-        int result =0;
-        switch (commentDTO.getRole()) {
-            case 0:
-                result = commentService.joinComment(commentDTO);
-                if(result>0){
-                    return "redirect:/user/gather/detail/"+g_id;
-                }
-                break;
-            case 1:
-                result = commentService.joinCancel(commentDTO);
-                if(result>0){
-                    return "redirect:/user/gather/detail/"+g_id;
-                }
-                break;
-            case 2:
-                result = commentService.againJoin(commentDTO);
-                if(result>0){
-                    return "redirect:/user/gather/detail/"+g_id;
-                }
-                break;
-            default:
-                //3~4 번 채팅방진입
-                return "/user/gather/"+g_id+"/comment";
-                
-        }
-
-        //요청 성공적 완료
-        return "/user/gather/detail/"+g_id;
-    }
+    
 
 
     //유저 참가상태별로 요청
@@ -149,9 +125,32 @@ public class Yk_CommentController {
 
 
     @PostMapping("/user/gather/detail/{g_id}/commentAdmin/joinOk")
-    public String joinOk(@PathVariable("g_id")Long g_id, int user[]){
+    public String joinOk(@PathVariable("g_id")Long g_id, Long user[]){
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        for(int i=0; i<user.length; i++ ){
+             commentDTO.setUser(user[i]);
+             commentDTO.setGather(g_id);
+             int result =commentService.joinOk(commentDTO);
+             if(result>0){
+                return "redirect:/user/gather/detail/"+g_id+"/roleRequest";
+             }
+        }
 
+        return "user/detail";
+    }   
 
+    @PostMapping("/user/gather/detail/{g_id}/commentAdmin/joinNo")
+    public String joinNo(@PathVariable("g_id")Long g_id, Long user[]){
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        for(int i=0; i<user.length; i++ ){
+             commentDTO.setUser(user[i]);
+             commentDTO.setGather(g_id);
+             int result =commentService.joinCancel(commentDTO);
+             if(result>0){
+                return "redirect:/user/gather/detail/"+g_id+"/roleRequest";
+             }
+        }
+        
         return "user/detail";
     }   
 

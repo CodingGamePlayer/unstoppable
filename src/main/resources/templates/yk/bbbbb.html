@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="card" style="height: 600px;">
+                <div class="card-body">
+                    <!-- 작성시작 -->
+                    <div class="row">
+                        <div class="col-md-12"></div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" scope="col">
+                                    <div class="row" style="margin-bottom: 25px;">
+                                        <div class="col-md-8 offset-md-4">제목</div>
+                                        <div class="col-md-8"></div>
+                                        <div id="deletes_2" class="col-md-1" style="display: none;"></div>
+                                        <div id="oks" class="col-md-1"><button onclick="joinOk()">다중 수락</button></div>
+                                        <div id="deletes" class="col-md-1"><button onclick="joinfail()">다중 삭제</button></div>
+                                    </div>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="joinYes">
+                            <form action="">
+                                <tr>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <th:box th:each = "userList : ${userList}">
+                                                <td>
+                                                    <p th:text="${userList.nickname}"></p>
+                                                </td>
+                                            </th:box>
+                                        </div>
+                                        
+                                        <div class="col-md-9">
+                                            <th:box th:each = "comment : ${joinList}">
+                                            <td class="table-success">
+                                                <div class="card">
+                                                    <p th:text="${comment.joinMent}"></p>
+                                                </div>
+                                            </td>
+                                        </th:box>
+                                        </div>
+                                         
+                                        <div class="col-md-1">
+                                            <td>
+                                                <input id="userValue" type="checkbox" name="user" th:value="${comment.user}" style="display: none;">수락
+
+                                            </td>
+                                        </div>
+                                    </div>
+                                
+                                </tr>
+                                <div class="row" style="margin-top: 25px;">
+                                    <div class="col-md-2 offset-md-8"><td></td><td></td><td></td>
+                                        <td>
+                                            <input id="clear" class="btn btn-secondary" type="submit" value="제출" style="display: none;">
+                                        </td>
+                                    </div>
+                                </div>
+                            </form>
+                        </tbody>
+                        <!-- 다중삭제 클릭시 보임 -->
+                        <tbody id="joinNo" style="display: none;">
+                            <form action="">
+                                <tr th:each="comment : ${joinList}">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <td>
+                                                <th:box th:text="${comment.user}"></th:box>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <td class="table-success">
+                                                <div class="card">기본정보</div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <td class="table-success">
+                                                <div class="card">
+                                                    <th:box th:text="${comment.joinMent}"></th:box>
+                                                </div>
+                                            </td>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <td>
+                                                <input type="checkbox" name="user" th:value="${comment.user}">거절
+
+                                            </td>
+                                        </div>
+                                    </div>
+                                </tr>
+                                <div class="row" style="margin-top: 25px;">
+                                    <div class="col-md-2 offset-md-8"><td></td><td></td><td></td>
+                                        <td>
+                                            <input class="btn btn-secondary" type="submit" value="제출">
+                                        </td>
+                                    </div>
+                                </div>
+                            </form>
+                        </tbody>
+                        <!-- 요까지 -->
+
+                    </table>
+                    <!-- 작성 종료 -->
+                </div>
+            </div>
+
+        </div>
+
+      
+
+
+    </div>
+
+    <script>
+        
+         let temp = 0;
+         let temp1 = 0;
+        
+        
+
+        function joinOk(){
+            if(temp==1){
+                document.getElementById("userValue").style.display="none";
+                document.getElementById("clear").style.display="none";
+                document.getElementById("deletes").style.display="";
+                temp =0;
+            }
+
+            else{
+            document.getElementById("userValue").style.display="";
+			document.getElementById("clear").style.display="";
+            document.getElementById("deletes").style.display="none";
+            temp = 1;
+        }
+        
+        }
+
+
+        function joinfail(){
+            if(temp1==1){
+                document.getElementById("joinNo").style.display="none";
+                document.getElementById("oks").style.display="";
+                document.getElementById("joinYes").style.display="";
+                document.getElementById("deletes_2").style.display="none";    
+                temp1 =0;
+            }
+            else{
+                document.getElementById("joinNo").style.display="";
+                document.getElementById("deletes_2").style.display="";
+                document.getElementById("oks").style.display="none";
+                document.getElementById("joinYes").style.display="none";    
+                temp1 = 1;
+            }
+        }
+
+
+    </script>
+
+
+</div>
+
+
+
+</html>

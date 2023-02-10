@@ -81,18 +81,10 @@
                                             <input class="btn btn-outline-success" type="submit" th:if="${comment.role>=3}" value="참가자인포,코맨트 방 이동">
                                         </form>
                                         <a th:href="@{'/user/gather/detail/'+${gather.id}+'/commentAdmin'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
-                                        <!-- 해보고 지우기 -->
-                                        <!-- <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
-                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
-                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
-                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role>=3}">참가자인포,코맨트 방 이동</p></a>
-                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
-                                        <input type="hidden" id="gatherId" th:value="${gather.id}">
-                                        <input type="hidden" id="gatherPoint" th:value="${gather.point}"> -->
                                     </div>
                                     <div class="col-md-3">
-                                        <a th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button">글수정</a>
-                                        <a th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/update'}" th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button">글수정</a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/delete'}" th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
                                     </div>
 
                                 </div>

@@ -2,6 +2,7 @@ package com.example.batisproject.mapper.yk;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.entity.User;
 
 
 @Mapper
@@ -64,5 +66,20 @@ public interface Yk_gather_commentMapper {
     @Select("select * from gather_comment where g_id=#{g_id} AND role = 1;")
     @ResultMap("commnet")
     List<GatherComment> getJoinList(Long g_id);
+
+    //권한참여수락
+    @Update("update gather_comment set role=3 where gc_id = (select A.gc_id from(select gc_id from gather_comment where u_id = #{user} AND g_id = #{gather}) A );")
+    int joinOk(GatherComment comment);
+
+
+    //모임글에 참여한 사람들 닉네임 뽑아오기
+    // @Select("select nickname from user where u_id = (select u_id from gather_comment where g_id=26 AND u_id=7);")
+    // List<User>
+
+
+    //글삭제를 위해 연관컬럼이있는 거 삭제
+    @Delete("delete from gather_comment where g_id=#{g_id};")
+    int deleteGatherIdTocomment(Long g_id);
+
 
 }

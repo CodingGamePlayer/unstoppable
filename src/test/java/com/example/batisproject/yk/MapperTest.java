@@ -7,12 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.mail.Multipart;
 
 import com.example.batisproject.service.yk.Yk_locationService;
+import com.example.batisproject.service.yk.Yk_userSevice;
+
 import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
@@ -26,17 +30,20 @@ import com.example.batisproject.dto.FileInfoDTO;
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.GatherDTO;
 import com.example.batisproject.dto.LocationDTO;
+import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.Category;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.entity.Location;
+import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.Yk_fileInfoMapper;
 import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.yk.Yk_categoryMapper;
 import com.example.batisproject.mapper.yk.Yk_gatherMapper;
 import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
 import com.example.batisproject.mapper.yk.Yk_locationMapper;
+import com.example.batisproject.mapper.yk.Yk_userMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
 import com.example.batisproject.service.yk.Yk_file_info_Service;
 import com.example.batisproject.service.yk.Yk_gatherService;
@@ -44,6 +51,7 @@ import com.example.batisproject.service.yk.Yk_gather_commentService;
 import com.example.batisproject.service.yk.impl.Yk_categoryServiceImpl;
 import com.example.batisproject.service.yk.impl.Yk_gatherServiceImpl;
 import com.example.batisproject.service.yk.impl.Yk_gather_commnetServiceImpl;
+import com.example.batisproject.service.yk.impl.Yk_userServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -87,6 +95,9 @@ public class MapperTest {
     @Autowired
     Yk_file_info_Service file_info_Service;
      
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Test
     void getList(){
@@ -244,8 +255,52 @@ public class MapperTest {
         assertNull(r);
     }
 
+   
+
+    
     @Test
-    void joinListTest(){
-        
+    void joinOk(){
+        GatherComment en = new GatherComment();
+        en.setUser(15L);
+        en.setGather(100L);
+
+        int r= commentMapper.joinOk(en);
+        assertNull(r);
     }
+    
+    @Autowired
+    Yk_userMapper userMapper;
+
+    @Autowired
+    Yk_userSevice userSevice;
+
+    @Test
+    void userIdTest(){
+        User user = userMapper.idToNick(8L);
+        
+        UserDTO dto = modelMapper.map(user, UserDTO.class);
+
+        assertNull(dto);
+
+
+    }
+    
+    @Autowired
+    Yk_gather_commentService commentService;
+
+    @Test
+    void userIdListTest(){
+        List<GatherComment> joinListBefor  =commentMapper.getJoinList(26L);
+
+        List<GatherCommentDTO> joinList = joinListBefor.stream()
+        .map(GatherComment->modelMapper.map(GatherComment, GatherCommentDTO.class))
+        .collect(Collectors.toList());
+
+        List<UserDTO> userList =commentService.nicknameList(joinList);
+
+
+        assertNull(userList);
+
+    }
+
 }

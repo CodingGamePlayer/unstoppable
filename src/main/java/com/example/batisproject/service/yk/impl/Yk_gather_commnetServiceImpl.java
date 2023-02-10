@@ -1,5 +1,6 @@
 package com.example.batisproject.service.yk.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.batisproject.dto.GatherCommentDTO;
+import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
 import com.example.batisproject.service.yk.Yk_gather_commentService;
+import com.example.batisproject.service.yk.Yk_userSevice;
 
 @Service
 public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
@@ -23,6 +26,9 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    Yk_userSevice yUserSevice;
 
     @Override
     public int joinComment(GatherCommentDTO commentDTO) {
@@ -108,6 +114,37 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         .collect(Collectors.toList());
 
         return joinList;
+    }
+
+    @Override
+    public int joinOk(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        commentMapper.joinOk(comment);
+        return commentMapper.joinOk(comment);
+    }
+
+    //그정보로 유저아이디 조회해서 유저 닉네임 가져와서 보내주기 
+    @Override
+    public List<UserDTO> nicknameList(List<GatherCommentDTO> joinList) {
+        List<UserDTO> userIdList= new ArrayList<>();
+        
+        
+
+        for(int i=0; i<joinList.size(); i++){
+            Long uId=joinList.get(i).getUser();
+            userIdList.add(yUserSevice.idToNick(uId));
+            
+        }
+        
+        
+
+        return userIdList;
+    }
+
+    @Override
+    public int deleteGatherIdTocomment(Long g_id) {
+        
+        return commentMapper.deleteGatherIdTocomment(g_id);
     }
 
 
