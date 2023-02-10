@@ -39,4 +39,7 @@ public interface CategoryMapper {
     @ResultMap("categoryMap")
     List<Category> getAllMainCategory();
 
+    @Select("select c_d_nm from category where c_id = ${category} ")
+    String getNamebyCategoryId(Integer category);
+
 }

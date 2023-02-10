@@ -64,6 +64,7 @@ public class GatherController {
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        if(category != null) model.addAttribute("categoryName", gatherService.getNameByCategory(category));
         model.addAttribute("viewMode", viewMode);
         model.addAttribute("locationList", locationService.getAll());
         return "gather/gatherList";
@@ -96,6 +97,7 @@ public class GatherController {
         model.addAttribute("gatherList", gatherList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("category", category);
+        if(category != null) model.addAttribute("categoryName", gatherService.getNameByCategory(category));
         model.addAttribute("viewMode", viewMode);
         model.addAttribute("locationList", locationService.getAll());
         return "gather/myGatherList";
@@ -133,37 +135,6 @@ public class GatherController {
         model.addAttribute("user", userDTO);
         return "user/main";
     }
-
-
-    @GetMapping("/user/locationSearch")
-    public String locationSearch(Model model) {
-        // point logic
-        User user = new AuthenticationForModel().getAuthentication();
-
-        UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("user", userDTO);
-
-        List<LocationDTO> locationList = locationService.getAll();
-        model.addAttribute("locationList", locationList);
-        return "gather/locationSearchTest";
-    }
-
-    @PostMapping("/user/locationSubmit")
-    public String locationSubmit(@RequestParam String lid , Model model) {
-        // point logic
-        User user = new AuthenticationForModel().getAuthentication();
-
-        UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("user", userDTO);
-        log.info("-----------------------");
-        log.info("lid : " + lid);
-        List<LocationDTO> locationList = locationService.getAll();
-        model.addAttribute("locationList", locationList);
-        return "gather/locationSearchTest";
-    }
-
     PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
 
         if(pageRequestDTO.getKeyword() != null)

@@ -19,13 +19,37 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-body px-0 pt-0 pb-2">
-          <div class="container d-flex justify-content-evenly col-sm-12 py-3 mt-2 ">
-            <div class="col-sm-6 p-4">
-              <h1 th:text="${location.dong}"></h1>
-              <h6 class="text-secondary text-bolder" th:text="|${location.getSido()} ${location.getGugun()}|"></h6>
+          <div class="container d-flex justify-content-evenly align-items-center col-sm-12 py-3 mt-2 ">
+            <div class="col-sm-3 ">
+              <div class="">
+                <h5 th:if="${category == null}" th:text="|카테고리 : 전체|"></h5>
+                <h5 th:unless="${category == null}" th:text="|카테고리 : ${categoryName}|"></h5>
+              </div>
+              <div>
+                <h5 th:text="|지역 : ${location.dong}|"></h5>
+                <h6 class="text-secondary text-bolder" th:text="|${location.getSido()} ${location.getGugun()}|"></h6>
+              </div>
             </div>
-            <div class="col-sm-6 d-flex justify-content-evenly">
-              <form action="#" th:action="@{/user/update/listLocation}" method="get" id="locationSubmit">
+            <div class="col-sm-3 d-flex justify-content-center " th:classappend="${gatherList.getDtoList().size() == 0} ? 'd-none' : ''">
+              <input type="radio" class="btn-check" name="options-outlined" id="cardViewBtn" autocomplete="off" checked>
+              <label class="btn btn-outline-success font-weight-bold" for="cardViewBtn">슬라이드</label>
+
+              <input type="radio" class="btn-check" name="options-outlined" id="listViewBtn" autocomplete="off">
+              <label class="btn btn-outline-danger font-weight-bold" for="listViewBtn">리스트</label>
+            </div>
+            <div class="col-sm-3 d-flex justify-content-center align-items-center">
+              <div class="form-group">
+                <label class="text-bolder"  for="category-list">카테고리 변경</label>
+                <select id="category-list" class="form-select mb-3" onchange="if(this.value) location.href='/user/gather?category='+(this.value)">
+                  <option value=" " >전체</option>
+                  <th:block th:each="categoryDTO : ${categoryList}">
+                    <option th:selected="${categoryName} == ${categoryDTO.getDetailName()}" th:value="${categoryDTO.getId()}" th:href="@{/user/gather(category=${categoryDTO.getId()})}" th:text="${categoryDTO.getDetailName()}"></option>
+                  </th:block>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3 d-flex justify-content-end">
+              <form action="#" th:action="@{/user/listLocation/update}" method="get" id="locationForm">
                 <div class="form-group">
                   <label for="place">관심 지역 변경</label>
                   <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
@@ -43,31 +67,16 @@
                   </datalist>
                   <input type="hidden" name="location" id="place-hidden">
                 </div>
-                <button class="btn btn-primary" type="submit" id="place_submit">Submit form</button>
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-primary" type="submit" id="place_submit">지역 변경하기</button>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-      <div class="card mb-4">
-        <div class="card-body px-0 pt-0 pb-0">
-          <div class="container flex-row col-sm-4 col-md-6 col-lg-8 col-xl-12 py-4" id="categories">
-            <a data-th-id="0" th:href="@{/user/gather}" class="btn btn-primary" id="c_all">전체</a>
-            <th:block th:each="categoryDTO, categoryIter: ${categoryList}">
-              <a data-th-id="${categoryIter.count}" th:href="@{/user/gather(category=${categoryDTO.getId()})}" class="btn btn-primary" id="c_others" th:text="${categoryDTO.getDetailName()}"></a>
-            </th:block>
-          </div>
-        </div>
-      </div>
-      <th:block th:if="${gatherList.getDtoList().size() != 0}">
       <div class="card mb-4 px-5">
-        <div class="d-flex justify-content-center pt-3">
-          <input type="radio" class="btn-check" name="options-outlined" id="cardViewBtn" autocomplete="off" checked>
-          <label class="btn btn-outline-success font-weight-bold" for="cardViewBtn">슬라이드</label>
-
-          <input type="radio" class="btn-check" name="options-outlined" id="listViewBtn" autocomplete="off">
-          <label class="btn btn-outline-danger font-weight-bold" for="listViewBtn">리스트</label>
-        </div>
+        <th:block th:if="${gatherList.getDtoList().size() != 0}">
         <section class="pt-3 pb-5" id="cardView">
           <div class="container">
             <div class="row">
@@ -87,25 +96,59 @@
               <div class="col-12">
                 <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
-                    <th:block th:each="gathers, iterstat : ${gatherList.dtoList}">
-                      <div th:classappend="${iterstat.index == 0} ? ' active' : ''" class="carousel-item">
-                        <div class="row d-flex justify-content-center">
-                          <div class="col-md-6 mb-3">
-                            <div class="card">
-                              <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gathers.id})}">
-                                <th:block>
-                                  <img th:if="${gathers.getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gathers.saveFileName}">
-                                  <img th:if="${gathers.getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
-                                </th:block>
-                              <div class="card-body">
-                                <h4 class="card-title" th:text="${gathers.title}"></h4>
-                                <p class="card-text" th:text="${gathers.content}"></p>
+                    <th:block th:each="num, iterstat : ${#numbers.sequence(0, (gatherList.dtoList.size / 2 + gatherList.dtoList.size % 2) - 1)}">
+                        <div th:classappend="${iterstat.index == 0} ? 'active' : ''" class="carousel-item">
+                            <th:block th:if="${iterstat.last ne true} or ${gatherList.dtoList.size() % 2 < 1}">
+                              <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                  <div class="card">
+                                    <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2).id})}">
+                                      <th:block>
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num).saveFileName}">
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
+                                      </th:block>
+                                      <div class="card-body">
+                                        <h4 class="card-title" th:text="${gatherList.dtoList.get(num * 2).title}"></h4>
+                                        <p class="card-text" th:text="${gatherList.dtoList.get(num * 2).content}"></p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                  <div class="card">
+                                    <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2 + 1).id})}">
+                                      <th:block>
+                                        <img th:if="${gatherList.dtoList.get(num * 2 + 1).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num+1).saveFileName}">
+                                        <img th:if="${gatherList.dtoList.get(num * 2 + 1).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
+                                      </th:block>
+                                      <div class="card-body">
+                                        <h4 class="card-title" th:text="${gatherList.dtoList.get(num * 2 + 1).title}"></h4>
+                                        <p class="card-text" th:text="${gatherList.dtoList.get(num * 2 + 1).content}"></p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
                               </div>
-                              </a>
-                            </div>
-                          </div>
+                            </th:block>
+                            <th:block th:unless="${iterstat.last ne true} or ${gatherList.dtoList.size() % 2 < 1}">
+                              <div class="row d-flex justify-content-center">
+                                <div class="col-sm-6 mb-3">
+                                  <div class="card">
+                                    <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2).id})}">
+                                      <th:block>
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 1190px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num).saveFileName}">
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/1190x300/000000/FFFFFF?text=No+Image">
+                                      </th:block>
+                                      <div class="card-body">
+                                        <h4 class="card-title" th:text="${gatherList.dtoList.get(num * 2).title}"></h4>
+                                        <p class="card-text" th:text="${gatherList.dtoList.get(num * 2).content}"></p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </th:block>
                         </div>
-                      </div>
                     </th:block>
                   </div>
                 </div>
@@ -198,89 +241,92 @@
             </div>
           </div>
         </div>
-      </div>
-      </th:block>
-      <th:block th:if="${gatherList.getDtoList().size() == 0}">
-        <div class="card mb-4 px-5 d-flex justify-content-center align-items-center">
+        </th:block>
+        <th:block th:unless="${gatherList.getDtoList().size() != 0}">
           <div class="card-header pb-0 text-center">
             <h6>내 모임 정보</h6>
           </div>
           <div class="row">
             <div class="col-sm-12">
               <div class="card-body px-0 pt-0 pb-2">
-                <div class="row text-center">
+                <div class="row text-center d-flex justify-content-center">
                   <h2>모임이 없어요!</h2>
-                  <a href="/user/gather/register" type="button" class="btn btn-dark btn-sm w-100 mb-3 mt-3">모임 만들기👻</a>
+                  <div class="col-sm-3">
+                    <a href="/user/gather/register" type="button" class="btn btn-dark btn-sm w-100 mb-3 mt-3">모임 만들기👻</a>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </th:block>
+      </div>
+      <th:block th:if="${gatherList.getDtoList().size() != 0}">
+        <div class="card mb-5">
+          <div class="card-body px-0 pt-4 pb-2">
+            <div class="row d-flex justify-content-center">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-4 d-flex justify-content-center">
+
+                <th:block
+                        th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
+                  <div class="col-md-9 d-flex flex-row-reverse ">
+                    <ul class="pagination" id="paginations">
+                      <li th:if="${start} == '1'" class="page-item disabled">
+                        <a class="page-link"
+                           th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
+                      </li>
+                      <li th:if="${start} > '1'" class="page-item ">
+                        <a class="page-link"
+                           th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
+                      </li>
+
+                      <th:block th:if="${gatherList.getDtoList().size() != 0}" th:each="num : ${#numbers.sequence(start,end)}">
+                        <li class="page-item" th:if="${num} != ${gatherList.page}">
+
+                          <a class="page-link" th:text="${num}"
+                             th:href="@{/user/gather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                        </li>
+                        <li class="page-item active" th:if="${num} == ${gatherList.page}">
+                          <a class="page-link" th:text="${num}"
+                             th:href="@{/user/gather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
+                        </li>
+                      </th:block>
+                      <li th:if="${end} >= ${gatherList.total} / 10" class="page-item disabled">
+                        <a class="page-link"
+                           th:href="@{/user/gather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
+                      </li>
+                      <li th:if="${end} < ${gatherList.total} / 10" class="page-item">
+                        <a class="page-link"
+                           th:href="@{/user/gather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
+                      </li>
+                    </ul>
+                  </div>
+                </th:block>
+              </div>
+              <div class="col-sm-4 ">
+                <form class="row g-3" action="/user/myGather" method="get">
+                  <div class="col-auto">
+                    <select class="form-select" aria-label="Default select example" id="category" name="type">
+                      <option value="title">모임 검색 &nbsp&nbsp</option>
+                    </select>
+                  </div>
+                  <div class="col-auto">
+                    <label for="keyword" class="visually-hidden">search</label>
+                    <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
+                    <th:block th:if="${viewMode != null}">
+                      <input class="searchViewMode" type="hidden" name="viewMode" th:value="${viewMode}">
+                    </th:block>
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">검색</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </th:block>
-      <div class="card mb-5">
-        <div class="card-body px-0 pt-4 pb-2">
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-4 d-flex justify-content-center">
 
-              <th:block
-                      th:with="start=${gatherList.start}, end=${gatherList.end}, keyword =${param.keyword}, type = ${param.type}">
-                <div class="col-md-9 d-flex flex-row-reverse ">
-                  <ul class="pagination" id="paginations">
-                    <li th:if="${start} == '1'" class="page-item disabled">
-                      <a class="page-link"
-                         th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◁</a>
-                    </li>
-                    <li th:if="${start} > '1'" class="page-item ">
-                      <a class="page-link"
-                         th:href="@{/user/gather(category = ${category}, page = ${start} -10, keyword = ${keyword}, type = ${type})}">◀</a>
-                    </li>
-
-                    <th:block th:if="${gatherList.getDtoList().size() != 0}" th:each="num : ${#numbers.sequence(start,end)}">
-                      <li class="page-item" th:if="${num} != ${gatherList.page}">
-
-                        <a class="page-link" th:text="${num}"
-                           th:href="@{/user/gather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
-                      </li>
-                      <li class="page-item active" th:if="${num} == ${gatherList.page}">
-                        <a class="page-link" th:text="${num}"
-                           th:href="@{/user/gather(category = ${category}, page = ${num}, keyword = ${keyword}, type = ${type})}"></a>
-                      </li>
-                    </th:block>
-                    <li th:if="${end} >= ${gatherList.total} / 10" class="page-item disabled">
-                      <a class="page-link"
-                         th:href="@{/user/gather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▷</a>
-                    </li>
-                    <li th:if="${end} < ${gatherList.total} / 10" class="page-item">
-                      <a class="page-link"
-                         th:href="@{/user/gather(category = ${category}, page = ${end} +1, keyword = ${keyword}, type = ${type})}">▶</a>
-                    </li>
-                  </ul>
-                </div>
-              </th:block>
-            </div>
-            <div class="col-sm-4 ">
-              <form class="row g-3" action="/user/myGather" method="get">
-                <div class="col-auto">
-                  <select class="form-select" aria-label="Default select example" id="category" name="type">
-                    <option value="title">모임 검색 &nbsp&nbsp</option>
-                  </select>
-                </div>
-                <div class="col-auto">
-                  <label for="keyword" class="visually-hidden">search</label>
-                  <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search">
-                  <th:block th:if="${viewMode != null}">
-                    <input class="searchViewMode" type="hidden" name="viewMode" th:value="${viewMode}">
-                  </th:block>
-                </div>
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-3">검색</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -293,11 +339,13 @@
     let listBtn = document.getElementById("listViewBtn");
     let cardView = document.getElementById("cardView");
     let listView = document.getElementById("listView");
-    let categories = document.querySelectorAll("#categories > a");
+    let categories = document.querySelectorAll("#category-list > option");
     let pagination = document.querySelectorAll(".pagination > li > a");
     let searchViewMode = document.querySelector('.searchViewMode');
 
+
     if(defaultViewMode != null) {
+      console.log(defaultViewMode);
       viewMode = defaultViewMode;
     }
 
@@ -315,31 +363,37 @@
     });
 
     function changeHref(viewMode, categories, pagination, searchViewMode) {
-      for (let idx = 0; idx < pagination.length; idx++){
+      for (let idx = 0; idx < pagination.length; idx++) {
         let page = pagination[idx];
         let pageLocation = page.href;
-        if(pageLocation.toString().indexOf('list') == -1 && pageLocation.toString().indexOf('slide') == -1) {
-          pageLocation = pageLocation + '&viewMode=' +viewMode;
-          page.href = pageLocation;
+
+        if(pageLocation.toString().indexOf('list') > 0) {
+          pageLocation = pageLocation.replace('&viewMode=list', '');
         }
+        if(pageLocation.toString().indexOf('slide') > 0) {
+          pageLocation = pageLocation.replace('&viewMode=slide','');
+        }
+        pageLocation = pageLocation + '&viewMode=' +viewMode;
+        page.href = pageLocation;
       }
 
       for(let i = 0; i < categories.length; i++) {
         let category = categories[i];
-        let location = category.href;
-        if(location.toString().indexOf('list') == -1 && location.toString().indexOf('slide') == -1) {
-          if(location.toString().indexOf('?') == -1){
-            location = location + '?viewMode=' +viewMode;
-            category.href = location;
-          }else{
-            location = location + '&viewMode=' +viewMode;
-            category.href = location;
-          }
+        let location = category.value;
+
+        if(location.toString().indexOf('list') > 0) {
+          location = location.replace('&viewMode=list', '');
         }
+        if(location.toString().indexOf('slide') > 0) {
+          location = location.replace('&viewMode=slide','');
+        }
+        location = location + '&viewMode=' +viewMode;
+        category.value = location;
       }
-      console.log(searchViewMode);
+
+
       let initValue = searchViewMode.valueOf();
-      if(initValue.toString().indexOf('list') == -1 && initValue.toString().indexOf('list') == -1){
+      if(initValue.toString().indexOf('list') == -1 && initValue.toString().indexOf('slide') == -1){
         searchViewMode.value = viewMode;
       }
     }
@@ -370,6 +424,7 @@
       else
         return true ;
     }
+
   </script>
 </div>
 
