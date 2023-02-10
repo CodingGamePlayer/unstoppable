@@ -4,6 +4,7 @@ import com.example.batisproject.dto.*;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.GatherResponse;
 import com.example.batisproject.entity.User;
+import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.jungi.GatherMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class GatherServiceImpl implements GatherService {
 
     private final GatherMapper gatherMapper;
+
+    private final CategoryMapper categoryMapper;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -113,8 +116,15 @@ public class GatherServiceImpl implements GatherService {
         return pageResponseDTO;
     }
 
+    @Override
+    public String getNameByCategory(Integer category) {
+        return categoryMapper.getNamebyCategoryId(category);
+    }
+
+
     @Autowired
-    public GatherServiceImpl(GatherMapper gatherMapper) {
+    public GatherServiceImpl(GatherMapper gatherMapper, CategoryMapper categoryMapper) {
         this.gatherMapper = gatherMapper;
+        this.categoryMapper = categoryMapper;
     }
 }
