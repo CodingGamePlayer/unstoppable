@@ -67,22 +67,51 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-9">
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==0}">참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==1}">참여신청 취소</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==2}">답글(채팅) 이동</p></a>
-                                        <a href="#"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
-                                        
+                                    <div class="col-md-7">
+                                        <!-- 해보고지우기 -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${comment.role==0}">
+                                                참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)
+                                        </button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${comment.role==2}">
+                                                참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다
+                                        </button>
+                                        <form th:action="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}" method="post">
+                                            <input type="hidden" name="point" th:value="${gather.point}">
+                                            <input class="btn btn-outline-success" type="submit" th:if="${comment.role==1}" value="참여신청 취소">
+                                            <input class="btn btn-outline-success" type="submit" th:if="${comment.role>=3}" value="참가자인포,코맨트 방 이동">
+                                        </form>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/commentAdmin'}"><p class="btn btn-outline-success" role="button" th:if="${comment.role==4}">참여 신청자 관리 이동</p></a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a class="btn btn-outline-success" href="#" role="button">글수정</a>
-                                        <a class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/update'}" th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button">글수정</a>
+                                        <a th:href="@{'/user/gather/detail/'+${gather.id}+'/delete'}" th:if="${comment.role==4}" class="btn btn-outline-success" href="#" role="button" style="margin-left: 20px;">글삭제</a>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- 모달 -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form th:action="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}" method="post">
+                            <div class="modal-body">
+                                <input type="text" name="joinMent" class="form-control" id="article-modal-body" placeholder="참여신청 멘트를 적어주세요"></input>
+                            </div>
+                            <div class="modal-footer">
+                                    <input type="hidden" name="point" th:value="${gather.point}">
+                                    <input class="btn btn-secondary" type="submit" value="참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     <!-- 여기까지 -->
                 </div>
             </div>
@@ -94,7 +123,7 @@
     </div>
 
 <script>
-   
+
 
 
     
