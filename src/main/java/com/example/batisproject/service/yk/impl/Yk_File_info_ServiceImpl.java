@@ -71,11 +71,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             System.out.println("---------------octet로 비교로 잘됨");
             return 0L;
         }
-        // if(fileName.equals(" ")){
-        //     System.out.println("-----------파일내임이 띄워쓰기 로되어있음");
-        //     return 0L;
-        // }
-        //디비에 저장하기
+        
         FileInfo setToFileInfo = FileInfo.builder()
             .fileName(fileName)
             .saveFileName(saveFileName)
@@ -142,13 +138,107 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
                 }    
             } catch (Exception e) {
                 return chackNullDTO;
-                
             }
         
         return chackNullDTO;
     }
-    
 
+
+    //업데이트시
+    @Override
+    public Long inputImgOrDelete(MultipartFile file, Long g_id) {
+        System.out.println(save_path);
+        
+        //image/png 이런식으로 나옴
+        String contentType_name = file.getContentType();
+        System.out.println(contentType_name);
+        
+        
+        
+        // 뒤에 파일형식만 받게 뒷부분만 잘라줌
+        String[] afer_contentType_name = contentType_name.split("/");
+        
+        String fileName = file.getOriginalFilename();
+        String contentType = afer_contentType_name[1];
+        String saveFileName = UUID.randomUUID().toString()+"."+contentType;
+        System.out.println("이미지 uuid "+saveFileName+ "파일이름 잘나오나" +fileName +"컨탠츠 패스 확인" +contentType);
+        
+        
+        if(file.isEmpty()){
+            System.out.println("---------------이스엠티 메소드로 비교");
+            //딜리트 추가
+            int result = deleteFileImg(g_id);
+            return (long)result;
+        }
+        if(contentType.equals("octet-stream")){
+            System.out.println("---------------octet로 비교로 잘됨");
+            //딜리트 추가
+            int result = deleteFileImg(g_id);
+            return (long)result;
+        }
+        
+        FileInfo setToFileInfo = FileInfo.builder()
+            .fileName(fileName)
+            .saveFileName(saveFileName)
+            .contentType(contentType)
+            .build();
+
+
+        int result=fileInfoMapper.putImgInfo(setToFileInfo);
+        if(result<0){
+            //정보 저장 실패시
+            
+            return setToFileInfo.getId();
+        }
+
+        //객체 파일타입의 new(경로,파일이름)
+        File savefile = new File(save_path, saveFileName);
+
+        try {
+            
+            //멀티파트파일 타입의 프랜스포 실직적으로 변환해서 로컬에 저장됨
+            file.transferTo(savefile);
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // System.out.println("세이브파일 저장후 "+savefile);
+        // 글과 이미지 연관관계 테이블 디비 저장하기
+        GatherImageDTO imgDTO = GatherImageDTO.builder()
+        .fileInfo(setToFileInfo.getId())
+        .gather(g_id)
+        .build();
+        //파일 연관간계 저장
+        result = registerGather_img(imgDTO);
+        if(result<0){
+            return 0L;
+        }
+        
+        
+        System.out.println("사진 작성 성공");
+        return setToFileInfo.getId();
+
+     
+    }
+
+
+
+    @Override
+    public int deleteFileImg(Long g_id) {
+        int result = 0;
+        Long f_id = fileInfoMapper.getFileId(g_id);
+        result = fileInfoMapper.deleteGatherImg(g_id);
+        if(result<0){
+        result = fileInfoMapper.deleteFileInfo(f_id, g_id);
+        return result;
+        }
+        return 0;
+    }
+    
+    
 
 
 }

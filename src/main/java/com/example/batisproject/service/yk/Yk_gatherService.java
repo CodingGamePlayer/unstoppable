@@ -18,5 +18,22 @@ public interface Yk_gatherService {
     //글조회수 카운트하기
     int viewCount(Long g_id);
 
-    
+    //참여포인트 만큼 유저 포인트 차감
+    int userPointMinus(Long point,int u_id);
+
+    //참여취소,거절하면 포인트 복구
+    int userPointReset(Long point,int u_id);
+
+    //글 업데이트
+    int gatherUpdate(GatherDTO gatherDTO);
+
+    //글번호로 작성자 가지고오기
+    Long gatherToUser(Long g_id);
+
+
+    //글 받아오는게 다달라서 매개변수 넣으면 매차쿠차 디티오 완성
+    GatherDTO mergeDTO(String CategoryName,GatherDTO dto,int userId,String beforStartDate, String beforEndDate,Long g_id);
+
+    //글삭제 메소드
+    int deleteResiter(Long g_id);
 }
