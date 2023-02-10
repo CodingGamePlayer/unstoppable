@@ -16,4 +16,11 @@ public interface Yk_file_info_Service {
 
     public FileInfoDTO getFileInfo(Long g_id);
 
+
+     Long inputImgOrDelete(MultipartFile file,Long g_id);
+
+
+     //파일 삭제시 메퍼 3개 불러야해서 삭제 메소드
+     int deleteFileImg(Long g_id);
+
 }

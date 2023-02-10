@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.batisproject.annotaion.CurrentUser;
 import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.CategoryDTO;
 import com.example.batisproject.dto.FileInfoDTO;
@@ -94,7 +96,9 @@ public class yk_GatherController {
         model.addAttribute("user", userDTO);
         
             
-
+        if(gatherDTO.getPoint()==null){
+            gatherDTO.setPoint(0L);
+        }                         
         //디티오에 데이터타입변환후 정보담기
         gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
         gatherDTO.setUser((long)userDTO.getId());
@@ -114,11 +118,10 @@ public class yk_GatherController {
 
         GatherCommentDTO commentDTO = GatherCommentDTO.builder()
             .gather(gatherID)
-            .role(4)
             .user((long)user.getId())
             .build();
-
-        commentService.register_commnet(commentDTO);
+            
+        commentService.registerComment(commentDTO);
         
         // 파일 저장하기
         
@@ -150,11 +153,11 @@ public class yk_GatherController {
         GatherDTO gatherDTO = gatherService.get_Gather(g_id);
         model.addAttribute("gather",gatherDTO);
         //관리번호 코맨트 롤 뿌려줘야함
-        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());
+        GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());  //이부분 체크 이상한데
         model.addAttribute("comment", commentDTO);
         System.out.println("디테일컨트롤러"+commentDTO.toString());
         //현재참여중인 인원 보여주기
-        int peopleCounting = commentService.peopleCount((long)user.getId(), g_id);
+        int peopleCounting = commentService.peopleCount(g_id);
         model.addAttribute("peopleCount", peopleCounting);
         //로케이션 동이랑, 카데고리 디테일네임(카테고리) 받고 뿌려주기 
         // String locationDong = locationService.getLocation_Dong(gatherDTO.getLocation());
@@ -173,9 +176,82 @@ public class yk_GatherController {
         return "gather/gatherDetail";
     }
 
-    
+    //게시글 업데이트 요청
+    @GetMapping("user/gather/detail/{g_id}/update")
+    public String gatherUpdate(@PathVariable("g_id")Long g_id, @CurrentUser User user, Model model){
+        //유저는 무조건 처음에 뿌려줘야 작동됨
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user", userDTO);
+
+        Long gatherAdmin = gatherService.gatherToUser(g_id);
+        if(gatherAdmin!=(long)userDTO.getId()){
+            return "redirect:/user/main";
+        }
+        
+        GatherDTO gatherDTO = gatherService.get_Gather(g_id);
+        model.addAttribute("gather", gatherDTO);
+
+        //로케이션 던지기
+        List<LocationDTO> locationList = locationService.getList();
+        model.addAttribute("locationList", locationList);
+
+        //카테고리 던지기
+        List<CategoryDTO> categoryList =categoryService.getAllMainCategory();
+        model.addAttribute("categoryList", categoryList);
+
+        return "gather/gatherUpdate";
+    }
 
 
+    //게시글 업데이트 
+    @PostMapping("user/gather/detail/{g_id}/update")
+    public String gatherUpdate(@PathVariable("g_id")Long g_id, @CurrentUser User user, Model model,@RequestParam("beforStartDate")String beforStartDate,
+                                     @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO gatherDTO,
+                                     MultipartFile file){
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user", userDTO);
+
+        gatherDTO = gatherService.mergeDTO(detailName, gatherDTO, userDTO.getId(), beforStartDate, beforEndDate,g_id);
+        int result = gatherService.gatherUpdate(gatherDTO);
+        System.out.println("-----------"+result);
+        if(result<0){
+            return "redirect:/user/gather/detail/"+g_id+"/update";
+        }
+        
+        // 파일 저장하기
+        
+        Long fileID = file_info_Service.inputImgOrDelete(file,g_id);
+        System.out.println("----------------파일삭제업데이트 유무"+fileID);
+        
+
+        System.out.println("------------컨트롤 ok");
+        // model.addAttribute("gather", gatherDTO);
+        return "redirect:/user/gather/detail/"+g_id;
+    }
+
+
+
+    @GetMapping("/user/gather/detail/{g_id}/delete")
+    public String deleteResither(@PathVariable("g_id")Long g_id, @CurrentUser User user, Model model){
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+
+        Long userId=gatherService.gatherToUser(g_id);
+        if(userId!=userDTO.getId()){
+            return "redirect:/";
+        }
+        file_info_Service.inputImg(null, g_id);
+
+        commentService.deleteGatherIdTocomment(g_id);
+
+        int result = gatherService.deleteResiter(g_id);
+        if(result>0){
+            return "redirect:/user/gather/detail/"+g_id;
+        }
+
+
+        model.addAttribute("user", userDTO);
+        return "redirect:/user/main";
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.batisproject.controller.yk;
+package com.example.batisproject.apicontroller.yk;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
