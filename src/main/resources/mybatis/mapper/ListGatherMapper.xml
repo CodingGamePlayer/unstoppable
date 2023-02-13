@@ -67,8 +67,21 @@
     </select>
 
     <select id="selectOtherList" resultType="GatherResponse" resultMap="ResponseGatherMapping">
-        select g.g_id, g.u_id, g.l_id, g.c_id, g.title, g.content, g.regdate, g.startdate, g.enddate, g.modifydate, g.view_cnt,
-        g.people_num, g.point, fi.save_file_name from gather g
+        select g.g_id,
+               g.u_id,
+               g.l_id,
+               g.c_id,
+               g.title,
+               g.content,
+               g.regdate,
+               g.startdate,
+               g.enddate,
+               g.modifydate,
+               g.view_cnt,
+               g.people_num,
+               g.point,
+               fi.save_file_name
+        from gather g
         left join gather_image gi on gi.g_id = g.g_id
         left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchOtherList"/>

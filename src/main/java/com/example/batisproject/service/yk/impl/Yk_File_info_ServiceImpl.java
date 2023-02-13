@@ -85,6 +85,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             return setToFileInfo.getId();
         }
 
+        System.out.println("here is rootPath : "+rootPath);
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
 
@@ -190,6 +191,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             
             return setToFileInfo.getId();
         }
+
 
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
