@@ -1,20 +1,31 @@
 package com.example.batisproject.apicontroller;
 
+import com.example.batisproject.controller.AuthenticationForModel;
 import com.example.batisproject.dto.ArticleDTO;
+import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.entity.User;
+import com.example.batisproject.service.gather.GatherService;
 import com.example.batisproject.service.impl.ArticleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
 public class ArticleApiController {
 
-    @Autowired
+
     private ArticleServiceImpl articleService;
 
     @PostMapping("/api/article/create")
@@ -42,4 +53,11 @@ public class ArticleApiController {
     }
 
 
+
+
+
+    @Autowired
+    public ArticleApiController(ArticleServiceImpl articleService) {
+        this.articleService = articleService;
+    }
 }

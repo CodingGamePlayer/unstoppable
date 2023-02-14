@@ -44,30 +44,19 @@ public class GatherController {
                              @Valid PageRequestDTO pageRequestDTO,
                              BindingResult bindingResult) {
 
-        // point logic
+
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
-        model.addAttribute("user", userDTO);
-
-        // gather logic
-
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherResponseDTO> gatherList;
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult, userDTO, category);
+        PageResponseDTO<GatherResponseDTO> gatherList = gatherService.getAllOtherList(revisedPageDTO);
+
         LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
-
-        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
-        revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(userDTO.getLocation());
-        revisedPageDTO.setNickname(userDTO.getNickname());
-        gatherList = gatherService.getAllOtherList(revisedPageDTO);
-
-        model.addAttribute("location", locationDTO);
-        model.addAttribute("gatherList", gatherList);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("category", category);
-        model.addAttribute("viewMode", viewMode);
-        model.addAttribute("locationList", locationService.getAll());
+        addModel(category, viewMode, model, categoryList, gatherList, locationDTO, userDTO);
         return "gather/gatherList";
     }
+
+
+
     @GetMapping("/user/myGather")
     public String myGatherList(@RequestParam(value = "category", required = false, defaultValue = "")Integer category,
                                @RequestParam(value = "viewMode", required = false, defaultValue = "")String viewMode,
@@ -75,29 +64,14 @@ public class GatherController {
                                @Valid PageRequestDTO pageRequestDTO,
                                BindingResult bindingResult) {
 
-        // point logic
 
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("user", userDTO);
-
-        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
         List<CategoryDTO> categoryList = categoryService.getAllMainCategory();
-        PageResponseDTO<GatherResponseDTO> gatherList;
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult, userDTO, category);
+        PageResponseDTO<GatherResponseDTO> gatherList = gatherService.getAllMyList(revisedPageDTO);
+        LocationDTO locationDTO = locationService.getByUsername(userDTO.getUsername());
 
-        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
-
-        revisedPageDTO.setCategory(category);
-        revisedPageDTO.setLocation(userDTO.getLocation());
-        revisedPageDTO.setNickname(userDTO.getNickname());
-        gatherList = gatherService.getAllMyList(revisedPageDTO);
-
-        model.addAttribute("location", locationDTO);
-        model.addAttribute("gatherList", gatherList);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("category", category);
-        model.addAttribute("viewMode", viewMode);
-        model.addAttribute("locationList", locationService.getAll());
+        addModel(category, viewMode, model, categoryList, gatherList, locationDTO, userDTO);
         return "gather/myGatherList";
     }
 
@@ -133,54 +107,37 @@ public class GatherController {
         model.addAttribute("user", userDTO);
         return "user/main";
     }
-
-
-    @GetMapping("/user/locationSearch")
-    public String locationSearch(Model model) {
-        // point logic
-        User user = new AuthenticationForModel().getAuthentication();
-
-        UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("user", userDTO);
-
-        List<LocationDTO> locationList = locationService.getAll();
-        model.addAttribute("locationList", locationList);
-        return "gather/locationSearchTest";
-    }
-
-    @PostMapping("/user/locationSubmit")
-    public String locationSubmit(@RequestParam String lid , Model model) {
-        // point logic
-        User user = new AuthenticationForModel().getAuthentication();
-
-        UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("user", userDTO);
-        log.info("-----------------------");
-        log.info("lid : " + lid);
-        List<LocationDTO> locationList = locationService.getAll();
-        model.addAttribute("locationList", locationList);
-        return "gather/locationSearchTest";
-    }
-
-    PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
+    PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult, UserDTO userDTO, Integer category) {
 
         if(pageRequestDTO.getKeyword() != null)
             pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
 
-        if (bindingResult.hasErrors()){
+        if(category != null)
+            pageRequestDTO.setCategory(category);
 
+        if(userDTO != null){
+            pageRequestDTO.setLocation(userDTO.getLocation());
+            pageRequestDTO.setNickname(userDTO.getNickname());
+        }
+        if (bindingResult.hasErrors()) {
             pageRequestDTO = PageRequestDTO.builder().build();
         }
-
         return pageRequestDTO;
     }
 
+    private void addModel(@RequestParam(value = "category", required = false, defaultValue = "") Integer category, @RequestParam(value = "viewMode", required = false, defaultValue = "") String viewMode, Model model, List<CategoryDTO> categoryList, PageResponseDTO<GatherResponseDTO> gatherList, LocationDTO locationDTO, UserDTO userDTO) {
+        model.addAttribute("user", userDTO);
+        model.addAttribute("location", locationDTO);
+        model.addAttribute("gatherList", gatherList);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("category", category);
+        if(category != null) model.addAttribute("categoryName", gatherService.getNameByCategory(category));
+        model.addAttribute("viewMode", viewMode);
+        model.addAttribute("locationList", locationService.getAll());
+    }
 
 
     @Autowired
-
     public GatherController(LocationService locationService, GatherService gatherService, CategoryService categoryService, GatherCommentMapper gatherCommentMapper, AuthenticationForModel authenticationForModel, UserService userService) {
         this.locationService = locationService;
         this.gatherService = gatherService;

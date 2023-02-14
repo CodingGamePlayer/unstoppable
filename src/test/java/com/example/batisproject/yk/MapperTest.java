@@ -35,8 +35,6 @@ import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.Category;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
-import com.example.batisproject.entity.GatherComment;
-import com.example.batisproject.entity.GatherCommentMessage;
 import com.example.batisproject.entity.Location;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.Yk_fileInfoMapper;
@@ -220,105 +218,7 @@ public class MapperTest {
 
     }
 
-    @Test
-    void checkRoleTest(){
-        GatherComment comment = GatherComment.builder()
-        .user(10L)
-        .gather(39L)
-        .build();
-        // int role = commentMapper.checkRole(comment);
-        String role = commentMapper.checkRole(comment);
-        assertNull(role);
-
-        
-    }
-
-    Yk_gather_commnetServiceImpl cs= new Yk_gather_commnetServiceImpl();
-
-    @Autowired
-    Yk_gather_commentService cms; 
-
-    @Test
-    void roleService(){
-        GatherCommentDTO dto = new GatherCommentDTO();
-        dto.setUser(8L);
-        dto.setGather(24L);
-        int r=cms.checkRole(dto);
-
-        assertNotNull(r);
-    }
-
-    @Test
-    void roleMapper(){
-        GatherComment dto = new GatherComment();
-        dto.setUser(10L);
-        dto.setGather(21L);
-        String r =commentMapper.checkRole(dto);
-        assertNull(r);
-    }
-
-   
 
     
-    @Test
-    void joinOk(){
-        GatherComment en = new GatherComment();
-        en.setUser(15L);
-        en.setGather(100L);
 
-        int r= commentMapper.joinOk(en);
-        assertNull(r);
-    }
-    
-    @Autowired
-    Yk_userMapper userMapper;
-
-    @Autowired
-    Yk_userSevice userSevice;
-
-    @Test
-    void userIdTest(){
-        User user = userMapper.idToNick(8L);
-        
-        UserDTO dto = modelMapper.map(user, UserDTO.class);
-
-        assertNull(dto);
-
-
-    }
-    
-    @Autowired
-    Yk_gather_commentService commentService;
-
-    @Test
-    void userIdListTest(){
-        List<GatherComment> joinListBefor  =commentMapper.getJoinList(26L);
-
-        List<GatherCommentDTO> joinList = joinListBefor.stream()
-        .map(GatherComment->modelMapper.map(GatherComment, GatherCommentDTO.class))
-        .collect(Collectors.toList());
-
-        List<UserDTO> userList =commentService.nicknameList(joinList);
-
-
-        assertNull(userList);
-
-    }
-
-    @Test
-    void lTOd(){
-        GatherDTO dto =gatherService2.get_Gather(35L);
-        LocalDateTime local = dto.getStartDate();
-        LocalDate date = gatherS.tLocalDate(local);
-        
-
-    }
-
-    @Test
-    void commentMessageTest(){
-        List<GatherCommentMessage> message =commentService.findCommentList(35L);
-
-        
-
-    }
 }

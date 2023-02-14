@@ -42,6 +42,7 @@ public interface Yk_gather_commentService {
     //글삭제시 연관테이블 때문에 같이 삭제
     int deleteGatherIdTocomment(Long g_id);
 
+
     //참여 다중 수락
     int joinOks(Long userId[],Long g_id);
 
@@ -50,5 +51,6 @@ public interface Yk_gather_commentService {
 
     //댓글불러오기
     List<GatherCommentMessage>findCommentList(Long g_id);
+
     
 }

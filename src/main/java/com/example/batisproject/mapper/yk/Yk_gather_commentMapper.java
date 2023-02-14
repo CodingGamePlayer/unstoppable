@@ -12,7 +12,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.GatherComment;
+
 import com.example.batisproject.entity.GatherCommentMessage;
+
 import com.example.batisproject.entity.User;
 
 
@@ -50,10 +52,13 @@ public interface Yk_gather_commentMapper {
     @Select("select count(u_id) as cnt from gather_comment where role>=2 && g_id =#{g_id};")
     int peopleCount(Long g_id);
 
+
     //코멘트 참가신청 할수있게 글에 권한 조회해서 따오기   
     //  *! 중요 디비에 롤은 int 타입 이지만 기본값이 0이다 조회해서 없으면 null로 반환이 안되어서 int로 받으면 오류가 남 String 으로 받으면 디폴트값 0이 반환됨  !*
     @Select("select role from gather_comment where g_id = #{gather} && u_id= #{user};")
     String checkRole(GatherComment comment);
+
+
 
 
 

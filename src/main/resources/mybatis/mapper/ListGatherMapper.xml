@@ -44,18 +44,44 @@
     </resultMap>
 
     <select id="selectMyList" resultType="GatherResponse" resultMap="ResponseGatherMapping">
-        select g.g_id, g.u_id, g.l_id, g.c_id, g.title, g.content, g.regdate, g.startdate, g.enddate, g.modifydate, g.view_cnt,
-        g.people_num, g.point, fi.save_file_name from gather g
-        right join gather_comment gc on g.g_id = gc.g_id
-        left join gather_image gi on gi.g_id = g.g_id
-        left join file_info fi on fi.f_id = gi.f_id
-        <include refid="searchMyList"/>
+        SELECT g.g_id
+             , g.u_id
+             , g.l_id
+             , g.c_id
+             , g.title
+             , g.content
+             , g.regdate
+             , g.startdate
+             , g.enddate
+             , g.modifydate
+             , g.view_cnt
+             , g.people_num
+             , g.point
+             , fi.save_file_name
+        FROM gather g
+        RIGHT JOIN gather_comment gc on g.g_id = gc.g_id
+        LEFT JOIN gather_image gi on gi.g_id = g.g_id
+        LEFT join file_info fi on fi.f_id = gi.f_id
+            <include refid="searchMyList"/>
         ORDER BY g.g_id DESC LIMIT #{skip}, #{size}
     </select>
 
     <select id="selectOtherList" resultType="GatherResponse" resultMap="ResponseGatherMapping">
-        select g.g_id, g.u_id, g.l_id, g.c_id, g.title, g.content, g.regdate, g.startdate, g.enddate, g.modifydate, g.view_cnt,
-        g.people_num, g.point, fi.save_file_name from gather g
+        select g.g_id,
+               g.u_id,
+               g.l_id,
+               g.c_id,
+               g.title,
+               g.content,
+               g.regdate,
+               g.startdate,
+               g.enddate,
+               g.modifydate,
+               g.view_cnt,
+               g.people_num,
+               g.point,
+               fi.save_file_name
+        from gather g
         left join gather_image gi on gi.g_id = g.g_id
         left join file_info fi on fi.f_id = gi.f_id
         <include refid="searchOtherList"/>

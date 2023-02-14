@@ -1,18 +1,19 @@
 package com.example.batisproject.service.gather;
 
-import com.example.batisproject.dto.*;
+import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.GatherResponseDTO;
+import com.example.batisproject.dto.PageRequestDTO;
+import com.example.batisproject.dto.PageResponseDTO;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.GatherResponse;
-import com.example.batisproject.entity.User;
+import com.example.batisproject.mapper.jungi.CategoryMapper;
 import com.example.batisproject.mapper.jungi.GatherMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,7 +22,15 @@ public class GatherServiceImpl implements GatherService {
 
     private final GatherMapper gatherMapper;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    private final CategoryMapper categoryMapper;
+
+    private final ModelMapper modelMapper = new ModelMapper();
+
+    @Autowired
+    public GatherServiceImpl(GatherMapper gatherMapper, CategoryMapper categoryMapper) {
+        this.gatherMapper = gatherMapper;
+        this.categoryMapper = categoryMapper;
+    }
 
     @Override
     public List<GatherDTO> getAll() {
@@ -47,7 +56,7 @@ public class GatherServiceImpl implements GatherService {
     public int create(GatherDTO gatherDTO) {
         Gather gather = modelMapper.map(gatherDTO, Gather.class);
         int result = gatherMapper.insert(gather);
-        log.info("insert gather Id : "+gather.getId());
+        log.info("insert gather Id : " + gather.getId());
         log.info("==================================");
         log.info("result : " + result);
         if (result == 0) {
@@ -78,6 +87,7 @@ public class GatherServiceImpl implements GatherService {
         List<GatherResponse> gathers = gatherMapper.selectMyList(pageRequestDTO);
 
         List<GatherResponseDTO> dtoList = gathers.stream()
+
 
                 .map(gatherResponse -> modelMapper.map(gatherResponse, GatherResponseDTO.class))
                 .collect(Collectors.toList());
@@ -113,8 +123,9 @@ public class GatherServiceImpl implements GatherService {
         return pageResponseDTO;
     }
 
-    @Autowired
-    public GatherServiceImpl(GatherMapper gatherMapper) {
-        this.gatherMapper = gatherMapper;
+    @Override
+    public String getNameByCategory(Integer category) {
+        return categoryMapper.getNamebyCategoryId(category);
     }
+
 }

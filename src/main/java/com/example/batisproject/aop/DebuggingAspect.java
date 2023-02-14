@@ -19,7 +19,7 @@ public class DebuggingAspect {
     private void cut1() {}
 
     // 실행시점 이전 : cut()의 대상이 수행되기 이전에 수행
-    @Before("cut()")
+    /*@Before("cut()")
     public void loggingArgsForController(JoinPoint joinPoint) { // cut()의 대상 메소드
         // 입력값 가져오기
         Object[] args = joinPoint.getArgs();
@@ -56,7 +56,7 @@ public class DebuggingAspect {
 
     }
 
-    /*@Before("cut1()")
+    @Before("cut1()")
     public void loggingArgsForService(JoinPoint joinPoint){
 
         Object[] args = joinPoint.getArgs();

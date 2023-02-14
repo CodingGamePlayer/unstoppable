@@ -1,5 +1,6 @@
 package com.example.batisproject.apicontroller.yk;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,5 @@ public class Yk_CommentRestContoroller {
     }
 
 }
+
 

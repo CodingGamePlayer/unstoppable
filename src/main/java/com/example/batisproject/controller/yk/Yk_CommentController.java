@@ -2,7 +2,9 @@ package com.example.batisproject.controller.yk;
 
 import java.util.List;
 
+
 import java.time.LocalDate;
+
 import org.springframework.beans.factory.BeanFactoryExtensionsKt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,8 +76,10 @@ public class Yk_CommentController {
     //유저 참가상태별로 요청
     @PostMapping("/user/gather/detail/{g_id}/roleRequest")
     public String commentJoin(@PathVariable("g_id")Long g_id ,@CurrentUser User user,Model model,GatherDTO gatherDTO, String joinMent){
+
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user", userDTO);
+
         
         GatherCommentDTO commentDTO = new GatherCommentDTO();
         commentDTO.setUser((long)userDTO.getId());
@@ -86,17 +90,21 @@ public class Yk_CommentController {
         switch (commentDTO.getRole()) {
             case 0://모임참여신청
                 result = commentService.joinComment(commentDTO);
+
                 if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointMinus(gatherDTO.getPoint(), userDTO.getId());
                 if(result<0){
+
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             case 1://모임참여 취소
                 result = commentService.joinCancel(commentDTO);
+
                 if(result<0){
+
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointReset(gatherDTO.getPoint(), userDTO.getId());
@@ -106,15 +114,18 @@ public class Yk_CommentController {
                 break;
             case 2://모임재참여
                 result = commentService.againJoin(commentDTO);
+
                 if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointMinus(gatherDTO.getPoint(), userDTO.getId());
                 if(result<0){
+
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             default://3~4 번 채팅방진입
+
                 List<GatherCommentDTO> joinList =commentService.getJoinList(g_id);
                 model.addAttribute("joinList", joinList);
             
@@ -128,15 +139,19 @@ public class Yk_CommentController {
                 LocalDate startDate = gatherService.tLocalDate(gatherDTO.getStartDate());
                 model.addAttribute("startDate", startDate);
                 return "comment/gatherComment";
+
                 
         }
         System.out.println("코멘트 컨트롤 "+commentDTO.toString());
         //요청 성공적 완료
+
         return "redirect:/user/gather/detail/"+g_id;
+
     }
 
 
     @PostMapping("/user/gather/detail/{g_id}/commentAdmin/joinOk")
+
     public String joinOk(@PathVariable("g_id")Long g_id, @RequestParam("userId")Long userId[]){
         commentService.joinOks(userId, g_id);
         return "redirect:/user/gather/detail/"+g_id+"/commentAdmin";
@@ -147,6 +162,7 @@ public class Yk_CommentController {
         commentService.joinNos(userId, g_id);
         
         return "redirect:/user/gather/detail/"+g_id+"/commentAdmin";
+
     }   
 
 }

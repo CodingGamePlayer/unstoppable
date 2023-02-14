@@ -14,7 +14,9 @@ import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
 import com.example.batisproject.service.yk.Yk_gather_commentService;
 import com.example.batisproject.service.yk.Yk_userSevice;
+
 import com.example.batisproject.entity.GatherCommentMessage;
+
 
 @Service
 public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
@@ -148,6 +150,7 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         return commentMapper.deleteGatherIdTocomment(g_id);
     }
 
+
     //참가 다중 수락
     @Override
     public int joinOks(Long[] userId,Long g_id) {
@@ -196,5 +199,6 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
 
         return messageList;
     }
+
 
 }

@@ -95,8 +95,10 @@ public class yk_GatherController {
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user", userDTO);
         
+
       
         gatherDTO = gatherService.mergeDTO(detailName, gatherDTO, userDTO.getId(), beforStartDate, beforEndDate, gatherID);
+
         
         //글쓰기 
         gatherID = gatherService.gatherRegister(gatherDTO);
