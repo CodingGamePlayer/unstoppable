@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ import com.example.batisproject.entity.Category;
 import com.example.batisproject.entity.FileInfo;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.entity.GatherCommentMessage;
 import com.example.batisproject.entity.Location;
 import com.example.batisproject.entity.User;
 import com.example.batisproject.mapper.Yk_fileInfoMapper;
@@ -303,4 +305,20 @@ public class MapperTest {
 
     }
 
+    @Test
+    void lTOd(){
+        GatherDTO dto =gatherService2.get_Gather(35L);
+        LocalDateTime local = dto.getStartDate();
+        LocalDate date = gatherS.tLocalDate(local);
+        
+
+    }
+
+    @Test
+    void commentMessageTest(){
+        List<GatherCommentMessage> message =commentService.findCommentList(35L);
+
+        
+
+    }
 }

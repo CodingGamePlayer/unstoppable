@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+
+
+    <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <p class="text-center" th:text="${gather.user}"></p>
+              <p class="text-center" th:text="${startDate}"></p>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3" th:each="users : ${userList}">
+                <p th:text="${users.nickname}"></p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <div class="row">
+              <!-- 댓글 영역 -->
+              <div th:replace="comment/commentRefly :: commentArea">
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div>   
+<script>
+
+
+
+    
+</script>
+
+
+</div>
+
+
+
+</html>

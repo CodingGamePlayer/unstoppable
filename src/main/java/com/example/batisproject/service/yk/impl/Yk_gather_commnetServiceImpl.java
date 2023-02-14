@@ -14,6 +14,7 @@ import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
 import com.example.batisproject.service.yk.Yk_gather_commentService;
 import com.example.batisproject.service.yk.Yk_userSevice;
+import com.example.batisproject.entity.GatherCommentMessage;
 
 @Service
 public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
@@ -147,6 +148,53 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         return commentMapper.deleteGatherIdTocomment(g_id);
     }
 
+    //참가 다중 수락
+    @Override
+    public int joinOks(Long[] userId,Long g_id) {
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        commentDTO.setGather(g_id);
+        for(int i=0; i<userId.length; i++ ){
+             commentDTO.setUser(userId[i]);
+             int result =commentService.joinOk(commentDTO);
+             if(result<0){
+                return 0;
+             }
+        }
 
+
+        return 1;
+    }
+
+    //참가 다중 거절
+    @Override
+    public int joinNos(Long[] userId,Long g_id) {
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        commentDTO.setGather(g_id);
+        for(int i=0; i<userId.length; i++ ){
+             commentDTO.setUser(userId[i]);
+             int result =commentService.joinCancel(commentDTO);
+             if(result<0){
+                return 0;
+             }
+        }
+
+
+        return 1;
+    }
+
+    @Override
+    public List<GatherCommentMessage>findCommentList(Long g_id){
+        Long[] gcArray = commentMapper.toFindGcIdList(g_id);
+        
+        List<GatherCommentMessage> messageList = new ArrayList();
+        
+        for(int i=0; i<gcArray.length; i++){
+            System.out.println(i);
+            GatherCommentMessage messge =  commentMapper.findCommentList(gcArray[i]);
+            messageList.add(messge);
+        }
+
+        return messageList;
+    }
 
 }

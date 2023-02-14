@@ -95,19 +95,8 @@ public class yk_GatherController {
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
         model.addAttribute("user", userDTO);
         
-            
-        if(gatherDTO.getPoint()==null){
-            gatherDTO.setPoint(0L);
-        }                         
-        //디티오에 데이터타입변환후 정보담기
-        gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
-        gatherDTO.setUser((long)userDTO.getId());
-        gatherDTO.setStartDate(gatherService.toLocalDateTime(beforStartDate));
-        gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
-        System.out.println(gatherDTO.toString());
-
-
-        
+      
+        gatherDTO = gatherService.mergeDTO(detailName, gatherDTO, userDTO.getId(), beforStartDate, beforEndDate, gatherID);
         
         //글쓰기 
         gatherID = gatherService.gatherRegister(gatherDTO);
@@ -137,7 +126,7 @@ public class yk_GatherController {
         
 
         System.out.println("글작성 성공");
-
+        
         return "user/main";
     }
 

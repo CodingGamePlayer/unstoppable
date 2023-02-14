@@ -1,7 +1,7 @@
 package com.example.batisproject.service.yk;
 
 import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import com.example.batisproject.dto.GatherDTO;
 
 
@@ -11,6 +11,9 @@ public interface Yk_gatherService {
 
     //로컬데이트타임(시랑분까지 필요)로 변환 메소드
     LocalDateTime toLocalDateTime(String date);
+
+    //로컬데이터타임 데이터로 변환
+    LocalDate tLocalDate(LocalDateTime dateTime);
 
     //글 디테일 하나 불러오기 메소드
     GatherDTO get_Gather(Long g_id);

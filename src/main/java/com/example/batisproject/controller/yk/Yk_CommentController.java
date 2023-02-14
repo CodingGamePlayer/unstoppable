@@ -2,6 +2,7 @@ package com.example.batisproject.controller.yk;
 
 import java.util.List;
 
+import java.time.LocalDate;
 import org.springframework.beans.factory.BeanFactoryExtensionsKt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,8 +74,8 @@ public class Yk_CommentController {
     //유저 참가상태별로 요청
     @PostMapping("/user/gather/detail/{g_id}/roleRequest")
     public String commentJoin(@PathVariable("g_id")Long g_id ,@CurrentUser User user,Model model,GatherDTO gatherDTO, String joinMent){
-        UserDTO userDTO =userService.existsByEmail(user.getUsername());
-        model.addAttribute("userDTO",userDTO);
+        UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user", userDTO);
         
         GatherCommentDTO commentDTO = new GatherCommentDTO();
         commentDTO.setUser((long)userDTO.getId());
@@ -85,17 +86,17 @@ public class Yk_CommentController {
         switch (commentDTO.getRole()) {
             case 0://모임참여신청
                 result = commentService.joinComment(commentDTO);
-                if(result>0){
+                if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointMinus(gatherDTO.getPoint(), userDTO.getId());
-                if(result>0){
+                if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             case 1://모임참여 취소
                 result = commentService.joinCancel(commentDTO);
-                if(result>0){
+                if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointReset(gatherDTO.getPoint(), userDTO.getId());
@@ -105,53 +106,47 @@ public class Yk_CommentController {
                 break;
             case 2://모임재참여
                 result = commentService.againJoin(commentDTO);
-                if(result>0){
+                if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = gatherService.userPointMinus(gatherDTO.getPoint(), userDTO.getId());
-                if(result>0){
+                if(result<0){
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 break;
             default://3~4 번 채팅방진입
-                
-                return "/user/gather/"+g_id+"/comment";
+                List<GatherCommentDTO> joinList =commentService.getJoinList(g_id);
+                model.addAttribute("joinList", joinList);
+            
+                //참가자들 닉네임 실어다 주기
+                List<UserDTO> userList = commentService.nicknameList(joinList);
+                model.addAttribute("userList", userList);
+        
+                //참가자들 기본정보와 글번호 실어보내주기
+                gatherDTO = gatherService.get_Gather(g_id);
+                model.addAttribute("gather", gatherDTO);
+                LocalDate startDate = gatherService.tLocalDate(gatherDTO.getStartDate());
+                model.addAttribute("startDate", startDate);
+                return "comment/gatherComment";
                 
         }
         System.out.println("코멘트 컨트롤 "+commentDTO.toString());
         //요청 성공적 완료
-        return "/user/gather/detail/"+g_id;
+        return "redirect:/user/gather/detail/"+g_id;
     }
 
 
     @PostMapping("/user/gather/detail/{g_id}/commentAdmin/joinOk")
-    public String joinOk(@PathVariable("g_id")Long g_id, Long user[]){
-        GatherCommentDTO commentDTO = new GatherCommentDTO();
-        for(int i=0; i<user.length; i++ ){
-             commentDTO.setUser(user[i]);
-             commentDTO.setGather(g_id);
-             int result =commentService.joinOk(commentDTO);
-             if(result>0){
-                return "redirect:/user/gather/detail/"+g_id+"/roleRequest";
-             }
-        }
-
-        return "user/detail";
+    public String joinOk(@PathVariable("g_id")Long g_id, @RequestParam("userId")Long userId[]){
+        commentService.joinOks(userId, g_id);
+        return "redirect:/user/gather/detail/"+g_id+"/commentAdmin";
     }   
 
     @PostMapping("/user/gather/detail/{g_id}/commentAdmin/joinNo")
-    public String joinNo(@PathVariable("g_id")Long g_id, Long user[]){
-        GatherCommentDTO commentDTO = new GatherCommentDTO();
-        for(int i=0; i<user.length; i++ ){
-             commentDTO.setUser(user[i]);
-             commentDTO.setGather(g_id);
-             int result =commentService.joinCancel(commentDTO);
-             if(result>0){
-                return "redirect:/user/gather/detail/"+g_id+"/roleRequest";
-             }
-        }
+    public String joinNo(@PathVariable("g_id")Long g_id, Long userId[]){
+        commentService.joinNos(userId, g_id);
         
-        return "user/detail";
+        return "redirect:/user/gather/detail/"+g_id+"/commentAdmin";
     }   
 
 }

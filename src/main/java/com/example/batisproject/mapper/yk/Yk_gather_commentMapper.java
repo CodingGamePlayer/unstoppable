@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.entity.GatherCommentMessage;
 import com.example.batisproject.entity.User;
 
 
@@ -82,4 +83,20 @@ public interface Yk_gather_commentMapper {
     int deleteGatherIdTocomment(Long g_id);
 
 
+    //댓글부러 오기 2단계 걸침
+
+    //1단계
+    @Select("select gc_id from gather_comment where g_id=#{g_id};")
+    Long[] toFindGcIdList(Long g_id);
+    //단계
+
+    @Select("select * from gather_comment_message where gc_id = #{gc_id};")
+    @Results(id="message",value = {
+        @Result(property = "id", column = "gcm_id"),
+        @Result(property = "gatherComment", column = "gc_id"),
+        @Result(property = "body", column = "gcm_body"),
+        @Result(property = "regdate", column = "gcm_regdate")
+    })
+    GatherCommentMessage findCommentList(Long gc_id);
+    
 }

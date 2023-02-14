@@ -17,130 +17,87 @@
 
 
     <div class="container">
-        <div class="row">
-            <div class="card" style="height: 600px;">
-                <div class="card-body">
-                    <div class="row" style="margin-bottom: 25px;">
-                        <div class="col-md-4 offset-md-4" ><h3>제목</h3></div>
-                        <div class="col-md-2 offset-md-2" >
-                            <button id="ok" type="button" class="btn btn-outline-primary" onclick="joinOk()">수락</button>
-                            <button id="no" type="button" class="btn btn-outline-primary"  onclick="joinfail()">거절</button>
-                        </div>
-                    </div>
-                    <div id="joinNo">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <th:box  th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <p class="text-center" style="margin-top: 10px;">
-                                            &nbsp; #
-                                        </p>
-                                    </div>    
-                                </th:box>    
+        <form method="post">
+            <div class="row">
+                <div class="card" style="height: 600px;">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 25px;">
+                            <div class="col-md-4 offset-md-4" ><h3>제목</h3></div>
+                            <div class="col-md-2 offset-md-2" >
+                                
                             </div>
-                            <div class="col-md-1">
-                                <th:box th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <div class="card text-white bg-success mb-3">
-                                            <p class="text-center">
-                                                <th:box th:text="${userList.nickname}"></th:box>
+                        </div>
+                        <div id="joinNo">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <th:box  th:each="userList : ${userList}">
+                                        <div class="row">
+                                            <p class="text-center" style="margin-top: 10px;">
+                                                &nbsp; #
                                             </p>
                                         </div>    
-                                    </div>
-                                </th:box>  
-                            </div>
-                            <div class="col-md-1">
-                                <th:box th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <p class="text-center" style="margin-top: 10px;">
-                                            &nbsp;  님의 멘트
-                                        </p>
-                                    </div>
-                                </th:box>  
-                            </div>
-                            <div class="col-md-9">
-                                <th:box th:each="comment : ${joinList}">
-                                    <div class="card text-white bg-success mb-3">
+                                    </th:box>    
+                                </div>
+                                <div class="col-md-1">
+                                    <th:box th:each="userList : ${userList}">
                                         <div class="row">
-                                            <div class="col-md-10">
-                                                <p>&nbsp;: &nbsp;<th:box th:text="${comment.joinMent}"></p>
-                                            </div>
-                                            <div class="col-md-2" >
-                                            선택<input type="checkbox">
-                                            </div> 
+                                            <div class="card text-white bg-success mb-3">
+                                                <p class="text-center">
+                                                    <th:box th:text="${userList.nickname}"></th:box>
+                                                </p>
+                                            </div>    
                                         </div>
+                                    </th:box>  
+                                </div>
+                                <div class="col-md-1">
+                                    <th:box th:each="userList : ${userList}">
+                                        <div class="row">
+                                            <p class="text-center" style="margin-top: 10px;">
+                                                &nbsp;  님의 멘트
+                                            </p>
+                                        </div>
+                                    </th:box>  
+                                </div>
+                                <div class="col-md-9">
+                                    <th:box th:each="comment : ${joinList}">
+                                        <div class="card text-white bg-success mb-3">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <p>&nbsp;: &nbsp;<th:box th:text="${comment.joinMent}"></p>
+                                                </div>
+                                                <div class="col-md-2" >
+                                                선택<input type="checkbox" name="userId" th:value="${comment.user}" class="form-check-input" id="flexCheckIndeterminate">
+                                                    
+                                                </div> 
+                                            </div>
 
-                                    </div>
-                                </th:box>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  -->
-                    <div id="joinOk" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <th:box  th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <p class="text-center" style="margin-top: 10px;">
-                                              &nbsp; #
-                                        </p>
-                                    </div>    
-                                </th:box>    
-                            </div>
-                            <div class="col-md-1">
-                                <th:box th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <div class="card text-white bg-success mb-3">
-                                            <p class="text-center">
-                                                <th:box th:text="${userList.nickname}"></th:box>
-                                            </p>
-                                        </div>    
-                                    </div>
-                                </th:box>  
-                            </div>
-                            <div class="col-md-1">
-                                <th:box th:each="userList : ${userList}">
-                                    <div class="row">
-                                        <p class="text-center" style="margin-top: 10px;">
-                                            &nbsp;  님의 멘트
-                                        </p>
-                                    </div>
-                                </th:box>  
-                            </div>
-                            <div class="col-md-9">
-                                <th:box th:each="comment : ${joinList}">
-                                    <div class="card text-white bg-success mb-3">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <p>&nbsp;: &nbsp;<th:box th:text="${comment.joinMent}"></p>
-                                            </div>
-                                            <div class="col-md-2" >
-                                               선택<input type="checkbox">
-                                            </div> 
                                         </div>
-    
-                                    </div>
-                                </th:box>
+                                    </th:box>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
-                    <!--  -->
-                    <div class="row">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
-                            <button id="clear" style="display: none;">전송</button>
+                        <!--  -->
+                        
+                        
+                        <!--  -->
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <input type="submit" value="수락" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinOk'}" th class="btn btn-outline-primary">
+                                <input type="submit" value="거절" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinNo'}" class="btn btn-outline-primary">
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-
+        </form>
 
 
 
     </div>
-
+    
     <script>
         
          let temp = 0;

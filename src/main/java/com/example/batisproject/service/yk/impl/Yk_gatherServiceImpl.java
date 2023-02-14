@@ -1,6 +1,7 @@
 package com.example.batisproject.service.yk.impl;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -54,6 +55,13 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
         
        
         return changeData;
+    }
+
+    @Override
+    public LocalDate tLocalDate(LocalDateTime dateTime){
+        LocalDate date = dateTime.toLocalDate();
+
+        return date;
     }
 
     //글하나 불러오는 메소드
