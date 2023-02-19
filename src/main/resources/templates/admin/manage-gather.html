@@ -95,7 +95,8 @@
                                             <td colspan="1">
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <svg data-jdenticon-value="nickname" th:data-jdenticon-value="${gathers.getUser()}"
+                                                        <svg data-jdenticon-value="nickname"
+                                                             th:data-jdenticon-value="${gathers.getUser()}"
                                                              width="40" height="40" class="avatar avatar-sm me-3"></svg>
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -145,7 +146,7 @@
                                                 function openWindow(id) {
 
                                                     let option = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=50, height=50, top=0,left=0";
-                                                    if (window.confirm('모임을 삭제 하시겠습니까?')){
+                                                    if (window.confirm('모임을 삭제 하시겠습니까?')) {
 
                                                         window.open("manage-gather/delete?id=" + id, "_blank", option);
                                                         alert('모임이 삭제 되었습니다.')
@@ -168,9 +169,8 @@
 
                 </div>
             </div>
-            <div class="card mb-4 me-5">
-                <div class="card-body px-0 pt-4 pb-2">
-                    <div class="row d-flex justify-content-center">
+
+            <div class="row d-flex justify-content-center">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4 d-flex justify-content-center">
 
@@ -224,7 +224,7 @@
                     </th:block>
                 </div>
 
-                <div class="col-sm-4 ">
+                <div class="col-sm-4 d-flex justify-content-end  me-3">
                     <form class="row g-3" action="/admin/manage-gather" method="get">
                         <div class="col-auto">
                             <select class="form-select" aria-label="Default select example" id="category" name="type">
@@ -243,8 +243,6 @@
                 </div>
 
 
-            </div>
-                </div>
             </div>
         </div>
     </div>

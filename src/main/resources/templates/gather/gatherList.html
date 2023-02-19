@@ -48,32 +48,27 @@
                 </select>
               </div>
             </div>
-            <div class="col-sm-3 d-flex align-items-center">
-
-              <form action="#" class="d-flex justify-content-evenly"
-                    id="locationForm" method="get" th:action="@{/user/listLocation/update}">
-                <div class="form-group col-sm-8">
+            <div class="col-sm-3 d-flex justify-content-end">
+              <form action="#" th:action="@{/user/listLocation/update}" method="get" id="locationForm">
+                <div class="form-group">
                   <label for="place">관심 지역 변경</label>
-                  <input class="form-control" id="place" list="place-list" placeholder="동·읍·면을 입력해주세요" required
-                         type="text">
+                  <input type="text" class="form-control" list="place-list" id="place" required placeholder="동·읍·면을 입력해주세요">
                   <div class="alert-custom alert-light mt-2" role="alert">
                     주소를 정확히 입력해주세요.
                   </div>
                   <datalist id="place-list">
                     <select>
-                      <option th:data="${location.getId()}"
-                              th:each="location : ${locationList}"
+                      <option th:each="location : ${locationList}"
+                              th:value="${location.getDong()}"
                               th:label="|(${location.getSido()} ${location.getGugun()}) |"
-                              th:value="${location.getDong()}">
+                              th:data="${location.getId()}">
                       </option>
                     </select>
                   </datalist>
-                  <input id="place-hidden" name="location" type="hidden">
+                  <input type="hidden" name="location" id="place-hidden">
                 </div>
-                <div class="col-sm-4 d-flex justify-content-end">
-                  <button class="btn btn-primary btn--sm p-2 mt-2" id="place_submit" type="submit">지역
-                    변경
-                  </button>
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-primary" type="submit" id="place_submit">지역 변경하기</button>
                 </div>
               </form>
             </div>
@@ -109,7 +104,7 @@
                                   <div class="card">
                                     <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2).id})}">
                                       <th:block>
-                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="|/user/gather/${gatherList.dtoList.get(num * 2).saveFileName}|" />>
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num).saveFileName}">
                                         <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
                                       </th:block>
                                       <div class="card-body">
@@ -123,7 +118,7 @@
                                   <div class="card">
                                     <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2 + 1).id})}">
                                       <th:block>
-                                        <img th:if="${gatherList.dtoList.get(num * 2 + 1).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="|/user/gather/${gatherList.dtoList.get(num * 2 + 1).saveFileName}|" />
+                                        <img th:if="${gatherList.dtoList.get(num * 2 + 1).getSaveFileName() != null}" class="img-fluid" style="width: 620px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num+1).saveFileName}">
                                         <img th:if="${gatherList.dtoList.get(num * 2 + 1).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/620x300/000000/FFFFFF?text=No+Image">
                                       </th:block>
                                       <div class="card-body">
@@ -141,7 +136,7 @@
                                   <div class="card">
                                     <a href="#" th:href="@{/user/gather/detail/{id}(id = ${gatherList.dtoList.get(num * 2).id})}">
                                       <th:block>
-                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 1190px; height: 300px" th:src="|/user/gather/${gatherList.dtoList.get(num * 2).saveFileName}|" />>
+                                        <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() != null}" class="img-fluid" style="width: 1190px; height: 300px" th:src="${'/assets/img/upload_img_file/' + gatherList.dtoList.get(num).saveFileName}">
                                         <img th:if="${gatherList.dtoList.get(num * 2).getSaveFileName() == null}" class="img-fluid" alt="100%x280" src="https://via.placeholder.com/1190x300/000000/FFFFFF?text=No+Image">
                                       </th:block>
                                       <div class="card-body">
@@ -404,7 +399,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-
       if(defaultViewMode == 'list') {
         cardBtn.checked = false;
         listBtn.checked = true;

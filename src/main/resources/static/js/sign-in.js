@@ -1,6 +1,8 @@
 "use strict";
 
 {
+
+
     const signInBtn = document.querySelector('#signin-submit-button');
 
     signInBtn.addEventListener("click", () => {
