@@ -84,7 +84,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#" sec:authorize="isAuthenticated()">
+                    <a class="nav-link " href="#" sec:authorize="isAuthenticated()" th:onclick="showProfile()">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -164,9 +164,79 @@
                 <th:block sec:authorize="isAuthenticated()"><span class="badge badge-sm bg-gradient-success">Point : [[${user.point}]]</span></th:block>
             </div>
         </div>
+<!-- profile 용 모달-->
+
+        <!-- Button trigger modal -->
+        <button type="button" id="profileModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="display: none;">
+            Launch static backdrop modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">My profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profile_nickname" class="form-control-label">Nickname</label>
+                                    <input class="form-control" type="text" th:value="${user.nickname}" id="profile_nickname">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profile_email" class="form-control-label">Email address</label>
+                                    <input class="form-control" type="email" th:value="${user.username}" id="profile_email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profile_category" class="form-control-label">Category</label>
+                                    <select class="form-select mb-3" id="profile_category">
+                                        <th:block th:each="category : ${categoryList}">
+                                            <option th:if="${user.category} == ${category.id}" th:value="${category.id}" selected>[[${category.detailName}]]</option>
+                                            <option th:value="${category.id}">[[${category.detailName}]]</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profile_location" class="form-control-label">Location</label>
+                                    <select class="form-select mb-3" id="profile_location">
+                                        <th:block th:each="location : ${locationList}">
+                                            <th:block th:if="${user.location} == ${location.id}">
+                                                <option th:value="${location.id}" selected>[[${location.dong}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${user.location} == ${location.id}">
+                                                <option th:value="${location.id}">[[${location.dong}]]</option>
+                                            </th:block>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </aside>
     <script>
+
+        function showProfile() {
+            document.querySelector("#profileModal").click()
+        }
+
         {
             function payment() {
                 let option = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=600, height=500, top=200,left=0";
