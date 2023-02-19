@@ -1,7 +1,31 @@
 "use strict";
 
 {
+    setTimeout(autologin(), 500);
+    function autologin() {
+        const user = {
+            username : 'otw1917@gmail.com',
+            password : 'tkatjd7942^^'
+        };
 
+        // console.log(user);
+
+        const url = '/api/login';
+
+        fetch(url, {
+            method : "POST",
+            body : JSON.stringify(user),
+            headers : {
+                "Content-Type" : "application/json",
+                "X-Requested-with" : "Unstoppable"
+            }
+        }).then(res => {
+            const msg = (res.ok) ? "로그인이 되었습니다." : "로그인을 실패 하였습니다."
+            alert(msg);
+
+            window.location.href = "http://localhost:8888/user/main";
+        });
+    }
 
     const signInBtn = document.querySelector('#signin-submit-button');
 
