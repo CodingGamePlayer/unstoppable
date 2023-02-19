@@ -26,6 +26,12 @@ public class CategoryServiceImpl implements CategoryService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Category> getAll() {
+
+        return categoryMapper.getAll();
+    }
+
     @Autowired
     public CategoryServiceImpl(CategoryMapper categoryMapper) {
         this.categoryMapper = categoryMapper;

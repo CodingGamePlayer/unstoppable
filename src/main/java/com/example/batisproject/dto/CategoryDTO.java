@@ -14,7 +14,7 @@ public class CategoryDTO {
     private int lv;
     private String name;
     private int detailLV;
-    private String detailName;
+    private String c;
     private int parentLv;
     private int detailParentLv;
 }
