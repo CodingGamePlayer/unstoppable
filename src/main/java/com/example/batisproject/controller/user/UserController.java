@@ -4,7 +4,6 @@ import com.example.batisproject.annotaion.CurrentUser;
 
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.User;
-import com.example.batisproject.service.category.CategoryService;
 import com.example.batisproject.service.location.LocationService;
 import com.example.batisproject.service.user.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -27,18 +26,13 @@ public class UserController {
     private LocationService locationService;
 
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping("/user/main")
     public String main(Model model, @CurrentUser User user) {
 
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
-
-        model.addAttribute("locationList", locationService.getAll());
-        model.addAttribute("categoryList", categoryService.getAll());
+        model.addAttribute("locationList",locationService.getAll());
         model.addAttribute("user", userDTO);
 
         return "user/main";

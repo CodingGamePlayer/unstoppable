@@ -38,9 +38,9 @@ public class AdminController {
     public String showUserPage(@Valid PageRequestDTO pageRequestDTO, @CurrentUser User user,
                                BindingResult bindingResult, Model model) {
 
-        PageRequestDTO checked = checkPageRequest(pageRequestDTO, bindingResult);
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
-        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(checked);
+        PageResponseDTO<UserDTO> pageResponseDTO = adminService.searchUser(revisedPageDTO);
 
         model.addAttribute("userList1", pageResponseDTO);
         model.addAttribute("user", user.getNickname());
@@ -64,9 +64,9 @@ public class AdminController {
     public String showGatherPage(@Valid PageRequestDTO pageRequestDTO,
                                  BindingResult bindingResult, Model model){
 
-        PageRequestDTO checked = checkPageRequest(pageRequestDTO, bindingResult);
+        PageRequestDTO revisedPageDTO = setKeyword(pageRequestDTO, bindingResult);
 
-        PageResponseDTO<GatherDTO> pageResponseDTO = adminService.searchGather(checked);
+        PageResponseDTO<GatherDTO> pageResponseDTO = adminService.searchGather(revisedPageDTO);
         User user = authenticationForModel.getAuthentication();
 
         model.addAttribute("gatherList", pageResponseDTO);
@@ -87,7 +87,10 @@ public class AdminController {
 
 
 
-    PageRequestDTO checkPageRequest(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
+    PageRequestDTO setKeyword(PageRequestDTO pageRequestDTO, BindingResult bindingResult) {
+
+        if(pageRequestDTO.getKeyword() != null)
+            pageRequestDTO.setKeyword(pageRequestDTO.getKeyword());
 
         if (bindingResult.hasErrors()){
 

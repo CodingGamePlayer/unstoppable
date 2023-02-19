@@ -8,7 +8,4 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryDTO> getAllMainCategory();
-
-    List<Category> getAll();
-
 }
