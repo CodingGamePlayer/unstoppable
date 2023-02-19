@@ -213,7 +213,9 @@
                                                 <option th:value="${location.id}" selected>[[${location.dong}]]</option>
                                             </th:block>
                                             <th:block th:unless="${user.location} == ${location.id}">
+
                                                 <option th:value="${location.id}">[[${location.dong}]]</option>
+
                                             </th:block>
                                         </th:block>
                                     </select>
