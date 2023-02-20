@@ -3,7 +3,7 @@ package com.example.batisproject.service.yk;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import com.example.batisproject.dto.GatherDTO;
-
+import com.example.batisproject.dto.UserDTO;
 
 public interface Yk_gatherService {
     //글쓰기 메소드
@@ -39,4 +39,7 @@ public interface Yk_gatherService {
 
     //글삭제 메소드
     int deleteResiter(Long g_id);
+
+    //참여포인트보다 현재 포인트가 적은지 체크
+    int overPoincheck(GatherDTO gatherDTO,UserDTO userDTO);
 }

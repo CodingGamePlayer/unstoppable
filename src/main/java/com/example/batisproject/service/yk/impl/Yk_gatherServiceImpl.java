@@ -9,7 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.mapper.yk.Yk_gatherMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
@@ -155,8 +157,17 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
         gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
         System.out.println(gatherDTO.toString());
  */
-    
-    
+    @Override
+    public int overPoincheck(GatherDTO gatherDTO,UserDTO userDTO){
+        int result =0;
+        if(gatherDTO.getPoint()>userDTO.getPoint()){
+            System.out.println("여기 나오면 되는겨");
+            return result;
+        }
+        result=userPointMinus(gatherDTO.getPoint(), userDTO.getId());
+
+        return result;
+    }
     
     
     

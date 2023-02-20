@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.GatherComment;
-
+import com.example.batisproject.dto.ChattingDTO;
 import com.example.batisproject.entity.GatherCommentMessage;
 
 import com.example.batisproject.entity.User;
@@ -102,6 +102,41 @@ public interface Yk_gather_commentMapper {
         @Result(property = "body", column = "gcm_body"),
         @Result(property = "regdate", column = "gcm_regdate")
     })
-    GatherCommentMessage findCommentList(Long gc_id);
+    List<GatherCommentMessage> findCommentList(Long gc_id); //리스트로 받아야함 46번째 gc아이디가 중복이니깐
     
+
+    // 밑에걸로 바꾸기
+
+    // @Select("select * from gather_comment_message where gc_id = #{gc_id};")
+    // @Results(id="message",value = {
+    //     @Result(property = "id", column = "gcm_id"),
+    //     @Result(property = "gatherComment", column = "gc_id"),
+    //     @Result(property = "body", column = "gcm_body"),
+    //     @Result(property = "regdate", column = "gcm_regdate")
+    // })
+    // GatherCommentMessage findCommentList22(Long gc_id); //리스트로 받아야함 46번째 gc아이디가 중복이니깐
+    
+
+    @Select("select*from user where u_id =(select u_id from gather_comment where gc_id=#{gc_id});")
+    @Results(id="user",value={
+        @Result(property = "id", column = "u_id"),
+    })
+    User toMessageFindUser(Long gc_id);
+
+    //참여수락된애들만
+    @Select("select * from gather_comment where g_id=#{g_id} AND role >= 3;")
+    @ResultMap("commnet")
+    List<GatherComment> toJoinList(Long g_id);
+
+
+    //댓글 작성시 gc아이디 가져와서 댓글테이블에 gc아이디 저장하기 1~2단계까지
+    @Select("select gc_id from gather_comment where g_id=#{g_id} AND u_id=#{u_id};")
+    Long findChattingGcId(Long g_id,int u_id);
+
+    @Insert("insert into gather_comment_message (gc_id,gcm_body) values(#{gc_id},#{chattingDTO.body});")
+    int chattingCommentRegister(Long gc_id,ChattingDTO chattingDTO);
+    
+
+    @Delete("delete from gather_comment_message where gcm_id =#{gcm_id};")
+    int deleteMessage(Long gcm_id);
 }

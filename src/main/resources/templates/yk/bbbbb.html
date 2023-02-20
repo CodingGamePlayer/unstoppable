@@ -280,7 +280,14 @@
         
     </div>
 </body>
-</html>
-
+function findCommentList(){
+    let commentArray = new Array();
+    let commentMessageOb = new Object();
+    /*[# th:each="message : ${commentMessageList}"]*/
+    commentMessageOb.id =  /*[[${message.gd}]]*/
+    commentArray.push(commentMessageOb);
+    /*[/]*/
+    console.log(commentArray);
+        }
 
 </html>

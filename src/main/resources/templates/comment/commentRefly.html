@@ -6,6 +6,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<style>
+    #chat1 .form-outline .form-control~.form-notch div {
+pointer-events: none;
+border: 1px solid;
+border-color: #eee;
+box-sizing: border-box;
+background: transparent;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-leading {
+left: 0;
+top: 0;
+height: 100%;
+border-right: none;
+border-radius: .65rem 0 0 .65rem;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-middle {
+flex: 0 0 auto;
+max-width: calc(100% - 1rem);
+height: 100%;
+border-right: none;
+border-left: none;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-trailing {
+flex-grow: 1;
+height: 100%;
+border-left: none;
+border-radius: 0 .65rem .65rem 0;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-leading {
+border-top: 0.125rem solid #39c0ed;
+border-bottom: 0.125rem solid #39c0ed;
+border-left: 0.125rem solid #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-leading,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-leading {
+border-right: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-middle {
+border-bottom: 0.125rem solid;
+border-color: #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-middle,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-middle {
+border-top: none;
+border-right: none;
+border-left: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-trailing {
+border-top: 0.125rem solid #39c0ed;
+border-bottom: 0.125rem solid #39c0ed;
+border-right: 0.125rem solid #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-trailing,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-trailing {
+border-left: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-label {
+color: #39c0ed;
+}
+
+#chat1 .form-outline .form-control~.form-label {
+color: #bfbfbf;
+}
+</style>
 </head>
 <body>
     
@@ -14,15 +91,90 @@
     <div th:fragment="commentArea">
         <!-- 댓글 영역 -->
         <div id="commentArea">
-            dd???
+            <section>
+                <div class="container py-5">
+                    <div id="mydiv" style="overflow: scroll; overflow-x: hidden; width: 100%; height: 400px; padding: 10px;">
+                        <div class="row d-flex justify-content-center">
+                            
+                            
+                            
+                                    
+                                    <!-- 상대가 보낸 -->
+                                    <th:box th:each="chatList : ${chatList}">
+                                        
+                                        <th:box th:if="${chatList.user!=user.id}">
+
+                                            <div class="d-flex flex-row justify-content-start mb-4">
+                                                <p th:text="${chatList.userNick}" style="width: 45px; height: 100%; margin-right: 10px;" ></p>
+                                                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                                                        <p th:text="${chatList.body}" class="small mb-0"
+                                                         style="overflow: scroll; overflow: hidden; width: auto; height: auto; padding: 10px;"></p>
+                                                    </div>
+                                            </div>
+
+                                        </th:box>
+                                        <!-- 내가 보낸 -->
+                                        <th:box th:if="${chatList.user==user.id}">
+                                            <div class="d-flex flex-row justify-content-end mb-4">
+                                                <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                    <a type="button" th:onclick="messageDelete([[${chatList.messageId}]])"><p th:text="${chatList.body}"  class="small mb-0" 
+                                                        style="overflow: scroll; overflow: hidden; width: auto; height: auto; padding: 10px;"></p></a> 
+                                                    
+                                                </div>
+                                                
+                                                <p th:text="${chatList.userNick}" style="width: 45px; height: 100%; margin-left: 10px;" ></p>
+                                            </div>
+                                        </th:box>    
+                                    </th:box>
+                                        
+                                    <!-- <form action=""> -->
+                                       
+                                    <!-- </form>     -->
+                                        
+                                      
+                                
+                    
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11" >
+                            <div class="form-outline border" style="margin-top: 30px;">
+                                <textarea class="form-control" id="chattingBody" rows="4" style="resize: none; height: 100px;" placeholder="종식이형바보"></textarea>
+                                <!-- <input type="text" class="form-control" id="chattingBody" style="height: 50px;"> -->
+                                <!-- <label class="form-label" for="chattingBody">comment</label> -->
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" onclick="sendComment()" class="btn btn-outline-primary" style="margin-top: 30px; height: 100px;">댓글작성</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-outline" style="margin-top: 30px;">
+                        <textarea class="form-control" id="chattingBody" rows="4"></textarea>
+                        <label class="form-label" for="chattingBody">comment</label>
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="sendComment()" class="btn btn-outline-success">댓글작성</button>
+
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+              </section>
         </div>
 
         <script th:inline="javascript">
             /*<![CDATA[*/
-            alert("tq");
+            const g_id = /*[[${gather.id}]]*/
+
+            let chattingScrollFocus = document.getElementById("mydiv");
+            chattingScrollFocus.scrollTop = chattingScrollFocus.scrollHeight;7
+
             window.onload = function(){
                 let xhr = new XMLHttpRequest();
-                let g_id = /*[[${gather.id}]]*/
                 console.log(g_id);
                 
                 let url = "/user/gather/detail/"+g_id+"/comment/findCommentList";
@@ -32,18 +184,70 @@
                 xhr.setRequestHeader("Content-Type","application/json;charset=utf-8")
                 xhr.send(JSON.stringify(g_id));
                 
-                findCommentList();
+
+                xhr.onload = function(){
+                    if(xhr.status==200)
+                    console.log(xhr.response);
+
+                    findCommentList();
+                }
             }
 
             function findCommentList(){
-                let commentArray = new Array();
-                let commentMessageOb = new Object();
-                /*[# th:each="message : ${commentMessageList}"]*/
-                commentMessageOb.id =  /*[[${message.gd}]]*/;
-                commentArray.push(commentMessageOb);
-                /*[/]*/
-                console.log(commentArray);
+                
                     }
+
+            function sendComment(){
+                let url = "/user/gather/detail/"+g_id+"/comment/send";
+
+                let xhr = new XMLHttpRequest();
+                
+                let chattingComment ={
+                    user : /*[[${user.id}]]*/,
+                    body : document.getElementById("chattingBody").value,
+                    userNick : /*[[${user.nickname}]]*/
+                };
+
+                xhr.open("POST",url,true);
+                xhr.setRequestHeader("Content-Type","application/json;charset=utf-8")
+                xhr.send(JSON.stringify(chattingComment));
+
+                xhr.onload = function(){
+                    if(xhr.status!=200){
+                        alert("댓글작성 실패");
+                        
+                    }
+                    console.log(xhr.status);                    
+                    window.location.reload();
+                }
+                
+            }
+
+            function messageDelete(messageID){
+                if(confirm("댓글을 삭제하시겠습니까?")==true){
+                    console.log("삭제");
+                    let url = "/user/gather/detail/"+g_id+"/comment/message/"+messageID;
+                    let xhr = new XMLHttpRequest();
+                    
+
+                    xhr.open("GET",url,true);
+                    xhr.setRequestHeader("Content-Type","application/json;charset=utf-8");
+                    xhr.send(JSON.stringify(messageID));
+
+                    xhr.onload = function(){
+                        if(xhr.status!=200){
+                            alert("댓글삭제 실패");
+                        }else{
+                            window.location.reload();
+                        }
+                    }
+                    
+
+                }else{
+                    return
+                }
+            }
+
             /*]]>*/
         </script>
         

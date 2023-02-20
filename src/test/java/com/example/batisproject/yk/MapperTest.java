@@ -55,6 +55,26 @@ import com.example.batisproject.service.yk.impl.Yk_userServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.batisproject.dto.ChattingDTO;
+import com.example.batisproject.dto.GatherCommentDTO;
+import com.example.batisproject.dto.UserDTO;
+import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
+import com.example.batisproject.service.yk.Yk_gather_commentService;
+import com.example.batisproject.service.yk.Yk_userSevice;
+
+import com.example.batisproject.entity.GatherCommentMessage;
+import com.example.batisproject.entity.User;
+
 
 @Slf4j
 @SpringBootTest
@@ -218,7 +238,33 @@ public class MapperTest {
 
     }
 
+    @Test
+    void comparableTest(){
 
-    
+        Long g_id =35L;
+        Long[] gcArray = commentMapper.toFindGcIdList(g_id);
+
+        List<ChattingDTO> chattingList = new ArrayList<>();
+        
+        
+        for(int i=0; i<gcArray.length; i++){
+            
+            List<GatherCommentMessage> messge =  commentMapper.findCommentList(gcArray[i]);
+            User user = commentMapper.toMessageFindUser(gcArray[i]);
+            for(int j=0; j<messge.size(); j++){
+                ChattingDTO chattingDTO = new ChattingDTO();
+                chattingDTO.setMessageId(messge.get(j).getId());
+                chattingDTO.setBody(messge.get(j).getBody());
+                chattingDTO.setUser(user.getId());
+                chattingDTO.setUserNick(user.getNickname());
+
+                chattingList.add(chattingDTO);
+            }
+
+
+        }  
+        Collections.sort(chattingList);
+        assertNotNull(chattingList);
+    }
 
 }

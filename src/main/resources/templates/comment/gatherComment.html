@@ -20,17 +20,37 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <p class="text-center" th:text="${gather.user}"></p>
-              <p class="text-center" th:text="${startDate}"></p>
+              <div class="col-md-2 offset-md-4">
+                제목
+              </div>
+              <div class="col-md-5">
+                <h4 class="text-start" th:text="${gather.user}" ></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 offset-md-4">
+                날짜
+              </div>
+              <div class="col-md-5" style="margin-left : 50px;">
+                <h6 class="text-start" th:text="${startDate}"></h6>
+              </div>
+              
             </div>
           </div>
         </div>
         <div class="card" style="margin-top: 20px;">
           <div class="card-body">
             <div class="row">
-              <div class="col-md-3" th:each="users : ${userList}">
-                <p th:text="${users.nickname}"></p>
-              </div>
+              <h6 class="text-center">현재 참여자</h6>
+            </div>
+            <div class="row">
+              
+                <th:box th:each="userList : ${userList}" class="col-md-3">
+                  
+                    <p th:text="${userList.nickname}"></p>
+                  
+                </th:box>
+                
               
             </div>
           </div>

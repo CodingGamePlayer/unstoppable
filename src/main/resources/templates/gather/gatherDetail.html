@@ -70,10 +70,10 @@
                                     <div class="col-md-7">
                                         <!-- 해보고지우기 -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${comment.role==0}">
-                                                참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)
+                                                참여신청 하기
                                         </button>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${comment.role==2}">
-                                                참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다
+                                                참여신청 하기
                                         </button>
                                         <form th:action="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}" method="post">
                                             <input type="hidden" name="point" th:value="${gather.point}">
@@ -96,7 +96,7 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">참여멘트적어주세요</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form th:action="@{'/user/gather/detail/'+${gather.id}+'/roleRequest'}" method="post">
@@ -105,7 +105,7 @@
                             </div>
                             <div class="modal-footer">
                                     <input type="hidden" name="point" th:value="${gather.point}">
-                                    <input class="btn btn-secondary" type="submit" value="참여신청 하기 (참가신청이수락되면 참가자 인포방으로갈수있습니다.)">
+                                    <input class="btn btn-secondary" type="submit" value="참여신청 하기">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                 </div>
                             </form>
@@ -122,11 +122,18 @@
 
     </div>
 
-<script>
-
-
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
     
+    let message = /*[[${resultMessage}]]*/
+    console.log(message);
+
+    if(message!=null){
+        alert(message);
+    }
+
+
+    /*]]>*/    
 </script>
 
 
