@@ -86,7 +86,6 @@ public class yk_GatherController {
     @PostMapping("/user/gather/register")
     public String register(MultipartFile file, Model model,@RequestParam("beforStartDate")String beforStartDate,
                             @RequestParam("detailName")String detailName, @RequestParam("beforEndDate")String beforEndDate,GatherDTO gatherDTO ){
-        System.out.println("컨트롤 진입");
         int result = 0;
         Long fileID =0L;
         Long gatherID = 0L;
@@ -103,7 +102,6 @@ public class yk_GatherController {
         //글쓰기 
         gatherID = gatherService.gatherRegister(gatherDTO);
         if(gatherID<0){
-            System.out.println("글작성 실패");
             return "gather/register";
         }
 
@@ -117,7 +115,6 @@ public class yk_GatherController {
         // 파일 저장하기
         
             fileID = file_info_Service.inputImg(file,gatherID);
-            System.out.println("서비스 완료 후");
 
 
          
@@ -127,7 +124,8 @@ public class yk_GatherController {
             }
         
 
-        System.out.println("글작성 성공");
+
+
         
         return "user/main";
     }
@@ -146,7 +144,6 @@ public class yk_GatherController {
         //관리번호 코맨트 롤 뿌려줘야함
         GatherCommentDTO commentDTO = commentService.get_gather_userRole(g_id, (long)user.getId());  //이부분 체크 이상한데
         model.addAttribute("comment", commentDTO);
-        System.out.println("디테일컨트롤러"+commentDTO.toString());
         //현재참여중인 인원 보여주기
         int peopleCounting = commentService.peopleCount(g_id);
         model.addAttribute("peopleCount", peopleCounting);
@@ -158,7 +155,6 @@ public class yk_GatherController {
         FileInfoDTO fileInfoDTO = file_info_Service.getFileInfo(g_id);
         if(!fileInfoDTO.equals(null)){
             model.addAttribute("fileInfo", fileInfoDTO);
-            System.out.println(fileInfoDTO.toString());
         }
 
         //글 조회수 카운트하기
@@ -204,7 +200,6 @@ public class yk_GatherController {
 
         gatherDTO = gatherService.mergeDTO(detailName, gatherDTO, userDTO.getId(), beforStartDate, beforEndDate,g_id);
         int result = gatherService.gatherUpdate(gatherDTO);
-        System.out.println("-----------"+result);
         if(result<0){
             return "redirect:/user/gather/detail/"+g_id+"/update";
         }
@@ -212,11 +207,10 @@ public class yk_GatherController {
         // 파일 저장하기
         
         Long fileID = file_info_Service.inputImgOrDelete(file,g_id);
-        System.out.println("----------------파일삭제업데이트 유무"+fileID);
         
 
-        System.out.println("------------컨트롤 ok");
-        // model.addAttribute("gather", gatherDTO);
+
+
         return "redirect:/user/gather/detail/"+g_id;
     }
 
@@ -225,10 +219,11 @@ public class yk_GatherController {
     @GetMapping("/user/gather/detail/{g_id}/delete")
     public String deleteResither(@PathVariable("g_id")Long g_id, @CurrentUser User user, Model model){
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user", userDTO);
 
         Long userId=gatherService.gatherToUser(g_id);
         if(userId!=userDTO.getId()){
-            return "redirect:/";
+            return "redirect:/user/main";
         }
         file_info_Service.deleteFileImg(g_id);
 
@@ -240,7 +235,6 @@ public class yk_GatherController {
         }
 
 
-        model.addAttribute("user", userDTO);
         return "redirect:/user/main";
     }
 

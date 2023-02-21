@@ -51,11 +51,11 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     @Override
     public Long inputImg(MultipartFile file,Long g_id) {
 
-        System.out.println(save_path);
+
+
         
         //image/png 이런식으로 나옴
         String contentType_name = file.getContentType();
-        System.out.println(contentType_name);
         
         
         
@@ -65,10 +65,8 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         String fileName = file.getOriginalFilename();
         String contentType = afer_contentType_name[1];
         String saveFileName = UUID.randomUUID().toString()+"."+contentType;
-        System.out.println("이미지 uuid "+saveFileName+ "파일이름 잘나오나" +fileName +"컨탠츠 패스 확인" +contentType);
 
         if(contentType.equals("octet-stream")){
-            System.out.println("---------------octet로 비교로 잘됨");
             return 0L;
         }
         
@@ -85,7 +83,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             return setToFileInfo.getId();
         }
 
-        System.out.println("here is rootPath : "+rootPath);
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
 
@@ -100,7 +97,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // System.out.println("세이브파일 저장후 "+savefile);
         // 글과 이미지 연관관계 테이블 디비 저장하기
         GatherImageDTO imgDTO = GatherImageDTO.builder()
         .fileInfo(setToFileInfo.getId())
@@ -113,7 +109,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         }
         
         
-        System.out.println("사진 작성 성공");
         return setToFileInfo.getId();
 
     }
@@ -148,11 +143,9 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     //업데이트시
     @Override
     public Long inputImgOrDelete(MultipartFile file, Long g_id) {
-        System.out.println(save_path);
         
         //image/png 이런식으로 나옴
         String contentType_name = file.getContentType();
-        System.out.println(contentType_name);
         
         
         
@@ -162,17 +155,15 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         String fileName = file.getOriginalFilename();
         String contentType = afer_contentType_name[1];
         String saveFileName = UUID.randomUUID().toString()+"."+contentType;
-        System.out.println("이미지 uuid "+saveFileName+ "파일이름 잘나오나" +fileName +"컨탠츠 패스 확인" +contentType);
         
         
-        // if(file.isEmpty()){
-        //     System.out.println("---------------이스엠티 메소드로 비교");
+        // if(file.isEmpty()){메소드로 비교");
+
             //딜리트 추가
             int result = deleteFileImg(g_id);
         //     return (long)result;
         // }
         if(contentType.equals("octet-stream")){
-            System.out.println("---------------octet로 비교로 잘됨");
             //딜리트 추가
             result = deleteFileImg(g_id);
             return (long)result;
@@ -209,7 +200,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // System.out.println("세이브파일 저장후 "+savefile);
         // 글과 이미지 연관관계 테이블 디비 저장하기
         GatherImageDTO imgDTO = GatherImageDTO.builder()
         .fileInfo(setToFileInfo.getId())
@@ -222,7 +212,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         }
         
         
-        System.out.println("사진 작성 성공");
         return setToFileInfo.getId();
 
      

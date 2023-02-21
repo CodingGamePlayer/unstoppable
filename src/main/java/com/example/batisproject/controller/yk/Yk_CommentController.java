@@ -49,7 +49,8 @@ public class Yk_CommentController {
     //요청 승인 거절 하기
     @GetMapping("/user/gather/detail/{g_id}/commentAdmin")
     public String commentAdmin(@PathVariable("g_id")Long g_id,@CurrentUser User user ,Model model){
-        System.out.println("코멘트관리 컨트롤");
+
+
 
          //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
          UserDTO userDTO = userService.existsByEmail(user.getUsername());
@@ -59,11 +60,10 @@ public class Yk_CommentController {
          //모임참가 요청자들 정보 보내주기
          List<GatherCommentDTO> joinList =commentService.getJoinList(g_id);
          model.addAttribute("joinList", joinList);
-         
+
         //참가자들 닉네임 실어다 주기
         List<UserDTO> userList = commentService.nicknameList(joinList);
         model.addAttribute("userList", userList);
-
 
         //참가자들 기본정보와 글번호 실어보내주기
         model.addAttribute("g_id", g_id);
