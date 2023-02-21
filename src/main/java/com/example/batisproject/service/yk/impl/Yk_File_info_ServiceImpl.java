@@ -157,14 +157,14 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         String saveFileName = UUID.randomUUID().toString()+"."+contentType;
         
         
-        if(file.isEmpty()){
+        // if(file.isEmpty()){
             //딜리트 추가
             int result = deleteFileImg(g_id);
-            return (long)result;
-        }
+        //     return (long)result;
+        // }
         if(contentType.equals("octet-stream")){
             //딜리트 추가
-            int result = deleteFileImg(g_id);
+            result = deleteFileImg(g_id);
             return (long)result;
         }
         
@@ -175,7 +175,7 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             .build();
 
 
-        int result=fileInfoMapper.putImgInfo(setToFileInfo);
+        result=fileInfoMapper.putImgInfo(setToFileInfo);
         if(result<0){
             //정보 저장 실패시
             
