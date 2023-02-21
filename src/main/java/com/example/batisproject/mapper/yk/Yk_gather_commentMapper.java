@@ -78,9 +78,6 @@ public interface Yk_gather_commentMapper {
     int joinOk(GatherComment comment);
 
 
-    //모임글에 참여한 사람들 닉네임 뽑아오기
-    // @Select("select nickname from user where u_id = (select u_id from gather_comment where g_id=26 AND u_id=7);")
-    // List<User>
 
 
     //글삭제를 위해 연관컬럼이있는 거 삭제
@@ -103,18 +100,6 @@ public interface Yk_gather_commentMapper {
         @Result(property = "regdate", column = "gcm_regdate")
     })
     List<GatherCommentMessage> findCommentList(Long gc_id); //리스트로 받아야함 46번째 gc아이디가 중복이니깐
-    
-
-    // 밑에걸로 바꾸기
-
-    // @Select("select * from gather_comment_message where gc_id = #{gc_id};")
-    // @Results(id="message",value = {
-    //     @Result(property = "id", column = "gcm_id"),
-    //     @Result(property = "gatherComment", column = "gc_id"),
-    //     @Result(property = "body", column = "gcm_body"),
-    //     @Result(property = "regdate", column = "gcm_regdate")
-    // })
-    // GatherCommentMessage findCommentList22(Long gc_id); //리스트로 받아야함 46번째 gc아이디가 중복이니깐
     
 
     @Select("select*from user where u_id =(select u_id from gather_comment where gc_id=#{gc_id});")

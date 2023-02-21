@@ -49,7 +49,6 @@ public class Yk_CommentController {
     //요청 승인 거절 하기
     @GetMapping("/user/gather/detail/{g_id}/commentAdmin")
     public String commentAdmin(@PathVariable("g_id")Long g_id,@CurrentUser User user ,Model model){
-        //  List<String> userIdList2= null;
         System.out.println("코멘트관리 컨트롤");
 
          //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
@@ -91,13 +90,11 @@ public class Yk_CommentController {
         commentDTO.setJoinMent(joinMent);
         int result =0;
         String resultMessage = "참여포인트를 확인하세요";
-        System.out.println(gatherDTO);
         switch (commentDTO.getRole()) {
             case 0://모임참여신청
                 result = gatherService.overPoincheck(gatherDTO, userDTO);
                 if(result<=0){
                     rda.addFlashAttribute("resultMessage", resultMessage);
-                    System.out.println("모델에 메세지 실어보냄 ok");
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 result = commentService.joinComment(commentDTO);
@@ -121,7 +118,6 @@ public class Yk_CommentController {
                 result = gatherService.overPoincheck(gatherDTO, userDTO);
                 if(result<=0){
                     rda.addFlashAttribute("resultMessage", resultMessage);
-                    System.out.println("모델에 메세지 실어보냄 ok");
                     return "redirect:/user/gather/detail/"+g_id;
                 }
                 
@@ -139,7 +135,6 @@ public class Yk_CommentController {
                 //참가자들 닉네임 실어다 주기
                 List<UserDTO> userList = commentService.nicknameList(joinList);
                 model.addAttribute("userList", userList);
-                System.out.println("유저리스트"+userList.toString());
 
                 //채팅 던지기(비동기로도 던졌지만 뷰구현위해 일반컨트롤에서도 던짐)
                 List<ChattingDTO> chattingList = commentService.findCommentList(g_id);
@@ -154,7 +149,6 @@ public class Yk_CommentController {
 
                 
         }
-        System.out.println("코멘트 컨트롤 "+commentDTO.toString());
         //요청 성공적 완료
 
         return "redirect:/user/gather/detail/"+g_id;

@@ -50,7 +50,6 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
 
 
         String hhmm = " 12:00";
-        System.out.println(date+hhmm);                                                        
         //데이터타입 스트링에서 로컬데이타로 변경
         DateTimeFormatter fomatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime changeData = LocalDateTime.parse(date+hhmm, fomatter);
@@ -146,17 +145,6 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
     }
 
 
-    /*     
-        if(gatherDTO.getPoint()==null){
-            gatherDTO.setPoint(0L);
-        }                         
-        //디티오에 데이터타입변환후 정보담기
-        gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
-        gatherDTO.setUser((long)userDTO.getId());
-        gatherDTO.setStartDate(gatherService.toLocalDateTime(beforStartDate));
-        gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
-        System.out.println(gatherDTO.toString());
- */
     @Override
     public int overPoincheck(GatherDTO gatherDTO,UserDTO userDTO){
         int result =0;

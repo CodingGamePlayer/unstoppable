@@ -29,9 +29,7 @@ public class Yk_CommentRestContoroller {
     @GetMapping("/user/gather/detail/{g_id}/comment/findCommentList")
     @ResponseBody
     public ResponseEntity<?> commentRefly(@PathVariable("g_id")Long g_id){
-        System.out.println("코멘트 비동기컴트롤 진입");
         List<ChattingDTO> chattingList =commentService.findCommentList(g_id);
-        // System.out.println(chattingList.toString());
 
         
         if(chattingList==null){
@@ -45,7 +43,6 @@ public class Yk_CommentRestContoroller {
     //댓글쓰기
     @PostMapping("/user/gather/detail/{g_id}/comment/send")
     public ResponseEntity<?> chattingCommentRegister(@PathVariable("g_id")Long g_id, @RequestBody ChattingDTO chattingComment){
-        // System.out.println("비동기댓쓰기"+chattingComment.toString());
 
         int result = commentService.chattingCommentRegister(g_id, chattingComment);
         if(result<0){
@@ -60,7 +57,6 @@ public class Yk_CommentRestContoroller {
     //댓글삭제
     @GetMapping("/user/gather/detail/{g_id}/comment/message/{messageID}")
     public ResponseEntity<?>messageDelete(@PathVariable("messageID")Long gcm_id){
-        System.out.println("비동기 댓글 삭제 진입 메세지 아이이"+gcm_id);
         int result = commentService.deleteMessage(gcm_id);
         if(result<0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

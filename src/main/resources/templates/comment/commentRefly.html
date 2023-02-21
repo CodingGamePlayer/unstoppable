@@ -108,7 +108,7 @@ color: #bfbfbf;
                                                 <p th:text="${chatList.userNick}" style="width: 45px; height: 100%; margin-right: 10px;" ></p>
                                                     <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
                                                         <p th:text="${chatList.body}" class="small mb-0"
-                                                         style="overflow: scroll; overflow: hidden; width: auto; height: auto; padding: 10px;"></p>
+                                                         style="overflow: scroll; overflow: hidden; width: 350px; height: auto; padding: 10px;"></p>
                                                     </div>
                                             </div>
 
@@ -118,7 +118,7 @@ color: #bfbfbf;
                                             <div class="d-flex flex-row justify-content-end mb-4">
                                                 <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
                                                     <a type="button" th:onclick="messageDelete([[${chatList.messageId}]])"><p th:text="${chatList.body}"  class="small mb-0" 
-                                                        style="overflow: scroll; overflow: hidden; width: auto; height: auto; padding: 10px;"></p></a> 
+                                                        style="overflow: scroll; overflow: hidden; width: 350px; height: auto; padding: 10px;"></p></a> 
                                                     
                                                 </div>
                                                 
@@ -140,7 +140,7 @@ color: #bfbfbf;
                     <div class="row">
                         <div class="col-md-11" >
                             <div class="form-outline border" style="margin-top: 30px;">
-                                <textarea class="form-control" id="chattingBody" rows="4" style="resize: none; height: 100px;" placeholder="종식이형바보"></textarea>
+                                <textarea class="form-control" id="chattingBody" rows="4" style="resize: none; height: 100px;" placeholder="댓글 작성해주세요"></textarea>
                                 <!-- <input type="text" class="form-control" id="chattingBody" style="height: 50px;"> -->
                                 <!-- <label class="form-label" for="chattingBody">comment</label> -->
                                 
