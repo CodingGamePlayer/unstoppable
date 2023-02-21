@@ -18,6 +18,7 @@
 
     <div class="container">
 
+
         <form method="post">
             <div class="row">
                 <div class="card" style="height: 600px;">
@@ -29,6 +30,7 @@
                             <div class="col-md-2 offset-md-2" >
                                 
                             </div>
+
                         </div>
                         <div id="joinNo">
                             <div class="row">
@@ -85,13 +87,57 @@
                         
                         <!--  -->
                         <div class="row">
+
                             <div class="col-md-10"></div>
                             <div class="col-md-2">
                                 <th:block th:if="${!joinList.isEmpty()}">
                                     <input type="submit" value="수락" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinOk'}" th class="btn btn-outline-primary">
                                     <input type="submit" value="거절" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinNo'}" class="btn btn-outline-primary">
                                 </th:block>
+
                             </div>
+                            <div class="col-md-1">
+                                <th:box th:each="userList : ${userList}">
+                                    <div class="row">
+                                        <div class="card text-white bg-success mb-3">
+                                            <p class="text-center">
+                                                <th:box th:text="${userList.nickname}"></th:box>
+                                            </p>
+                                        </div>    
+                                    </div>
+                                </th:box>  
+                            </div>
+                            <div class="col-md-1">
+                                <th:box th:each="userList : ${userList}">
+                                    <div class="row">
+                                        <p class="text-center" style="margin-top: 10px;">
+                                            &nbsp;  님의 멘트
+                                        </p>
+                                    </div>
+                                </th:box>  
+                            </div>
+                            <div class="col-md-9">
+                                <th:box th:each="comment : ${joinList}">
+                                    <div class="card text-white bg-success mb-3">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <p>&nbsp;: &nbsp;<th:box th:text="${comment.joinMent}"></p>
+                                            </div>
+                                            <div class="col-md-2" >
+                                               선택<input type="checkbox">
+                                            </div> 
+                                        </div>
+    
+                                    </div>
+                                </th:box>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <button id="clear" style="display: none;">전송</button>
                         </div>
                     </div>
                 </div>

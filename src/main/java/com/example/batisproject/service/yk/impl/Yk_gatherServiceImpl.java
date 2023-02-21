@@ -149,6 +149,9 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
         int result =0;
         if(gatherDTO.getPoint()>userDTO.getPoint()){
 
+
+
+
             return result;
         }
         result=userPointMinus(gatherDTO.getPoint(), userDTO.getId());
