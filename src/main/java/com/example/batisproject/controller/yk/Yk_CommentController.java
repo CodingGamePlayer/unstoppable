@@ -50,6 +50,8 @@ public class Yk_CommentController {
     @GetMapping("/user/gather/detail/{g_id}/commentAdmin")
     public String commentAdmin(@PathVariable("g_id")Long g_id,@CurrentUser User user ,Model model){
 
+
+
          //유저이름 실어보내기 세션막아놔서 이렇게 세션 대체임
          UserDTO userDTO = userService.existsByEmail(user.getUsername());
          model.addAttribute("user", userDTO);

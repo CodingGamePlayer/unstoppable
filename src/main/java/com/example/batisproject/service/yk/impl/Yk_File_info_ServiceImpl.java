@@ -51,6 +51,8 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
     @Override
     public Long inputImg(MultipartFile file,Long g_id) {
 
+
+
         
         //image/png 이런식으로 나옴
         String contentType_name = file.getContentType();
@@ -81,7 +83,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             return setToFileInfo.getId();
         }
 
-        System.out.println("here is rootPath : "+rootPath);
         //객체 파일타입의 new(경로,파일이름)
         File savefile = new File(save_path, saveFileName);
 
@@ -96,7 +97,6 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // System.out.println("세이브파일 저장후 "+savefile);
         // 글과 이미지 연관관계 테이블 디비 저장하기
         GatherImageDTO imgDTO = GatherImageDTO.builder()
         .fileInfo(setToFileInfo.getId())

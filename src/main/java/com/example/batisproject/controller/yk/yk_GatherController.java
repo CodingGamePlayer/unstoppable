@@ -205,8 +205,9 @@ public class yk_GatherController {
         // 파일 저장하기
         
         Long fileID = file_info_Service.inputImgOrDelete(file,g_id);
-        System.out.println("----------------파일삭제업데이트 유무"+fileID);
         
+
+
 
         return "redirect:/user/gather/detail/"+g_id;
     }
