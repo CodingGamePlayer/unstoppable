@@ -129,6 +129,44 @@
 
       
 
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            
+            window.onload = function(){
+                let xhr = new XMLHttpRequest();
+                let g_id = /*[[${gather.id}]]*/
+                console.log(g_id);
+                
+                let url = "/user/gather/detail/"+g_id+"/comment/findCommentList";
+                console.log(url);
+
+                xhr.open("GET",url,true);
+                xhr.setRequestHeader("Content-Type","application/json;charset=utf-8")
+                xhr.send(JSON.stringify(g_id));
+
+                findCommentList();
+            }
+
+            function findCommentList(){
+                let commentArea = document.getElementById("commentArea");
+              
+                let commentArray = /*[[${commentMessage[0]}]]*/
+                console.log(commentArray);
+                for(let i=0; i<commentArray.length; i++ ){
+                    let commentPtag = document.createElement("p");
+                    // commentPtag.setAttribute()
+                    commentPtag.innerHTML = "<p>"+commentArray[i].body+"</P>";
+                    commentArea.appendChild(commentPtag);
+                    
+                }
+
+            }
+
+
+             /*]]>*/
+        </script>
+
+
 
     </div>
 
@@ -181,5 +219,75 @@
 </div>
 
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <div th:fragment="commentArea">
+        <!-- 댓글 영역 -->
+        <div id="commentArea">
+            dd???
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            alert("tq");
+            window.onload = function(){
+                let xhr = new XMLHttpRequest();
+                let g_id = /*[[${gather.id}]]*/
+                console.log(g_id);
+                
+                let url = "/user/gather/detail/"+g_id+"/comment/findCommentList";
+                console.log(url);
+
+                xhr.open("GET",url,true);
+                xhr.setRequestHeader("Content-Type","application/json;charset=utf-8")
+                xhr.send(JSON.stringify(g_id));
+                
+                xhr.onload = function(){
+                    if(xhr.status==200){
+                        console.log(xhr.response);
+                        console.log("성공");
+                        findCommentList()
+                    }else {
+                    //통신 실패
+                       console.log("통신 실패");
+                    }
+                }    
+                
+            }
+
+            function findCommentList(){
+                let commentArray = new Array();
+                let commentMessageOb = new Object();
+                /*[# th:each="message : ${commentMessageList}"]*/
+                commentMessageOb.id =  /*[[${message.gd}]]*/;
+                commentArray.push(commentMessageOb);
+                /*[/]*/
+                console.log(commentArray);
+                    }
+            /*]]>*/
+        </script>
+        
+    </div>
+</body>
+function findCommentList(){
+    let commentArray = new Array();
+    let commentMessageOb = new Object();
+    /*[# th:each="message : ${commentMessageList}"]*/
+    commentMessageOb.id =  /*[[${message.gd}]]*/
+    commentArray.push(commentMessageOb);
+    /*[/]*/
+    console.log(commentArray);
+        }
 
 </html>

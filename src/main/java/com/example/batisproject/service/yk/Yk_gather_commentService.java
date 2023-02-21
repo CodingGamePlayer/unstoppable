@@ -2,9 +2,11 @@ package com.example.batisproject.service.yk;
 
 import java.util.List;
 
+import com.example.batisproject.dto.ChattingDTO;
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.entity.GatherCommentMessage;
 
 public interface Yk_gather_commentService {
     
@@ -32,6 +34,7 @@ public interface Yk_gather_commentService {
     //참여신청자 관리 보여주기
     List<GatherCommentDTO> getJoinList(Long g_id);
 
+    
     //참여수락
     int joinOk(GatherCommentDTO commentDTO);
 
@@ -41,7 +44,22 @@ public interface Yk_gather_commentService {
     //글삭제시 연관테이블 때문에 같이 삭제
     int deleteGatherIdTocomment(Long g_id);
 
- 
 
+    //참여 다중 수락
+    int joinOks(Long userId[],Long g_id);
+
+    //참여 다중 거절
+    int joinNos(Long userId[],Long g_id);
+
+    //댓글불러오기
+    List<ChattingDTO>findCommentList(Long g_id);
+
+    //참여수락된 이후 사람들 가져오기
+    List<GatherCommentDTO> toJoinList(Long g_id);
+
+    //댓글 작성
+    int chattingCommentRegister (Long g_id,ChattingDTO chattingDTO);
     
+    //댓글삭제
+    int deleteMessage(Long gcm_id);
 }

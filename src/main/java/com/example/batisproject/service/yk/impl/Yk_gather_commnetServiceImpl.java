@@ -1,6 +1,7 @@
 package com.example.batisproject.service.yk.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,12 +9,18 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.batisproject.dto.ChattingDTO;
 import com.example.batisproject.dto.GatherCommentDTO;
 import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.GatherComment;
 import com.example.batisproject.mapper.yk.Yk_gather_commentMapper;
 import com.example.batisproject.service.yk.Yk_gather_commentService;
 import com.example.batisproject.service.yk.Yk_userSevice;
+
+import com.example.batisproject.entity.GatherCommentMessage;
+import com.example.batisproject.entity.User;
+import com.example.batisproject.dto.ChattingDTO;
+
 
 @Service
 public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
@@ -145,6 +152,104 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
     public int deleteGatherIdTocomment(Long g_id) {
         
         return commentMapper.deleteGatherIdTocomment(g_id);
+    }
+
+
+    //참가 다중 수락
+    @Override
+    public int joinOks(Long[] userId,Long g_id) {
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        commentDTO.setGather(g_id);
+        for(int i=0; i<userId.length; i++ ){
+             commentDTO.setUser(userId[i]);
+             int result =commentService.joinOk(commentDTO);
+             if(result<0){
+                return 0;
+             }
+        }
+
+
+        return 1;
+    }
+
+    //참가 다중 거절
+    @Override
+    public int joinNos(Long[] userId,Long g_id) {
+        GatherCommentDTO commentDTO = new GatherCommentDTO();
+        commentDTO.setGather(g_id);
+        for(int i=0; i<userId.length; i++ ){
+             commentDTO.setUser(userId[i]);
+             int result =commentService.joinCancel(commentDTO);
+             if(result<0){
+                return 0;
+             }
+        }
+
+
+        return 1;
+    }
+
+    @Override
+    public List<ChattingDTO>findCommentList(Long g_id){
+        Long[] gcArray = commentMapper.toFindGcIdList(g_id);
+
+        List<ChattingDTO> chattingList = new ArrayList<>();
+        
+        
+        for(int i=0; i<gcArray.length; i++){
+            
+            List<GatherCommentMessage> messge =  commentMapper.findCommentList(gcArray[i]);
+            User user = commentMapper.toMessageFindUser(gcArray[i]);
+            for(int j=0; j<messge.size(); j++){
+                ChattingDTO chattingDTO = new ChattingDTO();
+                chattingDTO.setMessageId(messge.get(j).getId());
+                chattingDTO.setBody(messge.get(j).getBody());
+                chattingDTO.setUser(user.getId());
+                chattingDTO.setUserNick(user.getNickname());
+
+                chattingList.add(chattingDTO);
+            }
+
+
+        }  
+        Collections.sort(chattingList);
+
+        return chattingList;
+    }
+
+
+
+    
+
+    //참가수락된이후사람들 리스트
+    @Override
+    public List<GatherCommentDTO> toJoinList(Long g_id) {
+        List<GatherComment> joinListBefor = commentMapper.toJoinList(g_id);
+
+        List<GatherCommentDTO> joinList = joinListBefor.stream()
+        .map(GatherComment->modelMapper.map(GatherComment, GatherCommentDTO.class))
+        .collect(Collectors.toList());
+
+        
+
+
+        return joinList;
+    }
+
+    @Override
+    public int chattingCommentRegister (Long g_id,ChattingDTO chattingDTO){
+        Long gc_id =commentMapper.findChattingGcId(g_id, chattingDTO.getUser());
+        
+       
+
+
+        return commentMapper.chattingCommentRegister(gc_id, chattingDTO);
+    }
+
+    @Override
+    public int deleteMessage(Long gcm_id) {
+        
+        return commentMapper.deleteMessage(gcm_id);
     }
 
 

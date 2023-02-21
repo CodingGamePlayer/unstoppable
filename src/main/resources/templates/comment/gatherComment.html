@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/user/default_layout.html}">
+
+<!-- default_layout.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- default_layout.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content" style="margin-top: 50px;">
+
+
+    <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2 offset-md-4">
+                제목
+              </div>
+              <div class="col-md-5">
+                <h4 class="text-start" th:text="${gather.user}" ></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 offset-md-4">
+                날짜
+              </div>
+              <div class="col-md-5" style="margin-left : 50px;">
+                <h6 class="text-start" th:text="${startDate}"></h6>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <div class="row">
+              <h6 class="text-center">현재 참여자</h6>
+            </div>
+            <div class="row">
+              
+                <th:box th:each="userList : ${userList}" class="col-md-3">
+                  
+                    <p th:text="${userList.nickname}"></p>
+                  
+                </th:box>
+                
+              
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <div class="row">
+              <!-- 댓글 영역 -->
+              <div th:replace="comment/commentRefly :: commentArea">
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div>   
+<script>
+
+
+
+    
+</script>
+
+
+</div>
+
+
+
+</html>

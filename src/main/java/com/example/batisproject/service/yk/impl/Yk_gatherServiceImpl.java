@@ -1,6 +1,7 @@
 package com.example.batisproject.service.yk.impl;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.example.batisproject.dto.GatherDTO;
+import com.example.batisproject.dto.UserDTO;
 import com.example.batisproject.entity.Gather;
 import com.example.batisproject.mapper.yk.Yk_gatherMapper;
 import com.example.batisproject.service.yk.Yk_categoryService;
@@ -47,13 +50,19 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
 
 
         String hhmm = " 12:00";
-        System.out.println(date+hhmm);                                                        
         //데이터타입 스트링에서 로컬데이타로 변경
         DateTimeFormatter fomatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime changeData = LocalDateTime.parse(date+hhmm, fomatter);
         
        
         return changeData;
+    }
+
+    @Override
+    public LocalDate tLocalDate(LocalDateTime dateTime){
+        LocalDate date = dateTime.toLocalDate();
+
+        return date;
     }
 
     //글하나 불러오는 메소드
@@ -136,19 +145,17 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
     }
 
 
-    /*     
-        if(gatherDTO.getPoint()==null){
-            gatherDTO.setPoint(0L);
-        }                         
-        //디티오에 데이터타입변환후 정보담기
-        gatherDTO.setCategory(yk_categoryService.CategoryId(detailName));
-        gatherDTO.setUser((long)userDTO.getId());
-        gatherDTO.setStartDate(gatherService.toLocalDateTime(beforStartDate));
-        gatherDTO.setEndDate(gatherService.toLocalDateTime(beforEndDate));
-        System.out.println(gatherDTO.toString());
- */
-    
-    
+    @Override
+    public int overPoincheck(GatherDTO gatherDTO,UserDTO userDTO){
+        int result =0;
+        if(gatherDTO.getPoint()>userDTO.getPoint()){
+            System.out.println("여기 나오면 되는겨");
+            return result;
+        }
+        result=userPointMinus(gatherDTO.getPoint(), userDTO.getId());
+
+        return result;
+    }
     
     
     

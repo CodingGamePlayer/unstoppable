@@ -33,15 +33,6 @@ public class Yk_categoryServiceImpl implements Yk_categoryService {
     @Override
     public List<CategoryDTO> getList() {
         
-        // List<Category>listEntity= categoryMapper.getList();
-        
-
-        // List<CategoryDTO> listDTO = listEntity.stream()
-        // .map(category->modelMapper.map(category, CategoryDTO.class))
-        // .collect(Collectors.toList());
-
-        
-        // return listDTO;
  
         return categoryMapper.getList().stream()
         .map(category-> modelMapper.map(category, CategoryDTO.class))

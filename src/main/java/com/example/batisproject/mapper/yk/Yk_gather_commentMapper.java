@@ -12,6 +12,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.batisproject.entity.GatherComment;
+import com.example.batisproject.dto.ChattingDTO;
+import com.example.batisproject.entity.GatherCommentMessage;
+
 import com.example.batisproject.entity.User;
 
 
@@ -49,10 +52,13 @@ public interface Yk_gather_commentMapper {
     @Select("select count(u_id) as cnt from gather_comment where role>=2 && g_id =#{g_id};")
     int peopleCount(Long g_id);
 
+
     //코멘트 참가신청 할수있게 글에 권한 조회해서 따오기   
     //  *! 중요 디비에 롤은 int 타입 이지만 기본값이 0이다 조회해서 없으면 null로 반환이 안되어서 int로 받으면 오류가 남 String 으로 받으면 디폴트값 0이 반환됨  !*
     @Select("select role from gather_comment where g_id = #{gather} && u_id= #{user};")
     String checkRole(GatherComment comment);
+
+
 
 
 
@@ -72,9 +78,6 @@ public interface Yk_gather_commentMapper {
     int joinOk(GatherComment comment);
 
 
-    //모임글에 참여한 사람들 닉네임 뽑아오기
-    // @Select("select nickname from user where u_id = (select u_id from gather_comment where g_id=26 AND u_id=7);")
-    // List<User>
 
 
     //글삭제를 위해 연관컬럼이있는 거 삭제
@@ -82,4 +85,43 @@ public interface Yk_gather_commentMapper {
     int deleteGatherIdTocomment(Long g_id);
 
 
+    //댓글부러 오기 2단계 걸침
+
+    //1단계
+    @Select("select gc_id from gather_comment where g_id=#{g_id};")
+    Long[] toFindGcIdList(Long g_id);
+    //단계
+
+    @Select("select * from gather_comment_message where gc_id = #{gc_id};")
+    @Results(id="message",value = {
+        @Result(property = "id", column = "gcm_id"),
+        @Result(property = "gatherComment", column = "gc_id"),
+        @Result(property = "body", column = "gcm_body"),
+        @Result(property = "regdate", column = "gcm_regdate")
+    })
+    List<GatherCommentMessage> findCommentList(Long gc_id); //리스트로 받아야함 46번째 gc아이디가 중복이니깐
+    
+
+    @Select("select*from user where u_id =(select u_id from gather_comment where gc_id=#{gc_id});")
+    @Results(id="user",value={
+        @Result(property = "id", column = "u_id"),
+    })
+    User toMessageFindUser(Long gc_id);
+
+    //참여수락된애들만
+    @Select("select * from gather_comment where g_id=#{g_id} AND role >= 3;")
+    @ResultMap("commnet")
+    List<GatherComment> toJoinList(Long g_id);
+
+
+    //댓글 작성시 gc아이디 가져와서 댓글테이블에 gc아이디 저장하기 1~2단계까지
+    @Select("select gc_id from gather_comment where g_id=#{g_id} AND u_id=#{u_id};")
+    Long findChattingGcId(Long g_id,int u_id);
+
+    @Insert("insert into gather_comment_message (gc_id,gcm_body) values(#{gc_id},#{chattingDTO.body});")
+    int chattingCommentRegister(Long gc_id,ChattingDTO chattingDTO);
+    
+
+    @Delete("delete from gather_comment_message where gcm_id =#{gcm_id};")
+    int deleteMessage(Long gcm_id);
 }
