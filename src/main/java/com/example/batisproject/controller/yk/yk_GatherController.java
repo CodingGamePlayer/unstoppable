@@ -207,7 +207,8 @@ public class yk_GatherController {
         Long fileID = file_info_Service.inputImgOrDelete(file,g_id);
         
 
-        // model.addAttribute("gather", gatherDTO);
+
+
         return "redirect:/user/gather/detail/"+g_id;
     }
 
@@ -216,22 +217,22 @@ public class yk_GatherController {
     @GetMapping("/user/gather/detail/{g_id}/delete")
     public String deleteResither(@PathVariable("g_id")Long g_id, @CurrentUser User user, Model model){
         UserDTO userDTO = userService.existsByEmail(user.getUsername());
+        model.addAttribute("user", userDTO);
 
         Long userId=gatherService.gatherToUser(g_id);
         if(userId!=userDTO.getId()){
-            return "redirect:/";
+            return "redirect:/user/main";
         }
-        file_info_Service.inputImg(null, g_id);
+        file_info_Service.deleteFileImg(g_id);
 
         commentService.deleteGatherIdTocomment(g_id);
 
         int result = gatherService.deleteResiter(g_id);
-        if(result>0){
-            return "redirect:/user/gather/detail/"+g_id;
+        if(result<0){
+            return "redirect:/user/main";
         }
 
 
-        model.addAttribute("user", userDTO);
         return "redirect:/user/main";
     }
 
