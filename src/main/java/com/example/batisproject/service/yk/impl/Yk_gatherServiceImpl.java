@@ -133,7 +133,6 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
 
 
 
-
         return dto;
     }
 
@@ -149,6 +148,8 @@ public class Yk_gatherServiceImpl implements Yk_gatherService{
     public int overPoincheck(GatherDTO gatherDTO,UserDTO userDTO){
         int result =0;
         if(gatherDTO.getPoint()>userDTO.getPoint()){
+
+
 
 
             return result;

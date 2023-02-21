@@ -157,7 +157,9 @@ public class Yk_File_info_ServiceImpl implements Yk_file_info_Service {
         String saveFileName = UUID.randomUUID().toString()+"."+contentType;
         
         
+
         // if(file.isEmpty()){
+
             //딜리트 추가
             int result = deleteFileImg(g_id);
         //     return (long)result;

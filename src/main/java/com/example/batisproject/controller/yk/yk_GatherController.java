@@ -124,6 +124,8 @@ public class yk_GatherController {
             }
         
 
+
+
         
         return "user/main";
     }
