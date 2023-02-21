@@ -23,7 +23,9 @@
                 <div class="card" style="height: 600px;">
                     <div class="card-body">
                         <div class="row" style="margin-bottom: 25px;">
-                            <div class="col-md-4 offset-md-4" ><h3>제목</h3></div>
+                            <div class="col-md-4 offset-md-4" ><h3>참여신청 관리</h3>
+                                <th:box th:if="${userList.isEmpty()}"><h2 style="margin-top: 15px;">참여신청자가 없습니다.</h2></th:box>
+                            </div>
                             <div class="col-md-2 offset-md-2" >
                                 
                             </div>
@@ -85,8 +87,10 @@
                         <div class="row">
                             <div class="col-md-10"></div>
                             <div class="col-md-2">
-                                <input type="submit" value="수락" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinOk'}" th class="btn btn-outline-primary">
-                                <input type="submit" value="거절" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinNo'}" class="btn btn-outline-primary">
+                                <th:box th:if="${!userList.isEmpty()}">
+                                    <input type="submit" value="수락" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinOk'}" th class="btn btn-outline-primary">
+                                    <input type="submit" value="거절" th:formaction="@{'/user/gather/detail/'+${g_id}+'/commentAdmin/joinNo'}" class="btn btn-outline-primary">
+                                </th:box>    
                             </div>
                         </div>
                     </div>
