@@ -179,7 +179,7 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         commentDTO.setGather(g_id);
         for(int i=0; i<userId.length; i++ ){
              commentDTO.setUser(userId[i]);
-             int result =commentService.joinCancel(commentDTO);
+             int result =commentService.deleteJoinCancel(commentDTO);
              if(result<0){
                 return 0;
              }
@@ -252,6 +252,17 @@ public class Yk_gather_commnetServiceImpl implements Yk_gather_commentService {
         return commentMapper.deleteMessage(gcm_id);
     }
 
+
+    //추가중
+    @Override
+    public int deleteJoinCancel(GatherCommentDTO commentDTO) {
+        GatherComment comment = modelMapper.map(commentDTO, GatherComment.class);
+        int result = commentMapper.deleteJoinCancel(comment);
+        
+        return result;
+    }
+
+  
 
 
 }

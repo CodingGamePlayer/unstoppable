@@ -124,4 +124,10 @@ public interface Yk_gather_commentMapper {
 
     @Delete("delete from gather_comment_message where gcm_id =#{gcm_id};")
     int deleteMessage(Long gcm_id);
+
+    //기존 조인캔슬로 사용하던거 롤권한 삭제시키게 변경한 메퍼메소드
+    @Delete("delete from gather_comment where u_id =#{user} AND g_id=#{gather};")
+    int deleteJoinCancel(GatherComment comment);
+
+
 }

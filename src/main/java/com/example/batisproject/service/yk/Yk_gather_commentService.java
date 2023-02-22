@@ -62,4 +62,7 @@ public interface Yk_gather_commentService {
     
     //댓글삭제
     int deleteMessage(Long gcm_id);
+
+    //추가중
+    int deleteJoinCancel(GatherCommentDTO commentDTO);
 }
