@@ -119,6 +119,9 @@ public class MapperTest {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    Yk_gather_commentService commentService;
+
     @Test
     void getList(){
         List<Location> list = locationMapper.getList();
@@ -267,4 +270,13 @@ public class MapperTest {
         assertNotNull(chattingList);
     }
 
-}
+    @Test
+    void joinsecondTest(){
+        Long g_id =1L;
+        Long[] userId = {7L,10L};
+        commentService.joinNos(userId, g_id);
+        
+
+    }
+
+}   

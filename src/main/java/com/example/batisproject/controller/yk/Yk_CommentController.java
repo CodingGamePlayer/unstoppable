@@ -103,7 +103,7 @@ public class Yk_CommentController {
                 }
                 break;
             case 1://모임참여 취소
-                result = commentService.joinCancel(commentDTO);
+                result = commentService.deleteJoinCancel(commentDTO);
 
                 if(result<=0){
 
