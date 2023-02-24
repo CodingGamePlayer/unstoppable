@@ -14,6 +14,13 @@
 - 개발 : 2023-1-30 ~ 2023-2-28
 - 1차 프로토타입 리뷰 : 2023-02-10
 
+<br>
+## Presentation Video of the UziDangMan Project
+<br>
+
+### https://www.youtube.com/watch?v=TXfGcksxl0o
+<br>
+
 ## Presentation of the UzidangmanProject
 ![001](https://user-images.githubusercontent.com/59526539/221135945-cfa86982-f459-463e-a51b-18cca4a85449.png)
 ![002](https://user-images.githubusercontent.com/59526539/221135952-2cee05ff-27c0-4059-a4d9-13d0b92dd780.png)
